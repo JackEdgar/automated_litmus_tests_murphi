@@ -78,8 +78,6 @@ public class App
                 "      loadedZeroCounter:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" +
                 "        i_threadIndexes[m].currentIndex:= 0;\n";
 
-        // need to parse initialization here
-
         for(int i = 0; i <= processes.size(); i++) {
             if(i == 0) litmus_initialization_string += "        if initializer = " + i + " then \n";
             else litmus_initialization_string += "        elsif initializer = " + i + " then \n";
@@ -95,9 +93,12 @@ public class App
         litmus_initialization_string += "        endif;\n" +
                 "      endfor;";
 
-        frameworkMap.put("cache_count", litmusMap.get("cache_count"));
-        frameworkMap.put("total_instruction_count", litmusMap.get("total_instruction_count"));
-        frameworkMap.put("address_count", litmusMap.get("address_count"));
+        int total_instruction_count = 0;
+        for(Integer x : threadSize.values()) total_instruction_count += x;
+
+        frameworkMap.put("cache_count", processes.size());
+        frameworkMap.put("total_instruction_count", total_instruction_count);
+        frameworkMap.put("address_count", stringAddressToIntAddress.size());
         frameworkMap.put("thread_declarations", thread_declarations_string);
         frameworkMap.put("litmus_initialization", litmus_initialization_string);
         root.put("LitmusFramework", frameworkMap);

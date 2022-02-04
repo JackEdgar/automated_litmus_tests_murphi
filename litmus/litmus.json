@@ -1,7 +1,4 @@
 {
-  "cache_count": 2,
-  "total_instruction_count": 4,
-  "address_count": 2,
   "processes": [
     {
       "name": "p0",
