@@ -10,7 +10,7 @@
 #define MURPHI_VERSION "Caching Murphi Release 5.4.9.1"
 #define MURPHI_DATE "Sep 30 2021"
 #define PROTOCOL_NAME "output_msi"
-#define BITS_IN_WORLD 2336
+#define BITS_IN_WORLD 3648
 #define ALIGN
 
 /********************
@@ -27,9 +27,9 @@ class mu_1_Address: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu_1_Address& val) { return mu__byte::operator=((int) val); };
-  mu_1_Address (const char *name, int os): mu__byte(0, 1, 2, name, os) {};
-  mu_1_Address (void): mu__byte(0, 1, 2) {};
-  mu_1_Address (int val): mu__byte(0, 1, 2, "Parameter or function result.", 0)
+  mu_1_Address (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
+  mu_1_Address (void): mu__byte(0, 2, 2) {};
+  mu_1_Address (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -53,9 +53,9 @@ class mu_1_ClValue: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu_1_ClValue& val) { return mu__byte::operator=((int) val); };
-  mu_1_ClValue (const char *name, int os): mu__byte(0, 1, 2, name, os) {};
-  mu_1_ClValue (void): mu__byte(0, 1, 2) {};
-  mu_1_ClValue (int val): mu__byte(0, 1, 2, "Parameter or function result.", 0)
+  mu_1_ClValue (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
+  mu_1_ClValue (void): mu__byte(0, 2, 2) {};
+  mu_1_ClValue (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -261,9 +261,9 @@ class mu_1_OBJSET_cacheL1C1: public mu__byte
 	return ( s << "Undefined" );
     };
 
-  mu_1_OBJSET_cacheL1C1 (const char *name, int os): mu__byte(36, 37, 2, name, os) {};
-  mu_1_OBJSET_cacheL1C1 (void): mu__byte(36, 37, 2) {};
-  mu_1_OBJSET_cacheL1C1 (int val): mu__byte(36, 37, 2, "Parameter or function result.", 0)
+  mu_1_OBJSET_cacheL1C1 (const char *name, int os): mu__byte(36, 38, 2, name, os) {};
+  mu_1_OBJSET_cacheL1C1 (void): mu__byte(36, 38, 2) {};
+  mu_1_OBJSET_cacheL1C1 (int val): mu__byte(36, 38, 2, "Parameter or function result.", 0)
     { operator=(val); };
   const char * Name() { return values[ value() -36]; };
   virtual void print()
@@ -290,7 +290,7 @@ friend int CompareWeight(mu_1_OBJSET_cacheL1C1& a, mu_1_OBJSET_cacheL1C1& b)
   virtual void MultisetLimit(PermSet& Perm);
 };
 const char *mu_1_OBJSET_cacheL1C1::values[] =
-  { "OBJSET_cacheL1C1_1","OBJSET_cacheL1C1_2",NULL };
+  { "OBJSET_cacheL1C1_1","OBJSET_cacheL1C1_2","OBJSET_cacheL1C1_3",NULL };
 
 /*** end scalarset declaration ***/
 mu_1_OBJSET_cacheL1C1 mu_1_OBJSET_cacheL1C1_undefined_var;
@@ -304,17 +304,17 @@ class mu_1_OBJSET_directoryL1C1: public mu__byte
   friend ostream& operator<< (ostream& s, mu_1_OBJSET_directoryL1C1& val)
   {
     if (val.defined())
-      return ( s << mu_1_OBJSET_directoryL1C1::values[ int(val) - 38] );
+      return ( s << mu_1_OBJSET_directoryL1C1::values[ int(val) - 39] );
     else return ( s << "Undefined" );
   };
 
-  mu_1_OBJSET_directoryL1C1 (const char *name, int os): mu__byte(38, 38, 1, name, os) {};
-  mu_1_OBJSET_directoryL1C1 (void): mu__byte(38, 38, 1) {};
-  mu_1_OBJSET_directoryL1C1 (int val): mu__byte(38, 38, 1, "Parameter or function result.", 0)
+  mu_1_OBJSET_directoryL1C1 (const char *name, int os): mu__byte(39, 39, 1, name, os) {};
+  mu_1_OBJSET_directoryL1C1 (void): mu__byte(39, 39, 1) {};
+  mu_1_OBJSET_directoryL1C1 (int val): mu__byte(39, 39, 1, "Parameter or function result.", 0)
   {
      operator=(val);
   };
-  const char * Name() { return values[ value() -38]; };
+  const char * Name() { return values[ value() -39]; };
   virtual void Permute(PermSet& Perm, int i);
   virtual void SimpleCanonicalize(PermSet& Perm);
   virtual void Canonicalize(PermSet& Perm);
@@ -327,7 +327,7 @@ class mu_1_OBJSET_directoryL1C1: public mu__byte
   virtual void print()
   {
     if (defined())
-      cout << name << ":" << values[ value() -38] << '\n';
+      cout << name << ":" << values[ value() -39] << '\n';
     else
       cout << name << ":Undefined\n";
   };
@@ -354,20 +354,20 @@ class mu_1_C1Machines: public mu__byte
     };
 
   // note thate lb and ub are not used if we have byte compacted state.
-  mu_1_C1Machines (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
-  mu_1_C1Machines (void): mu__byte(0, 2, 2) {};
-  mu_1_C1Machines (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
+  mu_1_C1Machines (const char *name, int os): mu__byte(0, 3, 3, name, os) {};
+  mu_1_C1Machines (void): mu__byte(0, 3, 3) {};
+  mu_1_C1Machines (int val): mu__byte(0, 3, 3, "Parameter or function result.", 0)
     { operator=(val); };
   int indexvalue()
   {
-    if ((value() >= 36) && (value() <= 37)) return (value() - 36);
-    if ((value() >= 38) && (value() <= 38)) return (value() - 36);
+    if ((value() >= 36) && (value() <= 38)) return (value() - 36);
+    if ((value() >= 39) && (value() <= 39)) return (value() - 36);
   return 0;
   };
   inline int unionassign(int val)
   {
-    if (val >= 0 && val <= 1) return value(val+36);
-    if (val >= 2 && val <= 2) return value(val+36);
+    if (val >= 0 && val <= 2) return value(val+36);
+    if (val >= 3 && val <= 3) return value(val+36);
   return 0;
   };
   const char * Name() { return values[ indexvalue() ]; };
@@ -394,7 +394,7 @@ friend int CompareWeight(mu_1_C1Machines& a, mu_1_C1Machines& b)
     };
   void print_statistic() {};
 };
-const char *mu_1_C1Machines::values[] = {"OBJSET_cacheL1C1_1","OBJSET_cacheL1C1_2","directoryL1C1",NULL };
+const char *mu_1_C1Machines::values[] = {"OBJSET_cacheL1C1_1","OBJSET_cacheL1C1_2","OBJSET_cacheL1C1_3","directoryL1C1",NULL };
 
 /*** end union declaration ***/
 mu_1_C1Machines mu_1_C1Machines_undefined_var;
@@ -415,20 +415,20 @@ class mu_1_Machines: public mu__byte
     };
 
   // note thate lb and ub are not used if we have byte compacted state.
-  mu_1_Machines (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
-  mu_1_Machines (void): mu__byte(0, 2, 2) {};
-  mu_1_Machines (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
+  mu_1_Machines (const char *name, int os): mu__byte(0, 3, 3, name, os) {};
+  mu_1_Machines (void): mu__byte(0, 3, 3) {};
+  mu_1_Machines (int val): mu__byte(0, 3, 3, "Parameter or function result.", 0)
     { operator=(val); };
   int indexvalue()
   {
-    if ((value() >= 36) && (value() <= 37)) return (value() - 36);
-    if ((value() >= 38) && (value() <= 38)) return (value() - 36);
+    if ((value() >= 36) && (value() <= 38)) return (value() - 36);
+    if ((value() >= 39) && (value() <= 39)) return (value() - 36);
   return 0;
   };
   inline int unionassign(int val)
   {
-    if (val >= 0 && val <= 1) return value(val+36);
-    if (val >= 2 && val <= 2) return value(val+36);
+    if (val >= 0 && val <= 2) return value(val+36);
+    if (val >= 3 && val <= 3) return value(val+36);
   return 0;
   };
   const char * Name() { return values[ indexvalue() ]; };
@@ -455,7 +455,7 @@ friend int CompareWeight(mu_1_Machines& a, mu_1_Machines& b)
     };
   void print_statistic() {};
 };
-const char *mu_1_Machines::values[] = {"OBJSET_cacheL1C1_1","OBJSET_cacheL1C1_2","directoryL1C1",NULL };
+const char *mu_1_Machines::values[] = {"OBJSET_cacheL1C1_1","OBJSET_cacheL1C1_2","OBJSET_cacheL1C1_3","directoryL1C1",NULL };
 
 /*** end union declaration ***/
 mu_1_Machines mu_1_Machines_undefined_var;
@@ -593,9 +593,9 @@ class mu__subrange_14: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu__subrange_14& val) { return mu__byte::operator=((int) val); };
-  mu__subrange_14 (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
-  mu__subrange_14 (void): mu__byte(0, 2, 2) {};
-  mu__subrange_14 (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
+  mu__subrange_14 (const char *name, int os): mu__byte(0, 3, 3, name, os) {};
+  mu__subrange_14 (void): mu__byte(0, 3, 3) {};
+  mu__subrange_14 (int val): mu__byte(0, 3, 3, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -617,7 +617,7 @@ mu__subrange_14 mu__subrange_14_undefined_var;
 class mu_1_thread
 {
  public:
-  mu_1_Instruction array[ 3 ];
+  mu_1_Instruction array[ 4 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -630,7 +630,7 @@ class mu_1_thread
   mu_1_Instruction& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 0 ) && ( index <= 2 ) )
+    if ( ( index >= 0 ) && ( index <= 3 ) )
       return array[ index - 0 ];
     else {
       if (index==UNDEFVAL) 
@@ -645,7 +645,7 @@ class mu_1_thread
   };
   mu_1_thread& operator= (const mu_1_thread& from)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -653,13 +653,135 @@ class mu_1_thread
 friend int CompareWeight(mu_1_thread& a, mu_1_thread& b)
   {
     int w;
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<4; i++) {
       w = CompareWeight(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
     return 0;
   }
 friend int Compare(mu_1_thread& a, mu_1_thread& b)
+  {
+    int w;
+    for (int i=0; i<4; i++) {
+      w = Compare(a.array[i], b.array[i]);
+      if (w!=0) return w;
+    }
+    return 0;
+  }
+  virtual void Permute(PermSet& Perm, int i);
+  virtual void SimpleCanonicalize(PermSet& Perm);
+  virtual void Canonicalize(PermSet& Perm);
+  virtual void SimpleLimit(PermSet& Perm);
+  virtual void ArrayLimit(PermSet& Perm);
+  virtual void Limit(PermSet& Perm);
+  virtual void MultisetLimit(PermSet& Perm);
+  virtual void MultisetSort()
+  {
+    for (int i=0; i<4; i++)
+      array[i].MultisetSort();
+  }
+  void print_statistic()
+  {
+    for (int i=0; i<4; i++)
+      array[i].print_statistic();
+  }
+  void clear() { for (int i = 0; i < 4; i++) array[i].clear(); };
+
+  void undefine() { for (int i = 0; i < 4; i++) array[i].undefine(); };
+
+  void reset() { for (int i = 0; i < 4; i++) array[i].reset(); };
+
+  void to_state(state *thestate)
+  {
+    for (int i = 0; i < 4; i++)
+      array[i].to_state(thestate);
+  };
+
+  void print()
+  {
+    for (int i = 0; i < 4; i++)
+      array[i].print(); };
+
+  void print_diff(state *prevstate)
+  {
+    for (int i = 0; i < 4; i++)
+      array[i].print_diff(prevstate);
+  };
+};
+
+  void mu_1_thread::set_self_ar( const char *n1, const char *n2, int os ) {
+    if (n1 == NULL) {set_self(NULL, 0); return;}
+    int l1 = strlen(n1), l2 = strlen(n2);
+    strcpy( longname, n1 );
+    longname[l1] = '[';
+    strcpy( longname+l1+1, n2 );
+    longname[l1+l2+1] = ']';
+    longname[l1+l2+2] = 0;
+    set_self( longname, os );
+  };
+  void mu_1_thread::set_self_2( const char *n1, const char *n2, int os ) {
+    if (n1 == NULL) {set_self(NULL, 0); return;}
+    strcpy( longname, n1 );
+    strcat( longname, n2 );
+    set_self( longname, os );
+  };
+void mu_1_thread::set_self( const char *n, int os)
+{
+  char* s;
+  name = (char *)n;
+  for(int i = 0; i < 4; i++) {
+    array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 24 + os);
+    delete[] s;
+  }
+};
+mu_1_thread::~mu_1_thread()
+{
+}
+/*** end array declaration ***/
+mu_1_thread mu_1_thread_undefined_var;
+
+class mu_1_threadlist
+{
+ public:
+  mu_1_thread array[ 3 ];
+ public:
+  char *name;
+  char longname[BUFFER_SIZE/4];
+  void set_self( const char *n, int os);
+  void set_self_2( const char *n, const char *n2, int os);
+  void set_self_ar( const char *n, const char *n2, int os);
+  mu_1_threadlist (const char *n, int os) { set_self(n, os); };
+  mu_1_threadlist ( void ) {};
+  virtual ~mu_1_threadlist ();
+  mu_1_thread& operator[] (int index) /* const */
+  {
+#ifndef NO_RUN_TIME_CHECKING
+    if ( ( index >= 36 ) && ( index <= 38 ) )
+      return array[ index - 36 ];
+    else
+      {
+	if (index==UNDEFVAL) 
+	  Error.Error("Indexing to %s using an undefined value.", name);
+	else
+	  Error.Error("Funny index value %d for %s: OBJSET_cacheL1C1 is internally represented from 36 to 38.\nInternal Error in Type checking.",index, name);
+	return array[0];
+      }
+#else
+    return array[ index - 36 ];
+#endif
+  };
+  mu_1_threadlist& operator= (const mu_1_threadlist& from)
+  {
+    for (int i = 0; i < 3; i++)
+      array[i] = from.array[i];
+    return *this;
+  }
+
+friend int CompareWeight(mu_1_threadlist& a, mu_1_threadlist& b)
+  {
+    return 0;
+  }
+friend int Compare(mu_1_threadlist& a, mu_1_threadlist& b)
   {
     int w;
     for (int i=0; i<3; i++) {
@@ -709,128 +831,6 @@ friend int Compare(mu_1_thread& a, mu_1_thread& b)
   };
 };
 
-  void mu_1_thread::set_self_ar( const char *n1, const char *n2, int os ) {
-    if (n1 == NULL) {set_self(NULL, 0); return;}
-    int l1 = strlen(n1), l2 = strlen(n2);
-    strcpy( longname, n1 );
-    longname[l1] = '[';
-    strcpy( longname+l1+1, n2 );
-    longname[l1+l2+1] = ']';
-    longname[l1+l2+2] = 0;
-    set_self( longname, os );
-  };
-  void mu_1_thread::set_self_2( const char *n1, const char *n2, int os ) {
-    if (n1 == NULL) {set_self(NULL, 0); return;}
-    strcpy( longname, n1 );
-    strcat( longname, n2 );
-    set_self( longname, os );
-  };
-void mu_1_thread::set_self( const char *n, int os)
-{
-  char* s;
-  name = (char *)n;
-  for(int i = 0; i < 3; i++) {
-    array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 24 + os);
-    delete[] s;
-  }
-};
-mu_1_thread::~mu_1_thread()
-{
-}
-/*** end array declaration ***/
-mu_1_thread mu_1_thread_undefined_var;
-
-class mu_1_threadlist
-{
- public:
-  mu_1_thread array[ 2 ];
- public:
-  char *name;
-  char longname[BUFFER_SIZE/4];
-  void set_self( const char *n, int os);
-  void set_self_2( const char *n, const char *n2, int os);
-  void set_self_ar( const char *n, const char *n2, int os);
-  mu_1_threadlist (const char *n, int os) { set_self(n, os); };
-  mu_1_threadlist ( void ) {};
-  virtual ~mu_1_threadlist ();
-  mu_1_thread& operator[] (int index) /* const */
-  {
-#ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 36 ) && ( index <= 37 ) )
-      return array[ index - 36 ];
-    else
-      {
-	if (index==UNDEFVAL) 
-	  Error.Error("Indexing to %s using an undefined value.", name);
-	else
-	  Error.Error("Funny index value %d for %s: OBJSET_cacheL1C1 is internally represented from 36 to 37.\nInternal Error in Type checking.",index, name);
-	return array[0];
-      }
-#else
-    return array[ index - 36 ];
-#endif
-  };
-  mu_1_threadlist& operator= (const mu_1_threadlist& from)
-  {
-    for (int i = 0; i < 2; i++)
-      array[i] = from.array[i];
-    return *this;
-  }
-
-friend int CompareWeight(mu_1_threadlist& a, mu_1_threadlist& b)
-  {
-    return 0;
-  }
-friend int Compare(mu_1_threadlist& a, mu_1_threadlist& b)
-  {
-    int w;
-    for (int i=0; i<2; i++) {
-      w = Compare(a.array[i], b.array[i]);
-      if (w!=0) return w;
-    }
-    return 0;
-  }
-  virtual void Permute(PermSet& Perm, int i);
-  virtual void SimpleCanonicalize(PermSet& Perm);
-  virtual void Canonicalize(PermSet& Perm);
-  virtual void SimpleLimit(PermSet& Perm);
-  virtual void ArrayLimit(PermSet& Perm);
-  virtual void Limit(PermSet& Perm);
-  virtual void MultisetLimit(PermSet& Perm);
-  virtual void MultisetSort()
-  {
-    for (int i=0; i<2; i++)
-      array[i].MultisetSort();
-  }
-  void print_statistic()
-  {
-    for (int i=0; i<2; i++)
-      array[i].print_statistic();
-  }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
-
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
-
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
-
-  void to_state(state *thestate)
-  {
-    for (int i = 0; i < 2; i++)
-      array[i].to_state(thestate);
-  };
-
-  void print()
-  {
-    for (int i = 0; i < 2; i++)
-      array[i].print(); };
-
-  void print_diff(state *prevstate)
-  {
-    for (int i = 0; i < 2; i++)
-      array[i].print_diff(prevstate);
-  };
-};
-
   void mu_1_threadlist::set_self_ar( const char *n1, const char *n2, int os ) {
     if (n1 == NULL) {set_self(NULL, 0); return;}
     int l1 = strlen(n1), l2 = strlen(n2);
@@ -852,8 +852,9 @@ void mu_1_threadlist::set_self( const char *n, int os)
     int i=0;
     name = (char *)n;
 
-if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 72 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
-if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 72 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_threadlist::~mu_1_threadlist()
 {
@@ -866,9 +867,9 @@ class mu_1__type_0: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu_1__type_0& val) { return mu__byte::operator=((int) val); };
-  mu_1__type_0 (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
-  mu_1__type_0 (void): mu__byte(0, 2, 2) {};
-  mu_1__type_0 (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
+  mu_1__type_0 (const char *name, int os): mu__byte(0, 3, 3, name, os) {};
+  mu_1__type_0 (void): mu__byte(0, 3, 3) {};
+  mu_1__type_0 (int val): mu__byte(0, 3, 3, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -1029,7 +1030,7 @@ mu_1__type_2 mu_1__type_2_undefined_var;
 class mu_1_threadIndexes
 {
  public:
-  mu_1__type_2 array[ 2 ];
+  mu_1__type_2 array[ 3 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -1042,14 +1043,14 @@ class mu_1_threadIndexes
   mu_1__type_2& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 36 ) && ( index <= 37 ) )
+    if ( ( index >= 36 ) && ( index <= 38 ) )
       return array[ index - 36 ];
     else
       {
 	if (index==UNDEFVAL) 
 	  Error.Error("Indexing to %s using an undefined value.", name);
 	else
-	  Error.Error("Funny index value %d for %s: OBJSET_cacheL1C1 is internally represented from 36 to 37.\nInternal Error in Type checking.",index, name);
+	  Error.Error("Funny index value %d for %s: OBJSET_cacheL1C1 is internally represented from 36 to 38.\nInternal Error in Type checking.",index, name);
 	return array[0];
       }
 #else
@@ -1058,7 +1059,7 @@ class mu_1_threadIndexes
   };
   mu_1_threadIndexes& operator= (const mu_1_threadIndexes& from)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -1070,7 +1071,7 @@ friend int CompareWeight(mu_1_threadIndexes& a, mu_1_threadIndexes& b)
 friend int Compare(mu_1_threadIndexes& a, mu_1_threadIndexes& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -1085,34 +1086,34 @@ friend int Compare(mu_1_threadIndexes& a, mu_1_threadIndexes& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -1140,6 +1141,7 @@ void mu_1_threadIndexes::set_self( const char *n, int os)
 
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 40 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 40 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 40 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_threadIndexes::~mu_1_threadIndexes()
 {
@@ -1368,7 +1370,7 @@ mu_1_acc_type_obj mu_1_acc_type_obj_undefined_var;
 class mu_1__type_3
 {
  public:
-  mu_1_acc_type_obj array[ 2 ];
+  mu_1_acc_type_obj array[ 3 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -1381,7 +1383,7 @@ class mu_1__type_3
   mu_1_acc_type_obj& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 0 ) && ( index <= 1 ) )
+    if ( ( index >= 0 ) && ( index <= 2 ) )
       return array[ index - 0 ];
     else {
       if (index==UNDEFVAL) 
@@ -1396,7 +1398,7 @@ class mu_1__type_3
   };
   mu_1__type_3& operator= (const mu_1__type_3& from)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -1404,130 +1406,13 @@ class mu_1__type_3
 friend int CompareWeight(mu_1__type_3& a, mu_1__type_3& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = CompareWeight(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
     return 0;
   }
 friend int Compare(mu_1__type_3& a, mu_1__type_3& b)
-  {
-    int w;
-    for (int i=0; i<2; i++) {
-      w = Compare(a.array[i], b.array[i]);
-      if (w!=0) return w;
-    }
-    return 0;
-  }
-  virtual void Permute(PermSet& Perm, int i);
-  virtual void SimpleCanonicalize(PermSet& Perm);
-  virtual void Canonicalize(PermSet& Perm);
-  virtual void SimpleLimit(PermSet& Perm);
-  virtual void ArrayLimit(PermSet& Perm);
-  virtual void Limit(PermSet& Perm);
-  virtual void MultisetLimit(PermSet& Perm);
-  virtual void MultisetSort()
-  {
-    for (int i=0; i<2; i++)
-      array[i].MultisetSort();
-  }
-  void print_statistic()
-  {
-    for (int i=0; i<2; i++)
-      array[i].print_statistic();
-  }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
-
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
-
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
-
-  void to_state(state *thestate)
-  {
-    for (int i = 0; i < 2; i++)
-      array[i].to_state(thestate);
-  };
-
-  void print()
-  {
-    for (int i = 0; i < 2; i++)
-      array[i].print(); };
-
-  void print_diff(state *prevstate)
-  {
-    for (int i = 0; i < 2; i++)
-      array[i].print_diff(prevstate);
-  };
-};
-
-  void mu_1__type_3::set_self_ar( const char *n1, const char *n2, int os ) {
-    if (n1 == NULL) {set_self(NULL, 0); return;}
-    int l1 = strlen(n1), l2 = strlen(n2);
-    strcpy( longname, n1 );
-    longname[l1] = '[';
-    strcpy( longname+l1+1, n2 );
-    longname[l1+l2+1] = ']';
-    longname[l1+l2+2] = 0;
-    set_self( longname, os );
-  };
-  void mu_1__type_3::set_self_2( const char *n1, const char *n2, int os ) {
-    if (n1 == NULL) {set_self(NULL, 0); return;}
-    strcpy( longname, n1 );
-    strcat( longname, n2 );
-    set_self( longname, os );
-  };
-void mu_1__type_3::set_self( const char *n, int os)
-{
-  char* s;
-  name = (char *)n;
-  for(int i = 0; i < 2; i++) {
-    array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 48 + os);
-    delete[] s;
-  }
-};
-mu_1__type_3::~mu_1__type_3()
-{
-}
-/*** end array declaration ***/
-mu_1__type_3 mu_1__type_3_undefined_var;
-
-class mu_1_PermMonitor
-{
- public:
-  mu_1__type_3 array[ 3 ];
- public:
-  char *name;
-  char longname[BUFFER_SIZE/4];
-  void set_self( const char *n, int os);
-  void set_self_2( const char *n, const char *n2, int os);
-  void set_self_ar( const char *n, const char *n2, int os);
-  mu_1_PermMonitor (const char *n, int os) { set_self(n, os); };
-  mu_1_PermMonitor ( void ) {};
-  virtual ~mu_1_PermMonitor ();
-  mu_1__type_3& operator[] (int index) /* const */
-  {
-    if ( ( index >= 36 ) && ( index <= 37 ) )
-      return array[ index - (36) ];
-    if ( ( index >= 38 ) && ( index <= 38 ) )
-      return array[ index - (36) ];
-    if (index==UNDEFVAL) 
-      Error.Error("Indexing to %s using an undefined value.", name);
-    else
-      Error.Error("Funny index value %d for %s. (Internal Error in Type Checking.",index, name);
-    return array[0];
-  }
-  mu_1_PermMonitor& operator= (const mu_1_PermMonitor& from)
-  {
-    for (int i = 0; i < 3; i++)
-      array[i] = from.array[i];
-    return *this;
-  }
-
-friend int CompareWeight(mu_1_PermMonitor& a, mu_1_PermMonitor& b)
-  {
-    return 0;
-  }
-friend int Compare(mu_1_PermMonitor& a, mu_1_PermMonitor& b)
   {
     int w;
     for (int i=0; i<3; i++) {
@@ -1577,6 +1462,123 @@ friend int Compare(mu_1_PermMonitor& a, mu_1_PermMonitor& b)
   };
 };
 
+  void mu_1__type_3::set_self_ar( const char *n1, const char *n2, int os ) {
+    if (n1 == NULL) {set_self(NULL, 0); return;}
+    int l1 = strlen(n1), l2 = strlen(n2);
+    strcpy( longname, n1 );
+    longname[l1] = '[';
+    strcpy( longname+l1+1, n2 );
+    longname[l1+l2+1] = ']';
+    longname[l1+l2+2] = 0;
+    set_self( longname, os );
+  };
+  void mu_1__type_3::set_self_2( const char *n1, const char *n2, int os ) {
+    if (n1 == NULL) {set_self(NULL, 0); return;}
+    strcpy( longname, n1 );
+    strcat( longname, n2 );
+    set_self( longname, os );
+  };
+void mu_1__type_3::set_self( const char *n, int os)
+{
+  char* s;
+  name = (char *)n;
+  for(int i = 0; i < 3; i++) {
+    array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 48 + os);
+    delete[] s;
+  }
+};
+mu_1__type_3::~mu_1__type_3()
+{
+}
+/*** end array declaration ***/
+mu_1__type_3 mu_1__type_3_undefined_var;
+
+class mu_1_PermMonitor
+{
+ public:
+  mu_1__type_3 array[ 4 ];
+ public:
+  char *name;
+  char longname[BUFFER_SIZE/4];
+  void set_self( const char *n, int os);
+  void set_self_2( const char *n, const char *n2, int os);
+  void set_self_ar( const char *n, const char *n2, int os);
+  mu_1_PermMonitor (const char *n, int os) { set_self(n, os); };
+  mu_1_PermMonitor ( void ) {};
+  virtual ~mu_1_PermMonitor ();
+  mu_1__type_3& operator[] (int index) /* const */
+  {
+    if ( ( index >= 36 ) && ( index <= 38 ) )
+      return array[ index - (36) ];
+    if ( ( index >= 39 ) && ( index <= 39 ) )
+      return array[ index - (36) ];
+    if (index==UNDEFVAL) 
+      Error.Error("Indexing to %s using an undefined value.", name);
+    else
+      Error.Error("Funny index value %d for %s. (Internal Error in Type Checking.",index, name);
+    return array[0];
+  }
+  mu_1_PermMonitor& operator= (const mu_1_PermMonitor& from)
+  {
+    for (int i = 0; i < 4; i++)
+      array[i] = from.array[i];
+    return *this;
+  }
+
+friend int CompareWeight(mu_1_PermMonitor& a, mu_1_PermMonitor& b)
+  {
+    return 0;
+  }
+friend int Compare(mu_1_PermMonitor& a, mu_1_PermMonitor& b)
+  {
+    int w;
+    for (int i=0; i<4; i++) {
+      w = Compare(a.array[i], b.array[i]);
+      if (w!=0) return w;
+    }
+    return 0;
+  }
+  virtual void Permute(PermSet& Perm, int i);
+  virtual void SimpleCanonicalize(PermSet& Perm);
+  virtual void Canonicalize(PermSet& Perm);
+  virtual void SimpleLimit(PermSet& Perm);
+  virtual void ArrayLimit(PermSet& Perm);
+  virtual void Limit(PermSet& Perm);
+  virtual void MultisetLimit(PermSet& Perm);
+  virtual void MultisetSort()
+  {
+    for (int i=0; i<4; i++)
+      array[i].MultisetSort();
+  }
+  void print_statistic()
+  {
+    for (int i=0; i<4; i++)
+      array[i].print_statistic();
+  }
+  void clear() { for (int i = 0; i < 4; i++) array[i].clear(); };
+
+  void undefine() { for (int i = 0; i < 4; i++) array[i].undefine(); };
+
+  void reset() { for (int i = 0; i < 4; i++) array[i].reset(); };
+
+  void to_state(state *thestate)
+  {
+    for (int i = 0; i < 4; i++)
+      array[i].to_state(thestate);
+  };
+
+  void print()
+  {
+    for (int i = 0; i < 4; i++)
+      array[i].print(); };
+
+  void print_diff(state *prevstate)
+  {
+    for (int i = 0; i < 4; i++)
+      array[i].print_diff(prevstate);
+  };
+};
+
   void mu_1_PermMonitor::set_self_ar( const char *n1, const char *n2, int os ) {
     if (n1 == NULL) {set_self(NULL, 0); return;}
     int l1 = strlen(n1), l2 = strlen(n2);
@@ -1598,9 +1600,10 @@ void mu_1_PermMonitor::set_self( const char *n, int os)
     int i=0;
     name = (char *)n;
 
-if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
-if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
-if (n) array[i].set_self_ar(n,"directoryL1C1", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"directoryL1C1", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_PermMonitor::~mu_1_PermMonitor()
 {
@@ -1611,7 +1614,7 @@ mu_1_PermMonitor mu_1_PermMonitor_undefined_var;
 class mu_1_GlobalStoreMonitor
 {
  public:
-  mu_1_ClValue array[ 2 ];
+  mu_1_ClValue array[ 3 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -1624,7 +1627,7 @@ class mu_1_GlobalStoreMonitor
   mu_1_ClValue& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 0 ) && ( index <= 1 ) )
+    if ( ( index >= 0 ) && ( index <= 2 ) )
       return array[ index - 0 ];
     else {
       if (index==UNDEFVAL) 
@@ -1639,7 +1642,7 @@ class mu_1_GlobalStoreMonitor
   };
   mu_1_GlobalStoreMonitor& operator= (const mu_1_GlobalStoreMonitor& from)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].value(from.array[i].value());
     return *this;
   }
@@ -1647,7 +1650,7 @@ class mu_1_GlobalStoreMonitor
 friend int CompareWeight(mu_1_GlobalStoreMonitor& a, mu_1_GlobalStoreMonitor& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = CompareWeight(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -1656,7 +1659,7 @@ friend int CompareWeight(mu_1_GlobalStoreMonitor& a, mu_1_GlobalStoreMonitor& b)
 friend int Compare(mu_1_GlobalStoreMonitor& a, mu_1_GlobalStoreMonitor& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -1671,34 +1674,34 @@ friend int Compare(mu_1_GlobalStoreMonitor& a, mu_1_GlobalStoreMonitor& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -1723,7 +1726,7 @@ void mu_1_GlobalStoreMonitor::set_self( const char *n, int os)
 {
   char* s;
   name = (char *)n;
-  for(int i = 0; i < 2; i++) {
+  for(int i = 0; i < 3; i++) {
     array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 8 + os);
     delete[] s;
   }
@@ -2088,7 +2091,7 @@ mu_1__type_5 mu_1__type_5_undefined_var;
 class mu_1_NET_Ordered
 {
  public:
-  mu_1__type_5 array[ 3 ];
+  mu_1__type_5 array[ 4 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -2100,9 +2103,9 @@ class mu_1_NET_Ordered
   virtual ~mu_1_NET_Ordered ();
   mu_1__type_5& operator[] (int index) /* const */
   {
-    if ( ( index >= 36 ) && ( index <= 37 ) )
+    if ( ( index >= 36 ) && ( index <= 38 ) )
       return array[ index - (36) ];
-    if ( ( index >= 38 ) && ( index <= 38 ) )
+    if ( ( index >= 39 ) && ( index <= 39 ) )
       return array[ index - (36) ];
     if (index==UNDEFVAL) 
       Error.Error("Indexing to %s using an undefined value.", name);
@@ -2112,7 +2115,7 @@ class mu_1_NET_Ordered
   }
   mu_1_NET_Ordered& operator= (const mu_1_NET_Ordered& from)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -2124,7 +2127,7 @@ friend int CompareWeight(mu_1_NET_Ordered& a, mu_1_NET_Ordered& b)
 friend int Compare(mu_1_NET_Ordered& a, mu_1_NET_Ordered& b)
   {
     int w;
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<4; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -2139,34 +2142,34 @@ friend int Compare(mu_1_NET_Ordered& a, mu_1_NET_Ordered& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<4; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<4; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 4; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 4; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 4; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -2194,6 +2197,7 @@ void mu_1_NET_Ordered::set_self( const char *n, int os)
 
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"directoryL1C1", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_NET_Ordered::~mu_1_NET_Ordered()
@@ -2231,7 +2235,7 @@ mu_1__type_6 mu_1__type_6_undefined_var;
 class mu_1_NET_Ordered_cnt
 {
  public:
-  mu_1__type_6 array[ 3 ];
+  mu_1__type_6 array[ 4 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -2243,9 +2247,9 @@ class mu_1_NET_Ordered_cnt
   virtual ~mu_1_NET_Ordered_cnt ();
   mu_1__type_6& operator[] (int index) /* const */
   {
-    if ( ( index >= 36 ) && ( index <= 37 ) )
+    if ( ( index >= 36 ) && ( index <= 38 ) )
       return array[ index - (36) ];
-    if ( ( index >= 38 ) && ( index <= 38 ) )
+    if ( ( index >= 39 ) && ( index <= 39 ) )
       return array[ index - (36) ];
     if (index==UNDEFVAL) 
       Error.Error("Indexing to %s using an undefined value.", name);
@@ -2255,7 +2259,7 @@ class mu_1_NET_Ordered_cnt
   }
   mu_1_NET_Ordered_cnt& operator= (const mu_1_NET_Ordered_cnt& from)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].value(from.array[i].value());
     return *this;
   }
@@ -2267,7 +2271,7 @@ friend int CompareWeight(mu_1_NET_Ordered_cnt& a, mu_1_NET_Ordered_cnt& b)
 friend int Compare(mu_1_NET_Ordered_cnt& a, mu_1_NET_Ordered_cnt& b)
   {
     int w;
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<4; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -2282,34 +2286,34 @@ friend int Compare(mu_1_NET_Ordered_cnt& a, mu_1_NET_Ordered_cnt& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<4; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<4; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 4; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 4; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 4; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -2337,6 +2341,7 @@ void mu_1_NET_Ordered_cnt::set_self( const char *n, int os)
 
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 8 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 8 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 8 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"directoryL1C1", i * 8 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_NET_Ordered_cnt::~mu_1_NET_Ordered_cnt()
@@ -2566,7 +2571,7 @@ mu_1__type_7 mu_1__type_7_undefined_var;
 class mu_1_NET_Unordered
 {
  public:
-  mu_1__type_7 array[ 3 ];
+  mu_1__type_7 array[ 4 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -2578,9 +2583,9 @@ class mu_1_NET_Unordered
   virtual ~mu_1_NET_Unordered ();
   mu_1__type_7& operator[] (int index) /* const */
   {
-    if ( ( index >= 36 ) && ( index <= 37 ) )
+    if ( ( index >= 36 ) && ( index <= 38 ) )
       return array[ index - (36) ];
-    if ( ( index >= 38 ) && ( index <= 38 ) )
+    if ( ( index >= 39 ) && ( index <= 39 ) )
       return array[ index - (36) ];
     if (index==UNDEFVAL) 
       Error.Error("Indexing to %s using an undefined value.", name);
@@ -2590,7 +2595,7 @@ class mu_1_NET_Unordered
   }
   mu_1_NET_Unordered& operator= (const mu_1_NET_Unordered& from)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -2602,7 +2607,7 @@ friend int CompareWeight(mu_1_NET_Unordered& a, mu_1_NET_Unordered& b)
 friend int Compare(mu_1_NET_Unordered& a, mu_1_NET_Unordered& b)
   {
     int w;
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<4; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -2617,34 +2622,34 @@ friend int Compare(mu_1_NET_Unordered& a, mu_1_NET_Unordered& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<4; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<3; i++)
+    for (int i=0; i<4; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 4; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 4; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 4; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 4; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -2672,6 +2677,7 @@ void mu_1_NET_Unordered::set_self( const char *n, int os)
 
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 168 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 168 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 168 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 if (n) array[i].set_self_ar(n,"directoryL1C1", i * 168 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_NET_Unordered::~mu_1_NET_Unordered()
@@ -3070,7 +3076,7 @@ mu_1_ENTRY_directoryL1C1 mu_1_ENTRY_directoryL1C1_undefined_var;
 class mu_1__type_8
 {
  public:
-  mu_1_ENTRY_directoryL1C1 array[ 2 ];
+  mu_1_ENTRY_directoryL1C1 array[ 3 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -3083,7 +3089,7 @@ class mu_1__type_8
   mu_1_ENTRY_directoryL1C1& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 0 ) && ( index <= 1 ) )
+    if ( ( index >= 0 ) && ( index <= 2 ) )
       return array[ index - 0 ];
     else {
       if (index==UNDEFVAL) 
@@ -3098,7 +3104,7 @@ class mu_1__type_8
   };
   mu_1__type_8& operator= (const mu_1__type_8& from)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -3106,7 +3112,7 @@ class mu_1__type_8
 friend int CompareWeight(mu_1__type_8& a, mu_1__type_8& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = CompareWeight(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -3115,7 +3121,7 @@ friend int CompareWeight(mu_1__type_8& a, mu_1__type_8& b)
 friend int Compare(mu_1__type_8& a, mu_1__type_8& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -3130,34 +3136,34 @@ friend int Compare(mu_1__type_8& a, mu_1__type_8& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -3182,7 +3188,7 @@ void mu_1__type_8::set_self( const char *n, int os)
 {
   char* s;
   name = (char *)n;
-  for(int i = 0; i < 2; i++) {
+  for(int i = 0; i < 3; i++) {
     array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 72 + os);
     delete[] s;
   }
@@ -3307,8 +3313,8 @@ class mu_1_OBJ_directoryL1C1
   mu_1_MACH_directoryL1C1& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 38 ) && ( index <= 38 ) )
-      return array[ index - 38 ];
+    if ( ( index >= 39 ) && ( index <= 39 ) )
+      return array[ index - 39 ];
     else {
       if (index==UNDEFVAL) 
 	Error.Error("Indexing to %s using an undefined value.", name);
@@ -3317,7 +3323,7 @@ class mu_1_OBJ_directoryL1C1
       return array[0];
     }
 #else
-    return array[ index - 38 ];
+    return array[ index - 39 ];
 #endif
   };
   mu_1_OBJ_directoryL1C1& operator= (const mu_1_OBJ_directoryL1C1& from)
@@ -3406,7 +3412,7 @@ friend int Compare(mu_1_OBJ_directoryL1C1& a, mu_1_OBJ_directoryL1C1& b)
     int i=0;
     name = (char *)n;
 
-if (n) array[i].set_self_ar(n,"directoryL1C1", i * 144 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"directoryL1C1", i * 216 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
   }
 mu_1_OBJ_directoryL1C1::~mu_1_OBJ_directoryL1C1()
 {
@@ -3612,7 +3618,7 @@ mu_1_ENTRY_cacheL1C1 mu_1_ENTRY_cacheL1C1_undefined_var;
 class mu_1__type_11
 {
  public:
-  mu_1_ENTRY_cacheL1C1 array[ 2 ];
+  mu_1_ENTRY_cacheL1C1 array[ 3 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -3625,7 +3631,7 @@ class mu_1__type_11
   mu_1_ENTRY_cacheL1C1& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 0 ) && ( index <= 1 ) )
+    if ( ( index >= 0 ) && ( index <= 2 ) )
       return array[ index - 0 ];
     else {
       if (index==UNDEFVAL) 
@@ -3640,7 +3646,7 @@ class mu_1__type_11
   };
   mu_1__type_11& operator= (const mu_1__type_11& from)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -3648,7 +3654,7 @@ class mu_1__type_11
 friend int CompareWeight(mu_1__type_11& a, mu_1__type_11& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = CompareWeight(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -3657,7 +3663,7 @@ friend int CompareWeight(mu_1__type_11& a, mu_1__type_11& b)
 friend int Compare(mu_1__type_11& a, mu_1__type_11& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -3672,34 +3678,34 @@ friend int Compare(mu_1__type_11& a, mu_1__type_11& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -3724,7 +3730,7 @@ void mu_1__type_11::set_self( const char *n, int os)
 {
   char* s;
   name = (char *)n;
-  for(int i = 0; i < 2; i++) {
+  for(int i = 0; i < 3; i++) {
     array[i].set_self_ar(n, s=tsprintf("%d",i + 0), i * 32 + os);
     delete[] s;
   }
@@ -3836,7 +3842,7 @@ mu_1_MACH_cacheL1C1 mu_1_MACH_cacheL1C1_undefined_var;
 class mu_1_OBJ_cacheL1C1
 {
  public:
-  mu_1_MACH_cacheL1C1 array[ 2 ];
+  mu_1_MACH_cacheL1C1 array[ 3 ];
  public:
   char *name;
   char longname[BUFFER_SIZE/4];
@@ -3849,14 +3855,14 @@ class mu_1_OBJ_cacheL1C1
   mu_1_MACH_cacheL1C1& operator[] (int index) /* const */
   {
 #ifndef NO_RUN_TIME_CHECKING
-    if ( ( index >= 36 ) && ( index <= 37 ) )
+    if ( ( index >= 36 ) && ( index <= 38 ) )
       return array[ index - 36 ];
     else
       {
 	if (index==UNDEFVAL) 
 	  Error.Error("Indexing to %s using an undefined value.", name);
 	else
-	  Error.Error("Funny index value %d for %s: OBJSET_cacheL1C1 is internally represented from 36 to 37.\nInternal Error in Type checking.",index, name);
+	  Error.Error("Funny index value %d for %s: OBJSET_cacheL1C1 is internally represented from 36 to 38.\nInternal Error in Type checking.",index, name);
 	return array[0];
       }
 #else
@@ -3865,7 +3871,7 @@ class mu_1_OBJ_cacheL1C1
   };
   mu_1_OBJ_cacheL1C1& operator= (const mu_1_OBJ_cacheL1C1& from)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i] = from.array[i];
     return *this;
   }
@@ -3877,7 +3883,7 @@ friend int CompareWeight(mu_1_OBJ_cacheL1C1& a, mu_1_OBJ_cacheL1C1& b)
 friend int Compare(mu_1_OBJ_cacheL1C1& a, mu_1_OBJ_cacheL1C1& b)
   {
     int w;
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<3; i++) {
       w = Compare(a.array[i], b.array[i]);
       if (w!=0) return w;
     }
@@ -3892,34 +3898,34 @@ friend int Compare(mu_1_OBJ_cacheL1C1& a, mu_1_OBJ_cacheL1C1& b)
   virtual void MultisetLimit(PermSet& Perm);
   virtual void MultisetSort()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].MultisetSort();
   }
   void print_statistic()
   {
-    for (int i=0; i<2; i++)
+    for (int i=0; i<3; i++)
       array[i].print_statistic();
   }
-  void clear() { for (int i = 0; i < 2; i++) array[i].clear(); };
+  void clear() { for (int i = 0; i < 3; i++) array[i].clear(); };
 
-  void undefine() { for (int i = 0; i < 2; i++) array[i].undefine(); };
+  void undefine() { for (int i = 0; i < 3; i++) array[i].undefine(); };
 
-  void reset() { for (int i = 0; i < 2; i++) array[i].reset(); };
+  void reset() { for (int i = 0; i < 3; i++) array[i].reset(); };
 
   void to_state(state *thestate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].to_state(thestate);
   };
 
   void print()
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print(); };
 
   void print_diff(state *prevstate)
   {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 3; i++)
       array[i].print_diff(prevstate);
   };
 };
@@ -3945,8 +3951,9 @@ void mu_1_OBJ_cacheL1C1::set_self( const char *n, int os)
     int i=0;
     name = (char *)n;
 
-if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 64 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
-if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 64 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_1", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_2", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
+if (n) array[i].set_self_ar(n,"OBJSET_cacheL1C1_3", i * 96 + os); else array[i].set_self_ar(NULL, NULL, 0); i++;
 }
 mu_1_OBJ_cacheL1C1::~mu_1_OBJ_cacheL1C1()
 {
@@ -3959,9 +3966,9 @@ class mu_1__type_12: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu_1__type_12& val) { return mu__byte::operator=((int) val); };
-  mu_1__type_12 (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
-  mu_1__type_12 (void): mu__byte(0, 2, 2) {};
-  mu_1__type_12 (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
+  mu_1__type_12 (const char *name, int os): mu__byte(0, 3, 3, name, os) {};
+  mu_1__type_12 (void): mu__byte(0, 3, 3) {};
+  mu_1__type_12 (int val): mu__byte(0, 3, 3, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -3985,9 +3992,9 @@ class mu_1__type_13: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu_1__type_13& val) { return mu__byte::operator=((int) val); };
-  mu_1__type_13 (const char *name, int os): mu__byte(0, 2, 2, name, os) {};
-  mu_1__type_13 (void): mu__byte(0, 2, 2) {};
-  mu_1__type_13 (int val): mu__byte(0, 2, 2, "Parameter or function result.", 0)
+  mu_1__type_13 (const char *name, int os): mu__byte(0, 3, 3, name, os) {};
+  mu_1__type_13 (void): mu__byte(0, 3, 3) {};
+  mu_1__type_13 (int val): mu__byte(0, 3, 3, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -4011,9 +4018,9 @@ class mu_1__type_14: public mu__byte
  public:
   inline int operator=(int val) { return mu__byte::operator=(val); };
   inline int operator=(const mu_1__type_14& val) { return mu__byte::operator=((int) val); };
-  mu_1__type_14 (const char *name, int os): mu__byte(0, 4, 3, name, os) {};
-  mu_1__type_14 (void): mu__byte(0, 4, 3) {};
-  mu_1__type_14 (int val): mu__byte(0, 4, 3, "Parameter or function result.", 0)
+  mu_1__type_14 (const char *name, int os): mu__byte(0, 6, 3, name, os) {};
+  mu_1__type_14 (void): mu__byte(0, 6, 3) {};
+  mu_1__type_14 (int val): mu__byte(0, 6, 3, "Parameter or function result.", 0)
   {
     operator=(val);
   };
@@ -4059,8 +4066,8 @@ class mu_1__type_15: public mu__byte
 mu_1__type_15 mu_1__type_15_undefined_var;
 
 const int mu_ENABLE_QS = 0;
-const int mu_VAL_COUNT = 1;
-const int mu_ADR_COUNT = 1;
+const int mu_VAL_COUNT = 2;
+const int mu_ADR_COUNT = 2;
 const int mu_O_NET_MAX = 3;
 const int mu_U_NET_MAX = 3;
 const int mu_NrCachesL1C1 = 3;
@@ -4101,64 +4108,68 @@ const int mu_directoryL1C1_M = 34;
 const int mu_directoryL1C1_I = 35;
 const int mu_OBJSET_cacheL1C1_1 = 36;
 const int mu_OBJSET_cacheL1C1_2 = 37;
-const int mu_directoryL1C1 = 38;
+const int mu_OBJSET_cacheL1C1_3 = 38;
+const int mu_directoryL1C1 = 39;
 /*** Variable declaration ***/
 mu_1_NET_Ordered mu_fwd("fwd",0);
 
 /*** Variable declaration ***/
-mu_1_NET_Ordered_cnt mu_cnt_fwd("cnt_fwd",432);
+mu_1_NET_Ordered_cnt mu_cnt_fwd("cnt_fwd",576);
 
 /*** Variable declaration ***/
-mu_1_NET_Ordered mu_resp("resp",456);
+mu_1_NET_Ordered mu_resp("resp",608);
 
 /*** Variable declaration ***/
-mu_1_NET_Ordered_cnt mu_cnt_resp("cnt_resp",888);
+mu_1_NET_Ordered_cnt mu_cnt_resp("cnt_resp",1184);
 
 /*** Variable declaration ***/
-mu_1_NET_Ordered mu_req("req",912);
+mu_1_NET_Ordered mu_req("req",1216);
 
 /*** Variable declaration ***/
-mu_1_NET_Ordered_cnt mu_cnt_req("cnt_req",1344);
+mu_1_NET_Ordered_cnt mu_cnt_req("cnt_req",1792);
 
 /*** Variable declaration ***/
-mu_1_PermMonitor mu_g_perm("g_perm",1368);
+mu_1_PermMonitor mu_g_perm("g_perm",1824);
 
 /*** Variable declaration ***/
-mu_1_GlobalStoreMonitor mu_g_monitor_store("g_monitor_store",1656);
+mu_1_GlobalStoreMonitor mu_g_monitor_store("g_monitor_store",2400);
 
 /*** Variable declaration ***/
-mu_1_OBJ_directoryL1C1 mu_i_directoryL1C1("i_directoryL1C1",1672);
+mu_1_OBJ_directoryL1C1 mu_i_directoryL1C1("i_directoryL1C1",2424);
 
 /*** Variable declaration ***/
-mu_1_OBJ_cacheL1C1 mu_i_cacheL1C1("i_cacheL1C1",1816);
+mu_1_OBJ_cacheL1C1 mu_i_cacheL1C1("i_cacheL1C1",2640);
 
 /*** Variable declaration ***/
-mu_1_thread mu_i_thread1("i_thread1",1944);
+mu_1_thread mu_i_thread1("i_thread1",2928);
 
 /*** Variable declaration ***/
-mu_1_thread mu_i_thread2("i_thread2",2016);
+mu_1_thread mu_i_thread2("i_thread2",3024);
 
 /*** Variable declaration ***/
-mu_1_threadlist mu_i_threadlist("i_threadlist",2088);
+mu_1_thread mu_i_thread3("i_thread3",3120);
 
 /*** Variable declaration ***/
-mu_1_threadIndexes mu_i_threadIndexes("i_threadIndexes",2232);
+mu_1_threadlist mu_i_threadlist("i_threadlist",3216);
 
 /*** Variable declaration ***/
-mu_1__type_12 mu_initializer("initializer",2312);
+mu_1_threadIndexes mu_i_threadIndexes("i_threadIndexes",3504);
 
 /*** Variable declaration ***/
-mu_1__type_13 mu_loadedZeroCounter("loadedZeroCounter",2320);
+mu_1__type_12 mu_initializer("initializer",3624);
 
 /*** Variable declaration ***/
-mu_1__type_14 mu_instructionsExecuted("instructionsExecuted",2328);
+mu_1__type_13 mu_loadedZeroCounter("loadedZeroCounter",3632);
+
+/*** Variable declaration ***/
+mu_1__type_14 mu_instructionsExecuted("instructionsExecuted",3640);
 
 void mu_Reset_directoryL1C1()
 {
 {
-for(int mu_i = 38; mu_i <= 38; mu_i++) {
+for(int mu_i = 39; mu_i <= 39; mu_i++) {
 {
-for(int mu_a = 0; mu_a <= 1; mu_a++) {
+for(int mu_a = 0; mu_a <= 2; mu_a++) {
 mu_i_directoryL1C1[mu_i].mu_cb[mu_a].mu_State = mu_directoryL1C1_I;
 mu_i_directoryL1C1[mu_i].mu_cb[mu_a].mu_cl = 0;
 };
@@ -4171,9 +4182,9 @@ mu_i_directoryL1C1[mu_i].mu_cb[mu_a].mu_cl = 0;
 void mu_Reset_cacheL1C1()
 {
 {
-for(int mu_i = 36; mu_i <= 37; mu_i++) {
+for(int mu_i = 36; mu_i <= 38; mu_i++) {
 {
-for(int mu_a = 0; mu_a <= 1; mu_a++) {
+for(int mu_a = 0; mu_a <= 2; mu_a++) {
 mu_i_cacheL1C1[mu_i].mu_cb[mu_a].mu_State = mu_cacheL1C1_I;
 mu_i_cacheL1C1[mu_i].mu_cb[mu_a].mu_cl = 0;
 mu_i_cacheL1C1[mu_i].mu_cb[mu_a].mu_acksReceivedL1C1 = 0;
@@ -4206,10 +4217,10 @@ mu_l_perm_set.multisetadd(mu_acc_type);
 void mu_Reset_perm()
 {
 {
-for(int mu_m = 36; mu_m <= 38; mu_m++)
-  if (( ( mu_m >= 38 ) && ( mu_m <= 38 ) )|| ( ( mu_m >= 36 ) && ( mu_m <= 37 ) )) {
+for(int mu_m = 36; mu_m <= 39; mu_m++)
+  if (( ( mu_m >= 39 ) && ( mu_m <= 39 ) )|| ( ( mu_m >= 36 ) && ( mu_m <= 38 ) )) {
 {
-for(int mu_adr = 0; mu_adr <= 1; mu_adr++) {
+for(int mu_adr = 0; mu_adr <= 2; mu_adr++) {
 mu_Clear_perm ( mu_adr, mu_m );
 };
 };
@@ -4244,7 +4255,7 @@ Error.Error("Error: Write linearization failed");
 void mu_Reset_global_monitor()
 {
 {
-for(int mu_adr = 0; mu_adr <= 1; mu_adr++) {
+for(int mu_adr = 0; mu_adr <= 2; mu_adr++) {
 mu_g_monitor_store[mu_adr] = 0;
 };
 };
@@ -4508,8 +4519,8 @@ mu_cnt_req[mu_dst] = (mu_cnt_req[mu_dst]) - (1);
 void mu_Multicast_fwd_C1(mu_1_Message& mu_msg, mu_1_v_directoryL1C1_cacheL1C1& mu_dst_vect, const mu_1_Machines& mu_src)
 {
 {
-for(int mu_n = 36; mu_n <= 38; mu_n++)
-  if (( ( mu_n >= 38 ) && ( mu_n <= 38 ) )|| ( ( mu_n >= 36 ) && ( mu_n <= 37 ) )) {
+for(int mu_n = 36; mu_n <= 39; mu_n++)
+  if (( ( mu_n >= 39 ) && ( mu_n <= 39 ) )|| ( ( mu_n >= 36 ) && ( mu_n <= 38 ) )) {
 if ( (mu_n) != (mu_msg.mu_src) )
 {
 /*** begin multisetcount 6 declaration ***/
@@ -4540,11 +4551,11 @@ mu_Send_fwd ( mu_msg, mu_src );
 mu_0_boolean mu_req_network_ready()
 {
 {
-for(int mu_dst = 36; mu_dst <= 38; mu_dst++)
-  if (( ( mu_dst >= 38 ) && ( mu_dst <= 38 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 37 ) )) {
+for(int mu_dst = 36; mu_dst <= 39; mu_dst++)
+  if (( ( mu_dst >= 39 ) && ( mu_dst <= 39 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 38 ) )) {
 {
-for(int mu_src = 36; mu_src <= 38; mu_src++)
-  if (( ( mu_src >= 38 ) && ( mu_src <= 38 ) )|| ( ( mu_src >= 36 ) && ( mu_src <= 37 ) )) {
+for(int mu_src = 36; mu_src <= 39; mu_src++)
+  if (( ( mu_src >= 39 ) && ( mu_src <= 39 ) )|| ( ( mu_src >= 36 ) && ( mu_src <= 38 ) )) {
 if ( (mu_cnt_req[mu_dst]) >= (1) )
 {
 return mu_false;
@@ -4562,22 +4573,22 @@ void mu_Reset_NET_()
 {
 mu_fwd.undefine();
 {
-for(int mu_dst = 36; mu_dst <= 38; mu_dst++)
-  if (( ( mu_dst >= 38 ) && ( mu_dst <= 38 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 37 ) )) {
+for(int mu_dst = 36; mu_dst <= 39; mu_dst++)
+  if (( ( mu_dst >= 39 ) && ( mu_dst <= 39 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 38 ) )) {
 mu_cnt_fwd[mu_dst] = 0;
 };
 };
 mu_req.undefine();
 {
-for(int mu_dst = 36; mu_dst <= 38; mu_dst++)
-  if (( ( mu_dst >= 38 ) && ( mu_dst <= 38 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 37 ) )) {
+for(int mu_dst = 36; mu_dst <= 39; mu_dst++)
+  if (( ( mu_dst >= 39 ) && ( mu_dst <= 39 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 38 ) )) {
 mu_cnt_req[mu_dst] = 0;
 };
 };
 mu_resp.undefine();
 {
-for(int mu_dst = 36; mu_dst <= 38; mu_dst++)
-  if (( ( mu_dst >= 38 ) && ( mu_dst <= 38 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 37 ) )) {
+for(int mu_dst = 36; mu_dst <= 39; mu_dst++)
+  if (( ( mu_dst >= 39 ) && ( mu_dst <= 39 ) )|| ( ( mu_dst >= 36 ) && ( mu_dst <= 38 ) )) {
 mu_cnt_resp[mu_dst] = 0;
 };
 };
@@ -4597,14 +4608,21 @@ mu_i_thread2[0].mu_val = 1;
 mu_i_thread2[0].mu_adr = 1;
 mu_i_thread2[1].mu_itype = mu_load;
 mu_i_thread2[1].mu_val = 0;
-mu_i_thread2[1].mu_adr = 0;
+mu_i_thread2[1].mu_adr = 2;
+mu_i_thread3[0].mu_itype = mu_store;
+mu_i_thread3[0].mu_val = 1;
+mu_i_thread3[0].mu_adr = 2;
+mu_i_thread3[1].mu_itype = mu_load;
+mu_i_thread3[1].mu_val = 0;
+mu_i_thread3[1].mu_adr = 0;
 mu_i_thread1[2].mu_adr = 0;
 mu_i_thread2[2].mu_adr = 0;
+mu_i_thread3[2].mu_adr = 0;
 mu_initializer = 0;
 mu_instructionsExecuted = 0;
 mu_loadedZeroCounter = 0;
 {
-for(int mu_m = 36; mu_m <= 37; mu_m++) {
+for(int mu_m = 36; mu_m <= 38; mu_m++) {
 mu_i_threadIndexes[mu_m].mu_currentIndex = 0;
 if ( (mu_initializer) == (0) )
 {
@@ -4625,7 +4643,16 @@ else
 if ( (mu_initializer) == (2) )
 {
 mu_i_threadIndexes[mu_m].mu_maxIndex = 1;
+mu_i_threadlist[mu_m] = mu_i_thread3;
+mu_initializer = (mu_initializer) + (1);
+}
+else
+{
+if ( (mu_initializer) == (3) )
+{
+mu_i_threadIndexes[mu_m].mu_maxIndex = 1;
 mu_i_threadIndexes[mu_m].mu_currentIndex = 2;
+}
 }
 }
 }
@@ -4636,7 +4663,7 @@ mu_i_threadIndexes[mu_m].mu_currentIndex = 2;
 
 void mu_resetEverything()
 {
-if ( (mu_loadedZeroCounter) == (2) )
+if ( (mu_loadedZeroCounter) == (3) )
 {
 Error.Error("Error: Litmus test failed");
 }
@@ -5493,6 +5520,7 @@ void world_class::clear()
   mu_i_cacheL1C1.clear();
   mu_i_thread1.clear();
   mu_i_thread2.clear();
+  mu_i_thread3.clear();
   mu_i_threadlist.clear();
   mu_i_threadIndexes.clear();
   mu_initializer.clear();
@@ -5513,6 +5541,7 @@ void world_class::undefine()
   mu_i_cacheL1C1.undefine();
   mu_i_thread1.undefine();
   mu_i_thread2.undefine();
+  mu_i_thread3.undefine();
   mu_i_threadlist.undefine();
   mu_i_threadIndexes.undefine();
   mu_initializer.undefine();
@@ -5533,6 +5562,7 @@ void world_class::reset()
   mu_i_cacheL1C1.reset();
   mu_i_thread1.reset();
   mu_i_thread2.reset();
+  mu_i_thread3.reset();
   mu_i_threadlist.reset();
   mu_i_threadIndexes.reset();
   mu_initializer.reset();
@@ -5556,6 +5586,7 @@ void world_class::print()
   mu_i_cacheL1C1.print();
   mu_i_thread1.print();
   mu_i_thread2.print();
+  mu_i_thread3.print();
   mu_i_threadlist.print();
   mu_i_threadIndexes.print();
   mu_initializer.print();
@@ -5581,6 +5612,7 @@ void world_class::print_statistic()
   mu_i_cacheL1C1.print_statistic();
   mu_i_thread1.print_statistic();
   mu_i_thread2.print_statistic();
+  mu_i_thread3.print_statistic();
   mu_i_threadlist.print_statistic();
   mu_i_threadIndexes.print_statistic();
   mu_initializer.print_statistic();
@@ -5605,6 +5637,7 @@ void world_class::print_diff( state *prevstate )
     mu_i_cacheL1C1.print_diff(prevstate);
     mu_i_thread1.print_diff(prevstate);
     mu_i_thread2.print_diff(prevstate);
+    mu_i_thread3.print_diff(prevstate);
     mu_i_threadlist.print_diff(prevstate);
     mu_i_threadIndexes.print_diff(prevstate);
     mu_initializer.print_diff(prevstate);
@@ -5628,6 +5661,7 @@ void world_class::to_state(state *newstate)
   mu_i_cacheL1C1.to_state( newstate );
   mu_i_thread1.to_state( newstate );
   mu_i_thread2.to_state( newstate );
+  mu_i_thread3.to_state( newstate );
   mu_i_threadlist.to_state( newstate );
   mu_i_threadIndexes.to_state( newstate );
   mu_initializer.to_state( newstate );
@@ -5653,21 +5687,21 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
     return tsprintf("Receive resp, src:%s, dst:%s", mu_src.Name(), mu_dst.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
   mu_1_Message& mu_msg = mu_resp[mu_dst][0];
     return (mu_cnt_resp[mu_dst]) > (0);
   }
@@ -5676,12 +5710,12 @@ public:
   {
     unsigned r = what_rule - 0;
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
-    while (what_rule < 9 )
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
+    while (what_rule < 16 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_Message& mu_msg = mu_resp[mu_dst][0];
@@ -5692,28 +5726,28 @@ public:
 		  what_rule++;
 	      }
 	      else
-		what_rule += 3;
+		what_rule += 4;
 	}
 	else
-	  what_rule += 3;
+	  what_rule += 4;
     r = what_rule - 0;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
   mu_1_Message& mu_msg = mu_resp[mu_dst][0];
-if ( (mu_dst>=38 && mu_dst<=38) )
+if ( (mu_dst>=39 && mu_dst<=39) )
 {
 if ( mu_FSM_MSG_directoryL1C1( mu_msg, (int)mu_dst ) )
 {
@@ -5722,7 +5756,7 @@ mu_Pop_resp ( mu_dst, mu_src );
 }
 else
 {
-if ( (mu_dst>=36 && mu_dst<=37) )
+if ( (mu_dst>=36 && mu_dst<=38) )
 {
 if ( mu_FSM_MSG_cacheL1C1( mu_msg, (int)mu_dst ) )
 {
@@ -5748,35 +5782,35 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
     return tsprintf("Receive req, src:%s, dst:%s", mu_src.Name(), mu_dst.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
   mu_1_Message& mu_msg = mu_req[mu_dst][0];
     return (mu_cnt_req[mu_dst]) > (0);
   }
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 9;
+    unsigned r = what_rule - 16;
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
-    while (what_rule < 18 )
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
+    while (what_rule < 32 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_Message& mu_msg = mu_req[mu_dst][0];
@@ -5787,28 +5821,28 @@ public:
 		  what_rule++;
 	      }
 	      else
-		what_rule += 3;
+		what_rule += 4;
 	}
 	else
-	  what_rule += 3;
-    r = what_rule - 9;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+	  what_rule += 4;
+    r = what_rule - 16;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
   mu_1_Message& mu_msg = mu_req[mu_dst][0];
-if ( (mu_dst>=38 && mu_dst<=38) )
+if ( (mu_dst>=39 && mu_dst<=39) )
 {
 if ( mu_FSM_MSG_directoryL1C1( mu_msg, (int)mu_dst ) )
 {
@@ -5817,7 +5851,7 @@ mu_Pop_req ( mu_dst, mu_src );
 }
 else
 {
-if ( (mu_dst>=36 && mu_dst<=37) )
+if ( (mu_dst>=36 && mu_dst<=38) )
 {
 if ( mu_FSM_MSG_cacheL1C1( mu_msg, (int)mu_dst ) )
 {
@@ -5843,35 +5877,35 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
     return tsprintf("Receive fwd, src:%s, dst:%s", mu_src.Name(), mu_dst.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
   mu_1_Message& mu_msg = mu_fwd[mu_dst][0];
     return (mu_cnt_fwd[mu_dst]) > (0);
   }
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 18;
+    unsigned r = what_rule - 32;
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
-    while (what_rule < 27 )
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
+    while (what_rule < 48 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_Message& mu_msg = mu_fwd[mu_dst][0];
@@ -5882,28 +5916,28 @@ public:
 		  what_rule++;
 	      }
 	      else
-		what_rule += 3;
+		what_rule += 4;
 	}
 	else
-	  what_rule += 3;
-    r = what_rule - 18;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+	  what_rule += 4;
+    r = what_rule - 32;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_Machines mu_src;
-    mu_src.unionassign(r % 3);
-    r = r / 3;
+    mu_src.unionassign(r % 4);
+    r = r / 4;
     static mu_1_Machines mu_dst;
-    mu_dst.unionassign(r % 3);
-    r = r / 3;
+    mu_dst.unionassign(r % 4);
+    r = r / 4;
   mu_1_Message& mu_msg = mu_fwd[mu_dst][0];
-if ( (mu_dst>=38 && mu_dst<=38) )
+if ( (mu_dst>=39 && mu_dst<=39) )
 {
 if ( mu_FSM_MSG_directoryL1C1( mu_msg, (int)mu_dst ) )
 {
@@ -5912,7 +5946,7 @@ mu_Pop_fwd ( mu_dst, mu_src );
 }
 else
 {
-if ( (mu_dst>=36 && mu_dst<=37) )
+if ( (mu_dst>=36 && mu_dst<=38) )
 {
 if ( mu_FSM_MSG_cacheL1C1( mu_msg, (int)mu_dst ) )
 {
@@ -5938,15 +5972,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_S_store, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -5971,11 +6005,11 @@ bool mu__boolexpr30;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 27;
+    unsigned r = what_rule - 48;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 29 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 51 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6008,17 +6042,17 @@ bool mu__boolexpr33;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 27;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 48;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6038,15 +6072,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_S_evict, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6061,11 +6095,11 @@ bool mu__boolexpr34;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 29;
+    unsigned r = what_rule - 51;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 31 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 54 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6088,17 +6122,17 @@ bool mu__boolexpr35;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 29;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 51;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6118,15 +6152,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_S_load, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6151,11 +6185,11 @@ bool mu__boolexpr38;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 31;
+    unsigned r = what_rule - 54;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 33 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 57 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6188,17 +6222,17 @@ bool mu__boolexpr41;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 31;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 54;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6206,7 +6240,7 @@ bool mu__boolexpr41;
 mu_FSM_Access_cacheL1C1_S_load ( mu_adr, mu_m );
 mu_i_threadIndexes[mu_m].mu_currentIndex = (mu_threadIndex) + (1);
 mu_instructionsExecuted = (mu_instructionsExecuted) + (1);
-if ( (mu_instructionsExecuted) == (4) )
+if ( (mu_instructionsExecuted) == (6) )
 {
 mu_resetEverything (  );
 }
@@ -6224,15 +6258,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_M_store, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6257,11 +6291,11 @@ bool mu__boolexpr44;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 33;
+    unsigned r = what_rule - 57;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 35 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 60 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6294,17 +6328,17 @@ bool mu__boolexpr47;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 33;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 57;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6312,7 +6346,7 @@ bool mu__boolexpr47;
 mu_FSM_Access_cacheL1C1_M_store ( mu_adr, mu_m, mu_currentThread[mu_threadIndex].mu_val );
 mu_i_threadIndexes[mu_m].mu_currentIndex = (mu_threadIndex) + (1);
 mu_instructionsExecuted = (mu_instructionsExecuted) + (1);
-if ( (mu_instructionsExecuted) == (4) )
+if ( (mu_instructionsExecuted) == (6) )
 {
 mu_resetEverything (  );
 }
@@ -6330,15 +6364,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_M_evict, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6353,11 +6387,11 @@ bool mu__boolexpr48;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 35;
+    unsigned r = what_rule - 60;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 37 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 63 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6380,17 +6414,17 @@ bool mu__boolexpr49;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 35;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 60;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6410,15 +6444,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_M_load, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6443,11 +6477,11 @@ bool mu__boolexpr52;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 37;
+    unsigned r = what_rule - 63;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 39 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 66 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6480,17 +6514,17 @@ bool mu__boolexpr55;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 37;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 63;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6498,7 +6532,7 @@ bool mu__boolexpr55;
 mu_FSM_Access_cacheL1C1_M_load ( mu_adr, mu_m );
 mu_i_threadIndexes[mu_m].mu_currentIndex = (mu_threadIndex) + (1);
 mu_instructionsExecuted = (mu_instructionsExecuted) + (1);
-if ( (mu_instructionsExecuted) == (4) )
+if ( (mu_instructionsExecuted) == (6) )
 {
 mu_resetEverything (  );
 }
@@ -6516,15 +6550,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_I_store, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6549,11 +6583,11 @@ bool mu__boolexpr58;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 39;
+    unsigned r = what_rule - 66;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 41 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 69 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6586,17 +6620,17 @@ bool mu__boolexpr61;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 39;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 66;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6616,15 +6650,15 @@ public:
   char * Name(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     return tsprintf("cacheL1C1_I_load, m:%s", mu_m.Name());
   }
   bool Condition(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6649,11 +6683,11 @@ bool mu__boolexpr64;
 
   void NextRule(unsigned & what_rule)
   {
-    unsigned r = what_rule - 41;
+    unsigned r = what_rule - 69;
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
-    while (what_rule < 43 )
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
+    while (what_rule < 72 )
       {
 	if ( ( TRUE  ) ) {
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
@@ -6686,17 +6720,17 @@ bool mu__boolexpr67;
 	}
 	else
 	  what_rule += 1;
-    r = what_rule - 41;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    r = what_rule - 69;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
     }
   }
 
   void Code(unsigned r)
   {
     static mu_1_OBJSET_cacheL1C1 mu_m;
-    mu_m.value((r % 2) + 36);
-    r = r / 2;
+    mu_m.value((r % 3) + 36);
+    r = r / 3;
   mu_1_thread& mu_currentThread = mu_i_threadlist[mu_m];
   mu_1__type_0& mu_threadIndex = mu_i_threadIndexes[mu_m].mu_currentIndex;
   mu_1_Address& mu_adr = mu_currentThread[mu_threadIndex].mu_adr;
@@ -6722,106 +6756,106 @@ public:
 void SetNextEnabledRule(unsigned & what_rule)
 {
   category = CONDITION;
-  if (what_rule<9)
+  if (what_rule<16)
     { R0.NextRule(what_rule);
-      if (what_rule<9) return; }
-  if (what_rule>=9 && what_rule<18)
+      if (what_rule<16) return; }
+  if (what_rule>=16 && what_rule<32)
     { R1.NextRule(what_rule);
-      if (what_rule<18) return; }
-  if (what_rule>=18 && what_rule<27)
+      if (what_rule<32) return; }
+  if (what_rule>=32 && what_rule<48)
     { R2.NextRule(what_rule);
-      if (what_rule<27) return; }
-  if (what_rule>=27 && what_rule<29)
+      if (what_rule<48) return; }
+  if (what_rule>=48 && what_rule<51)
     { R3.NextRule(what_rule);
-      if (what_rule<29) return; }
-  if (what_rule>=29 && what_rule<31)
+      if (what_rule<51) return; }
+  if (what_rule>=51 && what_rule<54)
     { R4.NextRule(what_rule);
-      if (what_rule<31) return; }
-  if (what_rule>=31 && what_rule<33)
+      if (what_rule<54) return; }
+  if (what_rule>=54 && what_rule<57)
     { R5.NextRule(what_rule);
-      if (what_rule<33) return; }
-  if (what_rule>=33 && what_rule<35)
+      if (what_rule<57) return; }
+  if (what_rule>=57 && what_rule<60)
     { R6.NextRule(what_rule);
-      if (what_rule<35) return; }
-  if (what_rule>=35 && what_rule<37)
+      if (what_rule<60) return; }
+  if (what_rule>=60 && what_rule<63)
     { R7.NextRule(what_rule);
-      if (what_rule<37) return; }
-  if (what_rule>=37 && what_rule<39)
+      if (what_rule<63) return; }
+  if (what_rule>=63 && what_rule<66)
     { R8.NextRule(what_rule);
-      if (what_rule<39) return; }
-  if (what_rule>=39 && what_rule<41)
+      if (what_rule<66) return; }
+  if (what_rule>=66 && what_rule<69)
     { R9.NextRule(what_rule);
-      if (what_rule<41) return; }
-  if (what_rule>=41 && what_rule<43)
+      if (what_rule<69) return; }
+  if (what_rule>=69 && what_rule<72)
     { R10.NextRule(what_rule);
-      if (what_rule<43) return; }
+      if (what_rule<72) return; }
 }
 bool Condition(unsigned r)
 {
   category = CONDITION;
-  if (r<=8) return R0.Condition(r-0);
-  if (r>=9 && r<=17) return R1.Condition(r-9);
-  if (r>=18 && r<=26) return R2.Condition(r-18);
-  if (r>=27 && r<=28) return R3.Condition(r-27);
-  if (r>=29 && r<=30) return R4.Condition(r-29);
-  if (r>=31 && r<=32) return R5.Condition(r-31);
-  if (r>=33 && r<=34) return R6.Condition(r-33);
-  if (r>=35 && r<=36) return R7.Condition(r-35);
-  if (r>=37 && r<=38) return R8.Condition(r-37);
-  if (r>=39 && r<=40) return R9.Condition(r-39);
-  if (r>=41 && r<=42) return R10.Condition(r-41);
+  if (r<=15) return R0.Condition(r-0);
+  if (r>=16 && r<=31) return R1.Condition(r-16);
+  if (r>=32 && r<=47) return R2.Condition(r-32);
+  if (r>=48 && r<=50) return R3.Condition(r-48);
+  if (r>=51 && r<=53) return R4.Condition(r-51);
+  if (r>=54 && r<=56) return R5.Condition(r-54);
+  if (r>=57 && r<=59) return R6.Condition(r-57);
+  if (r>=60 && r<=62) return R7.Condition(r-60);
+  if (r>=63 && r<=65) return R8.Condition(r-63);
+  if (r>=66 && r<=68) return R9.Condition(r-66);
+  if (r>=69 && r<=71) return R10.Condition(r-69);
 Error.Notrace("Internal: NextStateGenerator -- checking condition for nonexisting rule.");
 return 0;}
 void Code(unsigned r)
 {
-  if (r<=8) { R0.Code(r-0); return; } 
-  if (r>=9 && r<=17) { R1.Code(r-9); return; } 
-  if (r>=18 && r<=26) { R2.Code(r-18); return; } 
-  if (r>=27 && r<=28) { R3.Code(r-27); return; } 
-  if (r>=29 && r<=30) { R4.Code(r-29); return; } 
-  if (r>=31 && r<=32) { R5.Code(r-31); return; } 
-  if (r>=33 && r<=34) { R6.Code(r-33); return; } 
-  if (r>=35 && r<=36) { R7.Code(r-35); return; } 
-  if (r>=37 && r<=38) { R8.Code(r-37); return; } 
-  if (r>=39 && r<=40) { R9.Code(r-39); return; } 
-  if (r>=41 && r<=42) { R10.Code(r-41); return; } 
+  if (r<=15) { R0.Code(r-0); return; } 
+  if (r>=16 && r<=31) { R1.Code(r-16); return; } 
+  if (r>=32 && r<=47) { R2.Code(r-32); return; } 
+  if (r>=48 && r<=50) { R3.Code(r-48); return; } 
+  if (r>=51 && r<=53) { R4.Code(r-51); return; } 
+  if (r>=54 && r<=56) { R5.Code(r-54); return; } 
+  if (r>=57 && r<=59) { R6.Code(r-57); return; } 
+  if (r>=60 && r<=62) { R7.Code(r-60); return; } 
+  if (r>=63 && r<=65) { R8.Code(r-63); return; } 
+  if (r>=66 && r<=68) { R9.Code(r-66); return; } 
+  if (r>=69 && r<=71) { R10.Code(r-69); return; } 
 }
 int Priority(unsigned short r)
 {
-  if (r<=8) { return R0.Priority(); } 
-  if (r>=9 && r<=17) { return R1.Priority(); } 
-  if (r>=18 && r<=26) { return R2.Priority(); } 
-  if (r>=27 && r<=28) { return R3.Priority(); } 
-  if (r>=29 && r<=30) { return R4.Priority(); } 
-  if (r>=31 && r<=32) { return R5.Priority(); } 
-  if (r>=33 && r<=34) { return R6.Priority(); } 
-  if (r>=35 && r<=36) { return R7.Priority(); } 
-  if (r>=37 && r<=38) { return R8.Priority(); } 
-  if (r>=39 && r<=40) { return R9.Priority(); } 
-  if (r>=41 && r<=42) { return R10.Priority(); } 
+  if (r<=15) { return R0.Priority(); } 
+  if (r>=16 && r<=31) { return R1.Priority(); } 
+  if (r>=32 && r<=47) { return R2.Priority(); } 
+  if (r>=48 && r<=50) { return R3.Priority(); } 
+  if (r>=51 && r<=53) { return R4.Priority(); } 
+  if (r>=54 && r<=56) { return R5.Priority(); } 
+  if (r>=57 && r<=59) { return R6.Priority(); } 
+  if (r>=60 && r<=62) { return R7.Priority(); } 
+  if (r>=63 && r<=65) { return R8.Priority(); } 
+  if (r>=66 && r<=68) { return R9.Priority(); } 
+  if (r>=69 && r<=71) { return R10.Priority(); } 
 return 0;}
 char * Name(unsigned r)
 {
-  if (r<=8) return R0.Name(r-0);
-  if (r>=9 && r<=17) return R1.Name(r-9);
-  if (r>=18 && r<=26) return R2.Name(r-18);
-  if (r>=27 && r<=28) return R3.Name(r-27);
-  if (r>=29 && r<=30) return R4.Name(r-29);
-  if (r>=31 && r<=32) return R5.Name(r-31);
-  if (r>=33 && r<=34) return R6.Name(r-33);
-  if (r>=35 && r<=36) return R7.Name(r-35);
-  if (r>=37 && r<=38) return R8.Name(r-37);
-  if (r>=39 && r<=40) return R9.Name(r-39);
-  if (r>=41 && r<=42) return R10.Name(r-41);
+  if (r<=15) return R0.Name(r-0);
+  if (r>=16 && r<=31) return R1.Name(r-16);
+  if (r>=32 && r<=47) return R2.Name(r-32);
+  if (r>=48 && r<=50) return R3.Name(r-48);
+  if (r>=51 && r<=53) return R4.Name(r-51);
+  if (r>=54 && r<=56) return R5.Name(r-54);
+  if (r>=57 && r<=59) return R6.Name(r-57);
+  if (r>=60 && r<=62) return R7.Name(r-60);
+  if (r>=63 && r<=65) return R8.Name(r-63);
+  if (r>=66 && r<=68) return R9.Name(r-66);
+  if (r>=69 && r<=71) return R10.Name(r-69);
   return NULL;
 }
 };
-const unsigned numrules = 43;
+const unsigned numrules = 72;
 
 /********************
   parameter
  ********************/
-#define RULES_IN_WORLD 43
+#define RULES_IN_WORLD 72
 
 
 /********************
@@ -6869,17 +6903,17 @@ int mu__invariant_68() // Invariant "Store excludes load check"
 bool mu__quant69; 
 mu__quant69 = TRUE;
 {
-for(int mu_a = 0; mu_a <= 1; mu_a++) {
+for(int mu_a = 0; mu_a <= 2; mu_a++) {
 bool mu__quant70; 
 mu__quant70 = TRUE;
 {
-for(int mu_m1 = 36; mu_m1 <= 38; mu_m1++)
-  if (( ( mu_m1 >= 38 ) && ( mu_m1 <= 38 ) )|| ( ( mu_m1 >= 36 ) && ( mu_m1 <= 37 ) )) {
+for(int mu_m1 = 36; mu_m1 <= 39; mu_m1++)
+  if (( ( mu_m1 >= 39 ) && ( mu_m1 <= 39 ) )|| ( ( mu_m1 >= 36 ) && ( mu_m1 <= 38 ) )) {
 bool mu__quant71; 
 mu__quant71 = TRUE;
 {
-for(int mu_m2 = 36; mu_m2 <= 38; mu_m2++)
-  if (( ( mu_m2 >= 38 ) && ( mu_m2 <= 38 ) )|| ( ( mu_m2 >= 36 ) && ( mu_m2 <= 37 ) )) {
+for(int mu_m2 = 36; mu_m2 <= 39; mu_m2++)
+  if (( ( mu_m2 >= 39 ) && ( mu_m2 <= 39 ) )|| ( ( mu_m2 >= 36 ) && ( mu_m2 <= 38 ) )) {
 bool mu__boolexpr72;
 bool mu__boolexpr73;
   if (!((mu_m1) != (mu_m2))) mu__boolexpr73 = FALSE ;
@@ -6945,17 +6979,17 @@ int mu__invariant_77() // Invariant "Exclusive store check"
 bool mu__quant78; 
 mu__quant78 = TRUE;
 {
-for(int mu_a = 0; mu_a <= 1; mu_a++) {
+for(int mu_a = 0; mu_a <= 2; mu_a++) {
 bool mu__quant79; 
 mu__quant79 = TRUE;
 {
-for(int mu_m1 = 36; mu_m1 <= 38; mu_m1++)
-  if (( ( mu_m1 >= 38 ) && ( mu_m1 <= 38 ) )|| ( ( mu_m1 >= 36 ) && ( mu_m1 <= 37 ) )) {
+for(int mu_m1 = 36; mu_m1 <= 39; mu_m1++)
+  if (( ( mu_m1 >= 39 ) && ( mu_m1 <= 39 ) )|| ( ( mu_m1 >= 36 ) && ( mu_m1 <= 38 ) )) {
 bool mu__quant80; 
 mu__quant80 = TRUE;
 {
-for(int mu_m2 = 36; mu_m2 <= 38; mu_m2++)
-  if (( ( mu_m2 >= 38 ) && ( mu_m2 <= 38 ) )|| ( ( mu_m2 >= 36 ) && ( mu_m2 <= 37 ) )) {
+for(int mu_m2 = 36; mu_m2 <= 39; mu_m2++)
+  if (( ( mu_m2 >= 39 ) && ( mu_m2 <= 39 ) )|| ( ( mu_m2 >= 36 ) && ( mu_m2 <= 38 ) )) {
 bool mu__boolexpr81;
 bool mu__boolexpr82;
   if (!((mu_m1) != (mu_m2))) mu__boolexpr82 = FALSE ;
@@ -7026,23 +7060,24 @@ const unsigned short numinvariants = 2;
   Normal/Canonicalization for scalarset
  ********************/
 /*
-i_thread1:NoScalarset
-g_monitor_store:NoScalarset
 i_thread2:NoScalarset
+g_monitor_store:NoScalarset
+i_thread1:NoScalarset
+i_thread3:NoScalarset
 initializer:NoScalarset
 loadedZeroCounter:NoScalarset
 instructionsExecuted:NoScalarset
 i_threadlist:ScalarsetArrayOfFree
-cnt_fwd:ScalarsetArrayOfFree
-cnt_resp:ScalarsetArrayOfFree
-cnt_req:ScalarsetArrayOfFree
 i_cacheL1C1:ScalarsetArrayOfFree
+cnt_req:ScalarsetArrayOfFree
+cnt_resp:ScalarsetArrayOfFree
+cnt_fwd:ScalarsetArrayOfFree
 i_threadIndexes:ScalarsetArrayOfFree
-req:ScalarsetArrayOfScalarset
-resp:ScalarsetArrayOfScalarset
 fwd:ScalarsetArrayOfScalarset
-i_directoryL1C1:Complex
+resp:ScalarsetArrayOfScalarset
+req:ScalarsetArrayOfScalarset
 g_perm:Complex
+i_directoryL1C1:Complex
 */
 
 /********************
@@ -7072,7 +7107,7 @@ public:
   /********************
    Simple and efficient representation
    ********************/
-  int class_mu_1_OBJSET_cacheL1C1[2];
+  int class_mu_1_OBJSET_cacheL1C1[3];
   int undefined_class_mu_1_OBJSET_cacheL1C1;// has the highest class number
 
   void Print_class_mu_1_OBJSET_cacheL1C1();
@@ -7082,8 +7117,8 @@ public:
     int i,j;
     if (OnlyOneRemain_mu_1_OBJSET_cacheL1C1)
       return FALSE;
-    for (i=0; i<2; i++)
-      for (j=0; j<2; j++)
+    for (i=0; i<3; i++)
+      for (j=0; j<3; j++)
         if (i!=j && class_mu_1_OBJSET_cacheL1C1[i]== class_mu_1_OBJSET_cacheL1C1[j])
 	    return TRUE;
     OnlyOneRemain_mu_1_OBJSET_cacheL1C1 = TRUE;
@@ -7108,11 +7143,11 @@ public:
   // they will be of size 1 for reduced local memory canonicalize
   // second range will be size of the scalarset
   int * in_mu_1_OBJSET_cacheL1C1;
-  typedef int arr_mu_1_OBJSET_cacheL1C1[2];
+  typedef int arr_mu_1_OBJSET_cacheL1C1[3];
   arr_mu_1_OBJSET_cacheL1C1 * perm_mu_1_OBJSET_cacheL1C1;
   arr_mu_1_OBJSET_cacheL1C1 * revperm_mu_1_OBJSET_cacheL1C1;
 
-  int size_mu_1_OBJSET_cacheL1C1[2];
+  int size_mu_1_OBJSET_cacheL1C1[3];
   bool reversed_sorted_mu_1_OBJSET_cacheL1C1(int start, int end);
   void reverse_reversed_mu_1_OBJSET_cacheL1C1(int start, int end);
 
@@ -7129,7 +7164,7 @@ public:
 void PermSet::Print_class_mu_1_OBJSET_cacheL1C1()
 {
   cout << "class_mu_1_OBJSET_cacheL1C1:\t";
-  for (int i=0; i<2; i++)
+  for (int i=0; i<3; i++)
     cout << class_mu_1_OBJSET_cacheL1C1[i];
   cout << " " << undefined_class_mu_1_OBJSET_cacheL1C1 << "\n";
 }
@@ -7139,8 +7174,8 @@ bool PermSet::MoreThanOneRemain()
   if (AlreadyOnlyOneRemain)
     return FALSE;
   else {
-    for (i=0; i<2; i++)
-      for (j=0; j<2; j++)
+    for (i=0; i<3; i++)
+      for (j=0; j<3; j++)
         if (i!=j && class_mu_1_OBJSET_cacheL1C1[i]== class_mu_1_OBJSET_cacheL1C1[j])
 	    return TRUE;
   }
@@ -7153,28 +7188,28 @@ PermSet::PermSet()
   int i,j,k;
   if (  args->sym_alg.mode == argsym_alg::Exhaustive_Fast_Canonicalize
      || args->sym_alg.mode == argsym_alg::Heuristic_Fast_Canonicalize) {
-    mu_1_OBJSET_cacheL1C1 Perm0[2];
+    mu_1_OBJSET_cacheL1C1 Perm0[3];
 
   /********************
    declaration of class variables
   ********************/
-  in = new bool[2];
- in_mu_1_OBJSET_cacheL1C1 = new int[2];
- perm_mu_1_OBJSET_cacheL1C1 = new arr_mu_1_OBJSET_cacheL1C1[2];
- revperm_mu_1_OBJSET_cacheL1C1 = new arr_mu_1_OBJSET_cacheL1C1[2];
+  in = new bool[6];
+ in_mu_1_OBJSET_cacheL1C1 = new int[6];
+ perm_mu_1_OBJSET_cacheL1C1 = new arr_mu_1_OBJSET_cacheL1C1[6];
+ revperm_mu_1_OBJSET_cacheL1C1 = new arr_mu_1_OBJSET_cacheL1C1[6];
 
     // Set perm and revperm
     count = 0;
-    for (i=36; i<=37; i++)
+    for (i=36; i<=38; i++)
       {
         Perm0[0].value(i);
         GenPerm0(Perm0, 1, count);
       }
-    if (count!=2)
+    if (count!=6)
       Error.Error( "unable to initialize PermSet");
-    for (i=0; i<2; i++)
-      for (j=36; j<=37; j++)
-        for (k=36; k<=37; k++)
+    for (i=0; i<6; i++)
+      for (j=36; j<=38; j++)
+        for (k=36; k<=38; k++)
           if (revperm_mu_1_OBJSET_cacheL1C1[i][k-36]==j)   // k - base 
             perm_mu_1_OBJSET_cacheL1C1[i][j-36]=k; // j - base 
 
@@ -7182,15 +7217,15 @@ PermSet::PermSet()
     // for different scalarset
     int carry;
     int i_mu_1_OBJSET_cacheL1C1 = 0;
-    size = 2;
-    count = 2;
-    for (i=0; i<2; i++)
+    size = 6;
+    count = 6;
+    for (i=0; i<6; i++)
       {
         carry = 1;
         in[i]= TRUE;
       in_mu_1_OBJSET_cacheL1C1[i] = i_mu_1_OBJSET_cacheL1C1;
       i_mu_1_OBJSET_cacheL1C1 += carry;
-      if (i_mu_1_OBJSET_cacheL1C1 >= 2) { i_mu_1_OBJSET_cacheL1C1 = 0; carry = 1; } 
+      if (i_mu_1_OBJSET_cacheL1C1 >= 6) { i_mu_1_OBJSET_cacheL1C1 = 0; carry = 1; } 
       else { carry = 0; } 
     }
   }
@@ -7211,7 +7246,7 @@ PermSet::PermSet()
 void PermSet::ResetToSimple()
 {
   int i;
-  for (i=0; i<2; i++)
+  for (i=0; i<3; i++)
     class_mu_1_OBJSET_cacheL1C1[i]=0;
   undefined_class_mu_1_OBJSET_cacheL1C1=0;
   OnlyOneRemain_mu_1_OBJSET_cacheL1C1 = FALSE;
@@ -7221,26 +7256,26 @@ void PermSet::ResetToSimple()
 }
 void PermSet::ResetToExplicit()
 {
-  for (int i=0; i<2; i++) in[i] = TRUE;
+  for (int i=0; i<6; i++) in[i] = TRUE;
   Presentation = Explicit;
 }
 void PermSet::SimpleToExplicit()
 {
   int i,j,k;
   int start, class_size;
-  int start_mu_1_OBJSET_cacheL1C1[2];
-  int size_mu_1_OBJSET_cacheL1C1[2];
-  bool should_be_in_mu_1_OBJSET_cacheL1C1[2];
+  int start_mu_1_OBJSET_cacheL1C1[3];
+  int size_mu_1_OBJSET_cacheL1C1[3];
+  bool should_be_in_mu_1_OBJSET_cacheL1C1[6];
 
   // Setup range for mapping
   start = 0;
   for (j=0; j<=undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
     {
       class_size = 0;
-      for (k=0; k<2; k++) // step through class_mu_1_pid[k]
+      for (k=0; k<3; k++) // step through class_mu_1_pid[k]
 	if (class_mu_1_OBJSET_cacheL1C1[k]==j)
 	  class_size++;
-      for (k=0; k<2; k++) // step through class_mu_1_pid[k]
+      for (k=0; k<3; k++) // step through class_mu_1_pid[k]
 	if (class_mu_1_OBJSET_cacheL1C1[k]==j)
 	  {
 	    size_mu_1_OBJSET_cacheL1C1[k] = class_size;
@@ -7250,10 +7285,10 @@ void PermSet::SimpleToExplicit()
     }
 
   // To be In or not to be
-  for (i=0; i<2; i++) // set up
+  for (i=0; i<6; i++) // set up
     should_be_in_mu_1_OBJSET_cacheL1C1[i] = TRUE;
-  for (i=0; i<2; i++) // to be in or not to be
-    for (k=0; k<2; k++) // step through class_mu_1_pid[k]
+  for (i=0; i<6; i++) // to be in or not to be
+    for (k=0; k<3; k++) // step through class_mu_1_pid[k]
       if (! (perm_mu_1_OBJSET_cacheL1C1[i][k]-36 >=start_mu_1_OBJSET_cacheL1C1[k] 
 	     && perm_mu_1_OBJSET_cacheL1C1[i][k]-36 < start_mu_1_OBJSET_cacheL1C1[k] + size_mu_1_OBJSET_cacheL1C1[k]) )
   	    {
@@ -7263,7 +7298,7 @@ void PermSet::SimpleToExplicit()
 
   // setup explicit representation 
   // Set perm and revperm
-  for (i=0; i<2; i++)
+  for (i=0; i<6; i++)
     {
       in[i] = TRUE;
       if (in[i] && !should_be_in_mu_1_OBJSET_cacheL1C1[in_mu_1_OBJSET_cacheL1C1[i]]) in[i] = FALSE;
@@ -7283,10 +7318,10 @@ void PermSet::SimpleToOne()
   for (j=0; j<=undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
     {
       class_size = 0;
-      for (k=0; k<2; k++) // step through class_mu_1_pid[k]
+      for (k=0; k<3; k++) // step through class_mu_1_pid[k]
 	if (class_mu_1_OBJSET_cacheL1C1[k]==j)
 	  class_size++;
-      for (k=0; k<2; k++) // step through class_mu_1_pid[k]
+      for (k=0; k<3; k++) // step through class_mu_1_pid[k]
 	if (class_mu_1_OBJSET_cacheL1C1[k]==j)
 	  {
 	    size_mu_1_OBJSET_cacheL1C1[k] = class_size;
@@ -7296,12 +7331,12 @@ void PermSet::SimpleToOne()
   start = 0;
   for (j=0; j<=undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
     {
-      for (k=0; k<2; k++) // step through class_mu_1_pid[k]
+      for (k=0; k<3; k++) // step through class_mu_1_pid[k]
 	    if (class_mu_1_OBJSET_cacheL1C1[k]==j)
 	      revperm_mu_1_OBJSET_cacheL1C1[0][start++] = k+36;
     }
-  for (j=0; j<2; j++)
-    for (k=0; k<2; k++)
+  for (j=0; j<3; j++)
+    for (k=0; k<3; k++)
       if (revperm_mu_1_OBJSET_cacheL1C1[0][k]==j+36)
         perm_mu_1_OBJSET_cacheL1C1[0][j]=k+36;
   Presentation = Explicit;
@@ -7316,9 +7351,9 @@ bool PermSet::ok0(mu_1_OBJSET_cacheL1C1* Perm, int size, mu_1_OBJSET_cacheL1C1 k
 void PermSet::GenPerm0(mu_1_OBJSET_cacheL1C1* Perm,int size, unsigned long& count)
 {
   int i;
-  if (size!=2)
+  if (size!=3)
     {
-      for (i=36; i<=37; i++)
+      for (i=36; i<=38; i++)
         if(ok0(Perm,size,i))
           {
             Perm[size].value(i);
@@ -7327,7 +7362,7 @@ void PermSet::GenPerm0(mu_1_OBJSET_cacheL1C1* Perm,int size, unsigned long& coun
     }
   else
     {
-      for (i=36; i<=37; i++)
+      for (i=36; i<=38; i++)
         revperm_mu_1_OBJSET_cacheL1C1[count][i-36]=Perm[i-36].value();// i - base
       count++;
     }
@@ -7376,7 +7411,7 @@ bool PermSet::NextPermutation()
   // 	           break;
   // 	         }
   //     }
-  for (start = 0; start < 2; )
+  for (start = 0; start < 3; )
     {
       end = start-1+size_mu_1_OBJSET_cacheL1C1[revperm_mu_1_OBJSET_cacheL1C1[0][start]-36];
       if (reversed_sorted_mu_1_OBJSET_cacheL1C1(start,end))
@@ -7410,8 +7445,8 @@ bool PermSet::NextPermutation()
 	}
     }
 if (!nexted) return FALSE;
-  for (j=0; j<2; j++)
-    for (k=0; k<2; k++)
+  for (j=0; j<3; j++)
+    for (k=0; k<3; k++)
       if (revperm_mu_1_OBJSET_cacheL1C1[0][k]==j+36)   // k - base 
 	perm_mu_1_OBJSET_cacheL1C1[0][j]=k+36; // j - base 
   return TRUE;
@@ -7451,23 +7486,24 @@ public:
  ********************/
 void SymmetryClass::MultisetSort(state* s)
 {
-        mu_i_thread1.MultisetSort();
-        mu_g_monitor_store.MultisetSort();
         mu_i_thread2.MultisetSort();
+        mu_g_monitor_store.MultisetSort();
+        mu_i_thread1.MultisetSort();
+        mu_i_thread3.MultisetSort();
         mu_initializer.MultisetSort();
         mu_loadedZeroCounter.MultisetSort();
         mu_instructionsExecuted.MultisetSort();
         mu_i_threadlist.MultisetSort();
-        mu_cnt_fwd.MultisetSort();
-        mu_cnt_resp.MultisetSort();
-        mu_cnt_req.MultisetSort();
         mu_i_cacheL1C1.MultisetSort();
+        mu_cnt_req.MultisetSort();
+        mu_cnt_resp.MultisetSort();
+        mu_cnt_fwd.MultisetSort();
         mu_i_threadIndexes.MultisetSort();
-        mu_req.MultisetSort();
-        mu_resp.MultisetSort();
         mu_fwd.MultisetSort();
-        mu_i_directoryL1C1.MultisetSort();
+        mu_resp.MultisetSort();
+        mu_req.MultisetSort();
         mu_g_perm.MultisetSort();
+        mu_i_directoryL1C1.MultisetSort();
 }
 void SymmetryClass::Normalize(state* s)
 {
@@ -7557,7 +7593,7 @@ void mu_1_OBJSET_cacheL1C1::SimpleCanonicalize(PermSet& Perm)
     if (Perm.class_mu_1_OBJSET_cacheL1C1[value()-36]==Perm.undefined_class_mu_1_OBJSET_cacheL1C1) // value - base
       {
         // it has not been mapped to any particular value
-        for (i=0; i<2; i++)
+        for (i=0; i<3; i++)
           if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == Perm.undefined_class_mu_1_OBJSET_cacheL1C1 && i!=value()-36)
             Perm.class_mu_1_OBJSET_cacheL1C1[i]++;
         value(36 + Perm.undefined_class_mu_1_OBJSET_cacheL1C1++);
@@ -7581,7 +7617,7 @@ void mu_1_OBJSET_cacheL1C1::SimpleLimit(PermSet& Perm)
     if (Perm.class_mu_1_OBJSET_cacheL1C1[value()-36]==Perm.undefined_class_mu_1_OBJSET_cacheL1C1) // value - base
       {
         // it has not been mapped to any particular value
-        for (i=0; i<2; i++)
+        for (i=0; i<3; i++)
           if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == Perm.undefined_class_mu_1_OBJSET_cacheL1C1 && i!=value()-36)
             Perm.class_mu_1_OBJSET_cacheL1C1[i]++;
         Perm.undefined_class_mu_1_OBJSET_cacheL1C1++;
@@ -7615,7 +7651,7 @@ void mu_1_Machines::Permute(PermSet& Perm, int i)
   if (Perm.Presentation != PermSet::Explicit)
     Error.Error("Internal Error: Wrong Sequence of Normalization");
   if (defined()) {
-    if ( ( value() >= 36 ) && ( value() <= 37 ) )
+    if ( ( value() >= 36 ) && ( value() <= 38 ) )
       value(Perm.perm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][value()-36]+(0)); // value - base
   }
 }
@@ -7625,12 +7661,12 @@ void mu_1_Machines::SimpleCanonicalize(PermSet& Perm)
   if (Perm.Presentation != PermSet::Simple)
     Error.Error("Internal Error: Wrong Sequence of Normalization");
   if (defined()) {
-    if ( ( value() >= 36 ) && ( value() <= 37 ) )
+    if ( ( value() >= 36 ) && ( value() <= 38 ) )
       {
         if (Perm.class_mu_1_OBJSET_cacheL1C1[value()-36]==Perm.undefined_class_mu_1_OBJSET_cacheL1C1) // value - base
           {
             // it has not been mapped to any particular value
-            for (i=0; i<2; i++)
+            for (i=0; i<3; i++)
               if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == Perm.undefined_class_mu_1_OBJSET_cacheL1C1 && i!=value()-36)
                 Perm.class_mu_1_OBJSET_cacheL1C1[i]++;
             value(36 + Perm.undefined_class_mu_1_OBJSET_cacheL1C1++);
@@ -7652,11 +7688,11 @@ void mu_1_Machines::SimpleLimit(PermSet& Perm)
   if (Perm.Presentation != PermSet::Simple)
     Error.Error("Internal Error: Wrong Sequence of Normalization");
   if (defined()) {
-    if ( ( value() >= 36 ) && ( value() <= 37 ) )
+    if ( ( value() >= 36 ) && ( value() <= 38 ) )
       if (Perm.class_mu_1_OBJSET_cacheL1C1[value()-36]==Perm.undefined_class_mu_1_OBJSET_cacheL1C1) // value - base
         {
           // it has not been mapped to any particular value
-          for (i=0; i<2; i++)
+          for (i=0; i<3; i++)
             if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == Perm.undefined_class_mu_1_OBJSET_cacheL1C1 && i!=value()-36)
               Perm.class_mu_1_OBJSET_cacheL1C1[i]++;
           Perm.undefined_class_mu_1_OBJSET_cacheL1C1++;
@@ -7695,7 +7731,7 @@ void mu_1_thread::Permute(PermSet& Perm, int i)
 {
   static mu_1_thread temp("Permute_mu_1_thread",-1);
   int j;
-  for (j=0; j<3; j++)
+  for (j=0; j<4; j++)
     array[j].Permute(Perm, i);
 };
 void mu_1_thread::SimpleCanonicalize(PermSet& Perm)
@@ -7710,10 +7746,10 @@ void mu_1_threadlist::Permute(PermSet& Perm, int i)
 {
   static mu_1_threadlist temp("Permute_mu_1_threadlist",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
     (*this)[j] = temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]];};
 void mu_1_threadlist::SimpleCanonicalize(PermSet& Perm)
 { Error.Error("Internal: Simple Canonicalization of Scalarset Array\n"); };
@@ -7724,28 +7760,28 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
   // sorting
   int count_mu_1_OBJSET_cacheL1C1;
   int compare;
-  static mu_1_thread value[2];
+  static mu_1_thread value[3];
   // limit
   bool exists;
   bool split;
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
   // range mapping
   int start;
   int class_size;
-  int size_mu_1_OBJSET_cacheL1C1[2];
-  int start_mu_1_OBJSET_cacheL1C1[2];
+  int size_mu_1_OBJSET_cacheL1C1[3];
+  int start_mu_1_OBJSET_cacheL1C1[3];
   // canonicalization
   static mu_1_threadlist temp;
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -7760,11 +7796,11 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -7774,7 +7810,7 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -7785,14 +7821,14 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -7802,12 +7838,12 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -7825,10 +7861,10 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
       for (j=0; j<=Perm.undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
         {
           class_size = 0;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               class_size++;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               {
                 size_mu_1_OBJSET_cacheL1C1[k] = class_size;
@@ -7839,8 +7875,8 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
 
       // canonicalize
       temp = *this;
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
          if (i >=start_mu_1_OBJSET_cacheL1C1[j] 
              && i < start_mu_1_OBJSET_cacheL1C1[j] + size_mu_1_OBJSET_cacheL1C1[j])
            {
@@ -7853,7 +7889,7 @@ void mu_1_threadlist::Canonicalize(PermSet& Perm)
 
       // fast canonicalize
       temp = *this;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         array[Perm.class_mu_1_OBJSET_cacheL1C1[j]+0] = temp[j+36];
     }
 }
@@ -7865,21 +7901,21 @@ void mu_1_threadlist::ArrayLimit(PermSet& Perm)
   // sorting
   int count_mu_1_OBJSET_cacheL1C1;
   int compare;
-  static mu_1_thread value[2];
+  static mu_1_thread value[3];
   // limit
   bool exists;
   bool split;
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -7894,11 +7930,11 @@ void mu_1_threadlist::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -7908,7 +7944,7 @@ void mu_1_threadlist::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -7919,14 +7955,14 @@ void mu_1_threadlist::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -7936,12 +7972,12 @@ void mu_1_threadlist::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -7991,10 +8027,10 @@ void mu_1_threadIndexes::Permute(PermSet& Perm, int i)
 {
   static mu_1_threadIndexes temp("Permute_mu_1_threadIndexes",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
     (*this)[j] = temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]];};
 void mu_1_threadIndexes::SimpleCanonicalize(PermSet& Perm)
 { Error.Error("Internal: Simple Canonicalization of Scalarset Array\n"); };
@@ -8005,28 +8041,28 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
   // sorting
   int count_mu_1_OBJSET_cacheL1C1;
   int compare;
-  static mu_1__type_2 value[2];
+  static mu_1__type_2 value[3];
   // limit
   bool exists;
   bool split;
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
   // range mapping
   int start;
   int class_size;
-  int size_mu_1_OBJSET_cacheL1C1[2];
-  int start_mu_1_OBJSET_cacheL1C1[2];
+  int size_mu_1_OBJSET_cacheL1C1[3];
+  int start_mu_1_OBJSET_cacheL1C1[3];
   // canonicalization
   static mu_1_threadIndexes temp;
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -8041,11 +8077,11 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -8055,7 +8091,7 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -8066,14 +8102,14 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -8083,12 +8119,12 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -8106,10 +8142,10 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
       for (j=0; j<=Perm.undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
         {
           class_size = 0;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               class_size++;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               {
                 size_mu_1_OBJSET_cacheL1C1[k] = class_size;
@@ -8120,8 +8156,8 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
 
       // canonicalize
       temp = *this;
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
          if (i >=start_mu_1_OBJSET_cacheL1C1[j] 
              && i < start_mu_1_OBJSET_cacheL1C1[j] + size_mu_1_OBJSET_cacheL1C1[j])
            {
@@ -8134,7 +8170,7 @@ void mu_1_threadIndexes::Canonicalize(PermSet& Perm)
 
       // fast canonicalize
       temp = *this;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         array[Perm.class_mu_1_OBJSET_cacheL1C1[j]+0] = temp[j+36];
     }
 }
@@ -8146,21 +8182,21 @@ void mu_1_threadIndexes::ArrayLimit(PermSet& Perm)
   // sorting
   int count_mu_1_OBJSET_cacheL1C1;
   int compare;
-  static mu_1__type_2 value[2];
+  static mu_1__type_2 value[3];
   // limit
   bool exists;
   bool split;
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -8175,11 +8211,11 @@ void mu_1_threadIndexes::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -8189,7 +8225,7 @@ void mu_1_threadIndexes::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -8200,14 +8236,14 @@ void mu_1_threadIndexes::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -8217,12 +8253,12 @@ void mu_1_threadIndexes::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -8259,14 +8295,14 @@ void mu_1__type_3::Permute(PermSet& Perm, int i)
 {
   static mu_1__type_3 temp("Permute_mu_1__type_3",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
 };
 void mu_1__type_3::SimpleCanonicalize(PermSet& Perm)
 { Error.Error("Internal: Simple Canonicalization of Scalarset Array\n"); };
 void mu_1__type_3::Canonicalize(PermSet& Perm)
 {
-  for (int j=0; j<2; j++)
+  for (int j=0; j<3; j++)
     array[j].Canonicalize(Perm);
 }
 void mu_1__type_3::SimpleLimit(PermSet& Perm){}
@@ -8278,10 +8314,10 @@ void mu_1_PermMonitor::Permute(PermSet& Perm, int i)
 {
   static mu_1_PermMonitor temp("Permute_mu_1_PermMonitor",-1);
   int j;
-  for (j=0; j<3; j++)
+  for (j=0; j<4; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
     (*this)[j] = temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]];
 };
 void mu_1_PermMonitor::SimpleCanonicalize(PermSet& Perm)
@@ -8294,22 +8330,22 @@ void mu_1_PermMonitor::ArrayLimit(PermSet& Perm)
   int i,j,k,z;
   // sorting
   int compare;
-  static mu_1__type_3 value[3];
+  static mu_1__type_3 value[4];
   // limit
   bool exists;
   bool split;
   int count_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -8324,11 +8360,11 @@ void mu_1_PermMonitor::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -8338,7 +8374,7 @@ void mu_1_PermMonitor::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -8349,14 +8385,14 @@ void mu_1_PermMonitor::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -8366,12 +8402,12 @@ void mu_1_PermMonitor::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -8389,7 +8425,7 @@ void mu_1_GlobalStoreMonitor::Permute(PermSet& Perm, int i)
 {
   static mu_1_GlobalStoreMonitor temp("Permute_mu_1_GlobalStoreMonitor",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
 };
 void mu_1_GlobalStoreMonitor::SimpleCanonicalize(PermSet& Perm)
@@ -8468,10 +8504,10 @@ void mu_1_NET_Ordered::Permute(PermSet& Perm, int i)
 {
   static mu_1_NET_Ordered temp("Permute_mu_1_NET_Ordered",-1);
   int j;
-  for (j=0; j<3; j++)
+  for (j=0; j<4; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
     (*this)[j] = temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]];
 };
 void mu_1_NET_Ordered::SimpleCanonicalize(PermSet& Perm)
@@ -8484,22 +8520,22 @@ void mu_1_NET_Ordered::ArrayLimit(PermSet& Perm)
   int i,j,k,z;
   // sorting
   int compare;
-  static mu_1__type_5 value[3];
+  static mu_1__type_5 value[4];
   // limit
   bool exists;
   bool split;
   int count_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -8514,11 +8550,11 @@ void mu_1_NET_Ordered::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -8528,7 +8564,7 @@ void mu_1_NET_Ordered::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -8539,14 +8575,14 @@ void mu_1_NET_Ordered::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -8556,12 +8592,12 @@ void mu_1_NET_Ordered::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -8579,23 +8615,23 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
   // while guard
   bool while_guard, while_guard_temp;
   // sorting
-  static mu_1__type_5 value[3];
+  static mu_1__type_5 value[4];
   // limit
   bool exists;
   bool split;
   int i0;
   int count_mu_1_OBJSET_cacheL1C1, oldcount_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   // initializing pos array
-  for (i=0; i<2; i++)
-    for (j=0; j<2; j++)
+  for (i=0; i<3; i++)
+    for (j=0; j<3; j++)
       pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
   count_mu_1_OBJSET_cacheL1C1 = 0;
   while (1)
     {
       exists = FALSE;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
        if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == count_mu_1_OBJSET_cacheL1C1)
          {
            pos_mu_1_OBJSET_cacheL1C1[count_mu_1_OBJSET_cacheL1C1][i]=TRUE;
@@ -8610,12 +8646,12 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
 
   // refinement -- check selfloop
   // only if there is more than 1 permutation in class
-  if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2)
+  if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3)
     {
       exists = FALSE;
       split = FALSE;
       // if there exists both self loop and non-self loop
-      for (k=0; k<2; k++) // step through class
+      for (k=0; k<3; k++) // step through class
         if ((*this)[k+36][i0].mu_src.isundefined()
             ||(*this)[k+36][i0].mu_src!=k+36)
           exists = TRUE;
@@ -8626,9 +8662,9 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] 
                     && !(*this)[k+36][i0].mu_src.isundefined()
                     && (*this)[k+36][i0].mu_src==k+36)
@@ -8639,15 +8675,15 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                           split= TRUE;
                   if (split)
                     {
                       for (j=count_mu_1_OBJSET_cacheL1C1; j>i; j--)
-                        for (k=0; k<2; k++)
+                        for (k=0; k<3; k++)
                           pos_mu_1_OBJSET_cacheL1C1[j][k] = pos_mu_1_OBJSET_cacheL1C1[j-1][k];
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         {
                           if (pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                             pos_mu_1_OBJSET_cacheL1C1[i][k] = FALSE;
@@ -8663,12 +8699,12 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
 
   // refinement -- check selfloop
   // only if there is more than 1 permutation in class
-  if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2)
+  if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3)
     {
       exists = FALSE;
       split = FALSE;
       // if there exists both self loop and non-self loop
-      for (k=0; k<2; k++) // step through class
+      for (k=0; k<3; k++) // step through class
         if ((*this)[k+36][i0].mu_dst.isundefined()
             ||(*this)[k+36][i0].mu_dst!=k+36)
           exists = TRUE;
@@ -8679,9 +8715,9 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] 
                     && !(*this)[k+36][i0].mu_dst.isundefined()
                     && (*this)[k+36][i0].mu_dst==k+36)
@@ -8692,15 +8728,15 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                           split= TRUE;
                   if (split)
                     {
                       for (j=count_mu_1_OBJSET_cacheL1C1; j>i; j--)
-                        for (k=0; k<2; k++)
+                        for (k=0; k<3; k++)
                           pos_mu_1_OBJSET_cacheL1C1[j][k] = pos_mu_1_OBJSET_cacheL1C1[j-1][k];
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         {
                           if (pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                             pos_mu_1_OBJSET_cacheL1C1[i][k] = FALSE;
@@ -8717,7 +8753,7 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
 
   // refinement -- checking priority in general
   while_guard = FALSE;
-  while_guard = while_guard || (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2);
+  while_guard = while_guard || (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3);
   while ( while_guard )
     {
       oldcount_mu_1_OBJSET_cacheL1C1 = count_mu_1_OBJSET_cacheL1C1;
@@ -8728,15 +8764,15 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
       // refinement -- graph structure for a single scalarset
       //               as in array S1 of S1
       // only if there is more than 1 permutation in class
-      if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2)
+      if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3)
         {
           exists = FALSE;
           split = FALSE;
-          for (k=0; k<2; k++) // step through class
+          for (k=0; k<3; k++) // step through class
             if (!(*this)[k+36][i0].mu_src.isundefined()
                 &&(*this)[k+36][i0].mu_src!=k+36
                 &&(*this)[k+36][i0].mu_src>=36
-                &&(*this)[k+36][i0].mu_src<=37)
+                &&(*this)[k+36][i0].mu_src<=38)
               exists = TRUE;
           if (exists)
             {
@@ -8745,14 +8781,14 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
                   for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++) // for value priority
                     {
                       exists = FALSE;
-                      for (k=0; k<2; k++) // step through class
+                      for (k=0; k<3; k++) // step through class
                         goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-                      for (k=0; k<2; k++) // step through class
+                      for (k=0; k<3; k++) // step through class
                         if (pos_mu_1_OBJSET_cacheL1C1[i][k] 
                             && !(*this)[k+36][i0].mu_src.isundefined()
                             && (*this)[k+36][i0].mu_src!=k+36
                             && (*this)[k+36][i0].mu_src>=36
-                            && (*this)[k+36][i0].mu_src<=37
+                            && (*this)[k+36][i0].mu_src<=38
                             && pos_mu_1_OBJSET_cacheL1C1[j][(*this)[k+36][i0].mu_src-36])
                           {
                             exists = TRUE;
@@ -8761,15 +8797,15 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
                       if (exists)
                         {
                           split=FALSE;
-                          for (k=0; k<2; k++)
+                          for (k=0; k<3; k++)
                             if ( pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                               split= TRUE;
                           if (split)
                             {
                               for (j=count_mu_1_OBJSET_cacheL1C1; j>i; j--)
-                                for (k=0; k<2; k++)
+                                for (k=0; k<3; k++)
                                   pos_mu_1_OBJSET_cacheL1C1[j][k] = pos_mu_1_OBJSET_cacheL1C1[j-1][k];
-                              for (k=0; k<2; k++)
+                              for (k=0; k<3; k++)
                                 {
                                   if (pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                                     pos_mu_1_OBJSET_cacheL1C1[i][k] = FALSE;
@@ -8787,15 +8823,15 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
       // refinement -- graph structure for a single scalarset
       //               as in array S1 of S1
       // only if there is more than 1 permutation in class
-      if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2)
+      if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3)
         {
           exists = FALSE;
           split = FALSE;
-          for (k=0; k<2; k++) // step through class
+          for (k=0; k<3; k++) // step through class
             if (!(*this)[k+36][i0].mu_dst.isundefined()
                 &&(*this)[k+36][i0].mu_dst!=k+36
                 &&(*this)[k+36][i0].mu_dst>=36
-                &&(*this)[k+36][i0].mu_dst<=37)
+                &&(*this)[k+36][i0].mu_dst<=38)
               exists = TRUE;
           if (exists)
             {
@@ -8804,14 +8840,14 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
                   for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++) // for value priority
                     {
                       exists = FALSE;
-                      for (k=0; k<2; k++) // step through class
+                      for (k=0; k<3; k++) // step through class
                         goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-                      for (k=0; k<2; k++) // step through class
+                      for (k=0; k<3; k++) // step through class
                         if (pos_mu_1_OBJSET_cacheL1C1[i][k] 
                             && !(*this)[k+36][i0].mu_dst.isundefined()
                             && (*this)[k+36][i0].mu_dst!=k+36
                             && (*this)[k+36][i0].mu_dst>=36
-                            && (*this)[k+36][i0].mu_dst<=37
+                            && (*this)[k+36][i0].mu_dst<=38
                             && pos_mu_1_OBJSET_cacheL1C1[j][(*this)[k+36][i0].mu_dst-36])
                           {
                             exists = TRUE;
@@ -8820,15 +8856,15 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
                       if (exists)
                         {
                           split=FALSE;
-                          for (k=0; k<2; k++)
+                          for (k=0; k<3; k++)
                             if ( pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                               split= TRUE;
                           if (split)
                             {
                               for (j=count_mu_1_OBJSET_cacheL1C1; j>i; j--)
-                                for (k=0; k<2; k++)
+                                for (k=0; k<3; k++)
                                   pos_mu_1_OBJSET_cacheL1C1[j][k] = pos_mu_1_OBJSET_cacheL1C1[j-1][k];
-                              for (k=0; k<2; k++)
+                              for (k=0; k<3; k++)
                                 {
                                   if (pos_mu_1_OBJSET_cacheL1C1[i][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                                     pos_mu_1_OBJSET_cacheL1C1[i][k] = FALSE;
@@ -8851,18 +8887,18 @@ void mu_1_NET_Ordered::Limit(PermSet& Perm)
       while_guard = while_guard || (oldcount_mu_1_OBJSET_cacheL1C1!=count_mu_1_OBJSET_cacheL1C1);
       while_guard_temp = while_guard;
       while_guard = FALSE;
-      while_guard = while_guard || count_mu_1_OBJSET_cacheL1C1<2;
+      while_guard = while_guard || count_mu_1_OBJSET_cacheL1C1<3;
       while_guard = while_guard && while_guard_temp;
     } // end while
   // enter the result into class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           if (pos_mu_1_OBJSET_cacheL1C1[i][j])
             Perm.class_mu_1_OBJSET_cacheL1C1[j] = i;
       Perm.undefined_class_mu_1_OBJSET_cacheL1C1=0;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         if (Perm.class_mu_1_OBJSET_cacheL1C1[j]>Perm.undefined_class_mu_1_OBJSET_cacheL1C1)
           Perm.undefined_class_mu_1_OBJSET_cacheL1C1=Perm.class_mu_1_OBJSET_cacheL1C1[j];
     }
@@ -8881,10 +8917,10 @@ void mu_1_NET_Ordered_cnt::Permute(PermSet& Perm, int i)
 {
   static mu_1_NET_Ordered_cnt temp("Permute_mu_1_NET_Ordered_cnt",-1);
   int j;
-  for (j=0; j<3; j++)
+  for (j=0; j<4; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
       (*this)[j].value(temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]].value());
 };
 void mu_1_NET_Ordered_cnt::SimpleCanonicalize(PermSet& Perm)
@@ -8894,7 +8930,7 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
   // indexes
   int i,j,k,z;
   // sorting
-  static mu_1__type_6 value[3];
+  static mu_1__type_6 value[4];
   int compare;
   // limit
   bool exists;
@@ -8905,19 +8941,19 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
   // canonicalization
   static mu_1_NET_Ordered_cnt temp;
   int count_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  int size_mu_1_OBJSET_cacheL1C1[2];
-  int start_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  int size_mu_1_OBJSET_cacheL1C1[3];
+  int start_mu_1_OBJSET_cacheL1C1[3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -8932,11 +8968,11 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k].value(value[k-1].value());
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j].value((*this)[i+36].value());
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -8946,7 +8982,7 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
                 value[j].value((*this)[i+36].value());
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -8957,14 +8993,14 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -8974,12 +9010,12 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -8997,10 +9033,10 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
       for (j=0; j<=Perm.undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
         {
           class_size = 0;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               class_size++;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               {
                 size_mu_1_OBJSET_cacheL1C1[k] = class_size;
@@ -9011,8 +9047,8 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
 
       // canonicalize
       temp = *this;
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
          if (i >=start_mu_1_OBJSET_cacheL1C1[j] 
              && i < start_mu_1_OBJSET_cacheL1C1[j] + size_mu_1_OBJSET_cacheL1C1[j])
            {
@@ -9025,7 +9061,7 @@ void mu_1_NET_Ordered_cnt::Canonicalize(PermSet& Perm)
 
       // fast canonicalize
       temp = *this;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         array[Perm.class_mu_1_OBJSET_cacheL1C1[j]+0].value(temp[j+36].value());
     }
 }
@@ -9036,22 +9072,22 @@ void mu_1_NET_Ordered_cnt::ArrayLimit(PermSet& Perm)
   int i,j,k,z;
   // sorting
   int compare;
-  static mu_1__type_6 value[3];
+  static mu_1__type_6 value[4];
   // limit
   bool exists;
   bool split;
   int count_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -9066,11 +9102,11 @@ void mu_1_NET_Ordered_cnt::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k].value(value[k-1].value());
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j].value((*this)[i+36].value());
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -9080,7 +9116,7 @@ void mu_1_NET_Ordered_cnt::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
                 value[j].value((*this)[i+36].value());
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -9091,14 +9127,14 @@ void mu_1_NET_Ordered_cnt::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -9108,12 +9144,12 @@ void mu_1_NET_Ordered_cnt::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -9157,8 +9193,8 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
   bool split;
   int i0;
   int count_mu_1_OBJSET_cacheL1C1, oldcount_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   int count_multisetindex, oldcount_multisetindex;
   bool pos_multisetindex[3][3];
   bool goodset_multisetindex[3];
@@ -9209,14 +9245,14 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
     {
 
   // initializing pos array
-  for (i=0; i<2; i++)
-    for (j=0; j<2; j++)
+  for (i=0; i<3; i++)
+    for (j=0; j<3; j++)
       pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
   count_mu_1_OBJSET_cacheL1C1 = 0;
   while (1)
     {
       exists = FALSE;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
        if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == count_mu_1_OBJSET_cacheL1C1)
          {
            pos_mu_1_OBJSET_cacheL1C1[count_mu_1_OBJSET_cacheL1C1][i]=TRUE;
@@ -9228,7 +9264,7 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
 
   // refinement -- checking priority in general
   while_guard = (count_multisetindex < current_size);
-  while_guard = while_guard || (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2);
+  while_guard = while_guard || (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3);
   while ( while_guard )
     {
       oldcount_multisetindex = count_multisetindex;
@@ -9238,14 +9274,14 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
       //               as in array S1 of S2
       // only if there is more than 1 permutation in class
       if ( (count_multisetindex<current_size)
-           || ( Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2) )
+           || ( Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3) )
         {
           exists = FALSE;
           split = FALSE;
           for (k=0; k<current_size; k++) // step through class
             if ((!(*this)[k].mu_src.isundefined())
                 && (*this)[k].mu_src>=36
-                && (*this)[k].mu_src<=37)
+                && (*this)[k].mu_src<=38)
               split = TRUE;
           if (split)
             {
@@ -9255,14 +9291,14 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
                     exists = FALSE;
                     for (k=0; k<current_size; k++) // initialize goodset
                       goodset_multisetindex[k] = FALSE;
-                    for (k=0; k<2; k++) // initialize goodset
+                    for (k=0; k<3; k++) // initialize goodset
                       goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
                     for (k=0; k<current_size; k++) // scan array index
                       // set goodsets
                       if (pos_multisetindex[i][k] 
                           && !(*this)[k].mu_src.isundefined()
                           && (*this)[k].mu_src>=36
-                          && (*this)[k].mu_src<=37
+                          && (*this)[k].mu_src<=38
                           && pos_mu_1_OBJSET_cacheL1C1[j][(*this)[k].mu_src-36])
                         {
                           exists = TRUE;
@@ -9294,17 +9330,17 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
                           }
                         // set split for the element type
                         split=FALSE;
-                        for (k=0; k<2; k++)
+                        for (k=0; k<3; k++)
                           if ( pos_mu_1_OBJSET_cacheL1C1[j][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] )
                             split= TRUE;
                         if (split)
                           {
                             // move following pos entries down 1 step
                             for (z=count_mu_1_OBJSET_cacheL1C1; z>j; z--)
-                              for (k=0; k<2; k++)
+                              for (k=0; k<3; k++)
                                 pos_mu_1_OBJSET_cacheL1C1[z][k] = pos_mu_1_OBJSET_cacheL1C1[z-1][k];
                             // split pos
-                            for (k=0; k<2; k++)
+                            for (k=0; k<3; k++)
                               {
                                 if (pos_mu_1_OBJSET_cacheL1C1[j][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                                   pos_mu_1_OBJSET_cacheL1C1[j][k] = FALSE;
@@ -9322,14 +9358,14 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
       //               as in array S1 of S2
       // only if there is more than 1 permutation in class
       if ( (count_multisetindex<current_size)
-           || ( Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2) )
+           || ( Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3) )
         {
           exists = FALSE;
           split = FALSE;
           for (k=0; k<current_size; k++) // step through class
             if ((!(*this)[k].mu_dst.isundefined())
                 && (*this)[k].mu_dst>=36
-                && (*this)[k].mu_dst<=37)
+                && (*this)[k].mu_dst<=38)
               split = TRUE;
           if (split)
             {
@@ -9339,14 +9375,14 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
                     exists = FALSE;
                     for (k=0; k<current_size; k++) // initialize goodset
                       goodset_multisetindex[k] = FALSE;
-                    for (k=0; k<2; k++) // initialize goodset
+                    for (k=0; k<3; k++) // initialize goodset
                       goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
                     for (k=0; k<current_size; k++) // scan array index
                       // set goodsets
                       if (pos_multisetindex[i][k] 
                           && !(*this)[k].mu_dst.isundefined()
                           && (*this)[k].mu_dst>=36
-                          && (*this)[k].mu_dst<=37
+                          && (*this)[k].mu_dst<=38
                           && pos_mu_1_OBJSET_cacheL1C1[j][(*this)[k].mu_dst-36])
                         {
                           exists = TRUE;
@@ -9378,17 +9414,17 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
                           }
                         // set split for the element type
                         split=FALSE;
-                        for (k=0; k<2; k++)
+                        for (k=0; k<3; k++)
                           if ( pos_mu_1_OBJSET_cacheL1C1[j][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] )
                             split= TRUE;
                         if (split)
                           {
                             // move following pos entries down 1 step
                             for (z=count_mu_1_OBJSET_cacheL1C1; z>j; z--)
-                              for (k=0; k<2; k++)
+                              for (k=0; k<3; k++)
                                 pos_mu_1_OBJSET_cacheL1C1[z][k] = pos_mu_1_OBJSET_cacheL1C1[z-1][k];
                             // split pos
-                            for (k=0; k<2; k++)
+                            for (k=0; k<3; k++)
                               {
                                 if (pos_mu_1_OBJSET_cacheL1C1[j][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                                   pos_mu_1_OBJSET_cacheL1C1[j][k] = FALSE;
@@ -9405,18 +9441,18 @@ void mu_1__type_7::MultisetLimit(PermSet& Perm)
       while_guard = while_guard || (oldcount_mu_1_OBJSET_cacheL1C1!=count_mu_1_OBJSET_cacheL1C1);
       while_guard_temp = while_guard;
       while_guard = (count_multisetindex < current_size);
-      while_guard = while_guard || count_mu_1_OBJSET_cacheL1C1<2;
+      while_guard = while_guard || count_mu_1_OBJSET_cacheL1C1<3;
       while_guard = while_guard && while_guard_temp;
     } // end while
   // enter the result into class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           if (pos_mu_1_OBJSET_cacheL1C1[i][j])
             Perm.class_mu_1_OBJSET_cacheL1C1[j] = i;
       Perm.undefined_class_mu_1_OBJSET_cacheL1C1=0;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         if (Perm.class_mu_1_OBJSET_cacheL1C1[j]>Perm.undefined_class_mu_1_OBJSET_cacheL1C1)
           Perm.undefined_class_mu_1_OBJSET_cacheL1C1=Perm.class_mu_1_OBJSET_cacheL1C1[j];
     }
@@ -9426,10 +9462,10 @@ void mu_1_NET_Unordered::Permute(PermSet& Perm, int i)
 {
   static mu_1_NET_Unordered temp("Permute_mu_1_NET_Unordered",-1);
   int j;
-  for (j=0; j<3; j++)
+  for (j=0; j<4; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
     (*this)[j] = temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]];
 };
 void mu_1_NET_Unordered::SimpleCanonicalize(PermSet& Perm)
@@ -9442,22 +9478,22 @@ void mu_1_NET_Unordered::ArrayLimit(PermSet& Perm)
   int i,j,k,z;
   // sorting
   int compare;
-  static mu_1__type_7 value[3];
+  static mu_1__type_7 value[4];
   // limit
   bool exists;
   bool split;
   int count_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -9472,11 +9508,11 @@ void mu_1_NET_Unordered::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -9486,7 +9522,7 @@ void mu_1_NET_Unordered::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -9497,14 +9533,14 @@ void mu_1_NET_Unordered::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -9514,12 +9550,12 @@ void mu_1_NET_Unordered::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -9563,8 +9599,8 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
   bool split;
   int i0;
   int count_mu_1_OBJSET_cacheL1C1, oldcount_mu_1_OBJSET_cacheL1C1;
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
   int count_multisetindex, oldcount_multisetindex;
   bool pos_multisetindex[3][3];
   bool goodset_multisetindex[3];
@@ -9615,14 +9651,14 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
     {
 
   // initializing pos array
-  for (i=0; i<2; i++)
-    for (j=0; j<2; j++)
+  for (i=0; i<3; i++)
+    for (j=0; j<3; j++)
       pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
   count_mu_1_OBJSET_cacheL1C1 = 0;
   while (1)
     {
       exists = FALSE;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
        if (Perm.class_mu_1_OBJSET_cacheL1C1[i] == count_mu_1_OBJSET_cacheL1C1)
          {
            pos_mu_1_OBJSET_cacheL1C1[count_mu_1_OBJSET_cacheL1C1][i]=TRUE;
@@ -9634,7 +9670,7 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
 
   // refinement -- checking priority in general
   while_guard = (count_multisetindex < current_size);
-  while_guard = while_guard || (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2);
+  while_guard = while_guard || (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3);
   while ( while_guard )
     {
       oldcount_multisetindex = count_multisetindex;
@@ -9644,14 +9680,14 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
       //               as in array S1 of S2
       // only if there is more than 1 permutation in class
       if ( (count_multisetindex<current_size)
-           || ( Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<2) )
+           || ( Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1<3) )
         {
           exists = FALSE;
           split = FALSE;
           for (k=0; k<current_size; k++) // step through class
             if ((!(*this)[k].isundefined())
                 && (*this)[k]>=36
-                && (*this)[k]<=37)
+                && (*this)[k]<=38)
               split = TRUE;
           if (split)
             {
@@ -9661,14 +9697,14 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
                     exists = FALSE;
                     for (k=0; k<current_size; k++) // initialize goodset
                       goodset_multisetindex[k] = FALSE;
-                    for (k=0; k<2; k++) // initialize goodset
+                    for (k=0; k<3; k++) // initialize goodset
                       goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
                     for (k=0; k<current_size; k++) // scan array index
                       // set goodsets
                       if (pos_multisetindex[i][k] 
                           && !(*this)[k].isundefined()
                           && (*this)[k]>=36
-                          && (*this)[k]<=37
+                          && (*this)[k]<=38
                           && pos_mu_1_OBJSET_cacheL1C1[j][(*this)[k]-36])
                         {
                           exists = TRUE;
@@ -9700,17 +9736,17 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
                           }
                         // set split for the element type
                         split=FALSE;
-                        for (k=0; k<2; k++)
+                        for (k=0; k<3; k++)
                           if ( pos_mu_1_OBJSET_cacheL1C1[j][k] && !goodset_mu_1_OBJSET_cacheL1C1[k] )
                             split= TRUE;
                         if (split)
                           {
                             // move following pos entries down 1 step
                             for (z=count_mu_1_OBJSET_cacheL1C1; z>j; z--)
-                              for (k=0; k<2; k++)
+                              for (k=0; k<3; k++)
                                 pos_mu_1_OBJSET_cacheL1C1[z][k] = pos_mu_1_OBJSET_cacheL1C1[z-1][k];
                             // split pos
-                            for (k=0; k<2; k++)
+                            for (k=0; k<3; k++)
                               {
                                 if (pos_mu_1_OBJSET_cacheL1C1[j][k] && !goodset_mu_1_OBJSET_cacheL1C1[k])
                                   pos_mu_1_OBJSET_cacheL1C1[j][k] = FALSE;
@@ -9727,18 +9763,18 @@ void mu_1_v_directoryL1C1_cacheL1C1::MultisetLimit(PermSet& Perm)
       while_guard = while_guard || (oldcount_mu_1_OBJSET_cacheL1C1!=count_mu_1_OBJSET_cacheL1C1);
       while_guard_temp = while_guard;
       while_guard = (count_multisetindex < current_size);
-      while_guard = while_guard || count_mu_1_OBJSET_cacheL1C1<2;
+      while_guard = while_guard || count_mu_1_OBJSET_cacheL1C1<3;
       while_guard = while_guard && while_guard_temp;
     } // end while
   // enter the result into class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           if (pos_mu_1_OBJSET_cacheL1C1[i][j])
             Perm.class_mu_1_OBJSET_cacheL1C1[j] = i;
       Perm.undefined_class_mu_1_OBJSET_cacheL1C1=0;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         if (Perm.class_mu_1_OBJSET_cacheL1C1[j]>Perm.undefined_class_mu_1_OBJSET_cacheL1C1)
           Perm.undefined_class_mu_1_OBJSET_cacheL1C1=Perm.class_mu_1_OBJSET_cacheL1C1[j];
     }
@@ -9781,18 +9817,18 @@ void mu_1__type_8::Permute(PermSet& Perm, int i)
 {
   static mu_1__type_8 temp("Permute_mu_1__type_8",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
 };
 void mu_1__type_8::SimpleCanonicalize(PermSet& Perm)
 {
-  for (int j=0; j<2; j++)
+  for (int j=0; j<3; j++)
     array[j].SimpleCanonicalize(Perm);
 }
 void mu_1__type_8::Canonicalize(PermSet& Perm){};
 void mu_1__type_8::SimpleLimit(PermSet& Perm)
 {
-  for (int j=0; j<2; j++) {
+  for (int j=0; j<3; j++) {
     array[j].SimpleLimit(Perm);
   }
 }
@@ -9800,7 +9836,7 @@ void mu_1__type_8::ArrayLimit(PermSet& Perm) {}
 void mu_1__type_8::Limit(PermSet& Perm){}
 void mu_1__type_8::MultisetLimit(PermSet& Perm)
 {
-  for (int j=0; j<2; j++) {
+  for (int j=0; j<3; j++) {
     array[j].MultisetLimit(Perm);
   }
 }
@@ -9891,7 +9927,7 @@ void mu_1__type_11::Permute(PermSet& Perm, int i)
 {
   static mu_1__type_11 temp("Permute_mu_1__type_11",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
 };
 void mu_1__type_11::SimpleCanonicalize(PermSet& Perm)
@@ -9922,10 +9958,10 @@ void mu_1_OBJ_cacheL1C1::Permute(PermSet& Perm, int i)
 {
   static mu_1_OBJ_cacheL1C1 temp("Permute_mu_1_OBJ_cacheL1C1",-1);
   int j;
-  for (j=0; j<2; j++)
+  for (j=0; j<3; j++)
     array[j].Permute(Perm, i);
   temp = *this;
-  for (j=36; j<=37; j++)
+  for (j=36; j<=38; j++)
     (*this)[j] = temp[Perm.revperm_mu_1_OBJSET_cacheL1C1[Perm.in_mu_1_OBJSET_cacheL1C1[i]][j-36]];};
 void mu_1_OBJ_cacheL1C1::SimpleCanonicalize(PermSet& Perm)
 { Error.Error("Internal: Simple Canonicalization of Scalarset Array\n"); };
@@ -9936,28 +9972,28 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
   // sorting
   int count_mu_1_OBJSET_cacheL1C1;
   int compare;
-  static mu_1_MACH_cacheL1C1 value[2];
+  static mu_1_MACH_cacheL1C1 value[3];
   // limit
   bool exists;
   bool split;
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
   // range mapping
   int start;
   int class_size;
-  int size_mu_1_OBJSET_cacheL1C1[2];
-  int start_mu_1_OBJSET_cacheL1C1[2];
+  int size_mu_1_OBJSET_cacheL1C1[3];
+  int start_mu_1_OBJSET_cacheL1C1[3];
   // canonicalization
   static mu_1_OBJ_cacheL1C1 temp;
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -9972,11 +10008,11 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -9986,7 +10022,7 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -9997,14 +10033,14 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -10014,12 +10050,12 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -10037,10 +10073,10 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
       for (j=0; j<=Perm.undefined_class_mu_1_OBJSET_cacheL1C1; j++) // class number
         {
           class_size = 0;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               class_size++;
-          for (k=0; k<2; k++) // step through class[k]
+          for (k=0; k<3; k++) // step through class[k]
             if (Perm.class_mu_1_OBJSET_cacheL1C1[k]==j)
               {
                 size_mu_1_OBJSET_cacheL1C1[k] = class_size;
@@ -10051,8 +10087,8 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
 
       // canonicalize
       temp = *this;
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
          if (i >=start_mu_1_OBJSET_cacheL1C1[j] 
              && i < start_mu_1_OBJSET_cacheL1C1[j] + size_mu_1_OBJSET_cacheL1C1[j])
            {
@@ -10065,7 +10101,7 @@ void mu_1_OBJ_cacheL1C1::Canonicalize(PermSet& Perm)
 
       // fast canonicalize
       temp = *this;
-      for (j=0; j<2; j++)
+      for (j=0; j<3; j++)
         array[Perm.class_mu_1_OBJSET_cacheL1C1[j]+0] = temp[j+36];
     }
 }
@@ -10077,21 +10113,21 @@ void mu_1_OBJ_cacheL1C1::ArrayLimit(PermSet& Perm)
   // sorting
   int count_mu_1_OBJSET_cacheL1C1;
   int compare;
-  static mu_1_MACH_cacheL1C1 value[2];
+  static mu_1_MACH_cacheL1C1 value[3];
   // limit
   bool exists;
   bool split;
-  bool goodset_mu_1_OBJSET_cacheL1C1[2];
-  bool pos_mu_1_OBJSET_cacheL1C1[2][2];
+  bool goodset_mu_1_OBJSET_cacheL1C1[3];
+  bool pos_mu_1_OBJSET_cacheL1C1[3][3];
   // sorting mu_1_OBJSET_cacheL1C1
   // only if there is more than 1 permutation in class
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1())
     {
-      for (i=0; i<2; i++)
-        for (j=0; j<2; j++)
+      for (i=0; i<3; i++)
+        for (j=0; j<3; j++)
           pos_mu_1_OBJSET_cacheL1C1[i][j]=FALSE;
       count_mu_1_OBJSET_cacheL1C1 = 0;
-      for (i=0; i<2; i++)
+      for (i=0; i<3; i++)
         {
           for (j=0; j<count_mu_1_OBJSET_cacheL1C1; j++)
             {
@@ -10106,11 +10142,11 @@ void mu_1_OBJ_cacheL1C1::ArrayLimit(PermSet& Perm)
                   for (k=count_mu_1_OBJSET_cacheL1C1; k>j; k--)
                     {
                       value[k] = value[k-1];
-                      for (z=0; z<2; z++)
+                      for (z=0; z<3; z++)
                         pos_mu_1_OBJSET_cacheL1C1[k][z] = pos_mu_1_OBJSET_cacheL1C1[k-1][z];
                     }
                   value[j] = (*this)[i+36];
-                  for (z=0; z<2; z++)
+                  for (z=0; z<3; z++)
                     pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
                   pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
                   count_mu_1_OBJSET_cacheL1C1++;
@@ -10120,7 +10156,7 @@ void mu_1_OBJ_cacheL1C1::ArrayLimit(PermSet& Perm)
           if (j==count_mu_1_OBJSET_cacheL1C1)
             {
               value[j] = (*this)[i+36];
-              for (z=0; z<2; z++)
+              for (z=0; z<3; z++)
                 pos_mu_1_OBJSET_cacheL1C1[j][z] = FALSE;
               pos_mu_1_OBJSET_cacheL1C1[j][i] = TRUE;
               count_mu_1_OBJSET_cacheL1C1++;
@@ -10131,14 +10167,14 @@ void mu_1_OBJ_cacheL1C1::ArrayLimit(PermSet& Perm)
   if (Perm.MTO_class_mu_1_OBJSET_cacheL1C1() && count_mu_1_OBJSET_cacheL1C1>1)
     {
       // limit
-      for (j=0; j<2; j++) // class priority
+      for (j=0; j<3; j++) // class priority
         {
           for (i=0; i<count_mu_1_OBJSET_cacheL1C1; i++) // for value priority
             {
               exists = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 goodset_mu_1_OBJSET_cacheL1C1[k] = FALSE;
-              for (k=0; k<2; k++) // step through class
+              for (k=0; k<3; k++) // step through class
                 if (pos_mu_1_OBJSET_cacheL1C1[i][k] && Perm.class_mu_1_OBJSET_cacheL1C1[k] == j)
                   {
                     exists = TRUE;
@@ -10148,12 +10184,12 @@ void mu_1_OBJ_cacheL1C1::ArrayLimit(PermSet& Perm)
               if (exists)
                 {
                   split=FALSE;
-                  for (k=0; k<2; k++)
+                  for (k=0; k<3; k++)
                     if ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) 
                       split= TRUE;
                   if (split)
                     {
-                      for (k=0; k<2; k++)
+                      for (k=0; k<3; k++)
                         if (Perm.class_mu_1_OBJSET_cacheL1C1[k]>j
                             || ( Perm.class_mu_1_OBJSET_cacheL1C1[k] == j && !goodset_mu_1_OBJSET_cacheL1C1[k] ) )
                           Perm.class_mu_1_OBJSET_cacheL1C1[k]++;
@@ -10220,15 +10256,18 @@ bool match(state* ns, StatePtr p)
               if (ns != workingstate)
                   StateCopy(workingstate, ns);
               
-              mu_i_thread1.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_i_thread1.MultisetSort();
-              mu_g_monitor_store.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_g_monitor_store.MultisetSort();
               mu_i_thread2.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_i_thread2.MultisetSort();
+              mu_g_monitor_store.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_g_monitor_store.MultisetSort();
+              mu_i_thread1.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_i_thread1.MultisetSort();
+              mu_i_thread3.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_i_thread3.MultisetSort();
               mu_initializer.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_initializer.MultisetSort();
@@ -10241,36 +10280,36 @@ bool match(state* ns, StatePtr p)
               mu_i_threadlist.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_i_threadlist.MultisetSort();
-              mu_cnt_fwd.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_cnt_fwd.MultisetSort();
-              mu_cnt_resp.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_cnt_resp.MultisetSort();
-              mu_cnt_req.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_cnt_req.MultisetSort();
               mu_i_cacheL1C1.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_i_cacheL1C1.MultisetSort();
+              mu_cnt_req.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_cnt_req.MultisetSort();
+              mu_cnt_resp.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_cnt_resp.MultisetSort();
+              mu_cnt_fwd.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_cnt_fwd.MultisetSort();
               mu_i_threadIndexes.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_i_threadIndexes.MultisetSort();
-              mu_req.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_req.MultisetSort();
-              mu_resp.Permute(Perm,i);
-              if (args->multiset_reduction.value)
-                mu_resp.MultisetSort();
               mu_fwd.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_fwd.MultisetSort();
-              mu_i_directoryL1C1.Permute(Perm,i);
+              mu_resp.Permute(Perm,i);
               if (args->multiset_reduction.value)
-                mu_i_directoryL1C1.MultisetSort();
+                mu_resp.MultisetSort();
+              mu_req.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_req.MultisetSort();
               mu_g_perm.Permute(Perm,i);
               if (args->multiset_reduction.value)
                 mu_g_perm.MultisetSort();
+              mu_i_directoryL1C1.Permute(Perm,i);
+              if (args->multiset_reduction.value)
+                mu_i_directoryL1C1.MultisetSort();
             if (p.compare(workingstate)) {
               StateCopy(workingstate,&temp); return TRUE; }
           }
@@ -10283,15 +10322,18 @@ bool match(state* ns, StatePtr p)
         if (ns != workingstate)
           StateCopy(workingstate, ns);
 
-          mu_i_thread1.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_i_thread1.MultisetSort();
-          mu_g_monitor_store.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_g_monitor_store.MultisetSort();
           mu_i_thread2.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_i_thread2.MultisetSort();
+          mu_g_monitor_store.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_g_monitor_store.MultisetSort();
+          mu_i_thread1.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_i_thread1.MultisetSort();
+          mu_i_thread3.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_i_thread3.MultisetSort();
           mu_initializer.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_initializer.MultisetSort();
@@ -10304,36 +10346,36 @@ bool match(state* ns, StatePtr p)
           mu_i_threadlist.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_i_threadlist.MultisetSort();
-          mu_cnt_fwd.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_cnt_fwd.MultisetSort();
-          mu_cnt_resp.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_cnt_resp.MultisetSort();
-          mu_cnt_req.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_cnt_req.MultisetSort();
           mu_i_cacheL1C1.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_i_cacheL1C1.MultisetSort();
+          mu_cnt_req.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_cnt_req.MultisetSort();
+          mu_cnt_resp.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_cnt_resp.MultisetSort();
+          mu_cnt_fwd.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_cnt_fwd.MultisetSort();
           mu_i_threadIndexes.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_i_threadIndexes.MultisetSort();
-          mu_req.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_req.MultisetSort();
-          mu_resp.Permute(Perm,0);
-          if (args->multiset_reduction.value)
-            mu_resp.MultisetSort();
           mu_fwd.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_fwd.MultisetSort();
-          mu_i_directoryL1C1.Permute(Perm,0);
+          mu_resp.Permute(Perm,0);
           if (args->multiset_reduction.value)
-            mu_i_directoryL1C1.MultisetSort();
+            mu_resp.MultisetSort();
+          mu_req.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_req.MultisetSort();
           mu_g_perm.Permute(Perm,0);
           if (args->multiset_reduction.value)
             mu_g_perm.MultisetSort();
+          mu_i_directoryL1C1.Permute(Perm,0);
+          if (args->multiset_reduction.value)
+            mu_i_directoryL1C1.MultisetSort();
         if (p.compare(workingstate)) {
           StateCopy(workingstate,&temp); return TRUE; }
 
@@ -10342,15 +10384,18 @@ bool match(state* ns, StatePtr p)
             if (ns != workingstate)
               StateCopy(workingstate, ns);
               
-              mu_i_thread1.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_i_thread1.MultisetSort();
-              mu_g_monitor_store.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_g_monitor_store.MultisetSort();
               mu_i_thread2.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_i_thread2.MultisetSort();
+              mu_g_monitor_store.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_g_monitor_store.MultisetSort();
+              mu_i_thread1.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_i_thread1.MultisetSort();
+              mu_i_thread3.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_i_thread3.MultisetSort();
               mu_initializer.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_initializer.MultisetSort();
@@ -10363,36 +10408,36 @@ bool match(state* ns, StatePtr p)
               mu_i_threadlist.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_i_threadlist.MultisetSort();
-              mu_cnt_fwd.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_cnt_fwd.MultisetSort();
-              mu_cnt_resp.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_cnt_resp.MultisetSort();
-              mu_cnt_req.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_cnt_req.MultisetSort();
               mu_i_cacheL1C1.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_i_cacheL1C1.MultisetSort();
+              mu_cnt_req.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_cnt_req.MultisetSort();
+              mu_cnt_resp.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_cnt_resp.MultisetSort();
+              mu_cnt_fwd.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_cnt_fwd.MultisetSort();
               mu_i_threadIndexes.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_i_threadIndexes.MultisetSort();
-              mu_req.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_req.MultisetSort();
-              mu_resp.Permute(Perm,0);
-              if (args->multiset_reduction.value)
-                mu_resp.MultisetSort();
               mu_fwd.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_fwd.MultisetSort();
-              mu_i_directoryL1C1.Permute(Perm,0);
+              mu_resp.Permute(Perm,0);
               if (args->multiset_reduction.value)
-                mu_i_directoryL1C1.MultisetSort();
+                mu_resp.MultisetSort();
+              mu_req.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_req.MultisetSort();
               mu_g_perm.Permute(Perm,0);
               if (args->multiset_reduction.value)
                 mu_g_perm.MultisetSort();
+              mu_i_directoryL1C1.Permute(Perm,0);
+              if (args->multiset_reduction.value)
+                mu_i_directoryL1C1.MultisetSort();
             if (p.compare(workingstate)) {
               StateCopy(workingstate,&temp); return TRUE; }
           }
@@ -10405,23 +10450,24 @@ bool match(state* ns, StatePtr p)
     {
       if (ns != workingstate)
           StateCopy(workingstate, ns);
-      mu_i_thread1.MultisetSort();
-      mu_g_monitor_store.MultisetSort();
       mu_i_thread2.MultisetSort();
+      mu_g_monitor_store.MultisetSort();
+      mu_i_thread1.MultisetSort();
+      mu_i_thread3.MultisetSort();
       mu_initializer.MultisetSort();
       mu_loadedZeroCounter.MultisetSort();
       mu_instructionsExecuted.MultisetSort();
       mu_i_threadlist.MultisetSort();
-      mu_cnt_fwd.MultisetSort();
-      mu_cnt_resp.MultisetSort();
-      mu_cnt_req.MultisetSort();
       mu_i_cacheL1C1.MultisetSort();
+      mu_cnt_req.MultisetSort();
+      mu_cnt_resp.MultisetSort();
+      mu_cnt_fwd.MultisetSort();
       mu_i_threadIndexes.MultisetSort();
-      mu_req.MultisetSort();
-      mu_resp.MultisetSort();
       mu_fwd.MultisetSort();
-      mu_i_directoryL1C1.MultisetSort();
+      mu_resp.MultisetSort();
+      mu_req.MultisetSort();
       mu_g_perm.MultisetSort();
+      mu_i_directoryL1C1.MultisetSort();
       if (p.compare(workingstate)) {
         StateCopy(workingstate,&temp); return TRUE; }
       StateCopy(workingstate,&temp);
@@ -10446,9 +10492,9 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_i_thread1.Permute(Perm,i);
+        mu_i_thread2.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_i_thread1.MultisetSort();
+          mu_i_thread2.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10472,9 +10518,22 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_i_thread2.Permute(Perm,i);
+        mu_i_thread1.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_i_thread2.MultisetSort();
+          mu_i_thread1.MultisetSort();
+        SetBestResult(i, workingstate);
+      }
+  StateCopy(workingstate, &BestPermutedState);
+
+  StateCopy(&temp, workingstate);
+  ResetBestResult();
+  for (i=0; i<Perm.count; i++)
+    if (Perm.In(i))
+      {
+        StateCopy(workingstate, &temp);
+        mu_i_thread3.Permute(Perm,i);
+        if (args->multiset_reduction.value)
+          mu_i_thread3.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10537,22 +10596,9 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_cnt_fwd.Permute(Perm,i);
+        mu_i_cacheL1C1.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_cnt_fwd.MultisetSort();
-        SetBestResult(i, workingstate);
-      }
-  StateCopy(workingstate, &BestPermutedState);
-
-  StateCopy(&temp, workingstate);
-  ResetBestResult();
-  for (i=0; i<Perm.count; i++)
-    if (Perm.In(i))
-      {
-        StateCopy(workingstate, &temp);
-        mu_cnt_resp.Permute(Perm,i);
-        if (args->multiset_reduction.value)
-          mu_cnt_resp.MultisetSort();
+          mu_i_cacheL1C1.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10576,9 +10622,22 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_i_cacheL1C1.Permute(Perm,i);
+        mu_cnt_resp.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_i_cacheL1C1.MultisetSort();
+          mu_cnt_resp.MultisetSort();
+        SetBestResult(i, workingstate);
+      }
+  StateCopy(workingstate, &BestPermutedState);
+
+  StateCopy(&temp, workingstate);
+  ResetBestResult();
+  for (i=0; i<Perm.count; i++)
+    if (Perm.In(i))
+      {
+        StateCopy(workingstate, &temp);
+        mu_cnt_fwd.Permute(Perm,i);
+        if (args->multiset_reduction.value)
+          mu_cnt_fwd.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10602,9 +10661,9 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_req.Permute(Perm,i);
+        mu_fwd.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_req.MultisetSort();
+          mu_fwd.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10628,22 +10687,9 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_fwd.Permute(Perm,i);
+        mu_req.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_fwd.MultisetSort();
-        SetBestResult(i, workingstate);
-      }
-  StateCopy(workingstate, &BestPermutedState);
-
-  StateCopy(&temp, workingstate);
-  ResetBestResult();
-  for (i=0; i<Perm.count; i++)
-    if (Perm.In(i))
-      {
-        StateCopy(workingstate, &temp);
-        mu_i_directoryL1C1.Permute(Perm,i);
-        if (args->multiset_reduction.value)
-          mu_i_directoryL1C1.MultisetSort();
+          mu_req.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10657,6 +10703,19 @@ void SymmetryClass::Exhaustive_Fast_Canonicalize(state* s)
         mu_g_perm.Permute(Perm,i);
         if (args->multiset_reduction.value)
           mu_g_perm.MultisetSort();
+        SetBestResult(i, workingstate);
+      }
+  StateCopy(workingstate, &BestPermutedState);
+
+  StateCopy(&temp, workingstate);
+  ResetBestResult();
+  for (i=0; i<Perm.count; i++)
+    if (Perm.In(i))
+      {
+        StateCopy(workingstate, &temp);
+        mu_i_directoryL1C1.Permute(Perm,i);
+        if (args->multiset_reduction.value)
+          mu_i_directoryL1C1.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10679,13 +10738,13 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
 
   mu_i_threadlist.Canonicalize(Perm);
 
-  mu_cnt_fwd.Canonicalize(Perm);
-
-  mu_cnt_resp.Canonicalize(Perm);
+  mu_i_cacheL1C1.Canonicalize(Perm);
 
   mu_cnt_req.Canonicalize(Perm);
 
-  mu_i_cacheL1C1.Canonicalize(Perm);
+  mu_cnt_resp.Canonicalize(Perm);
+
+  mu_cnt_fwd.Canonicalize(Perm);
 
   mu_i_threadIndexes.Canonicalize(Perm);
 
@@ -10694,7 +10753,7 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_req.ArrayLimit(Perm);
+    mu_fwd.ArrayLimit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10702,7 +10761,7 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_fwd.ArrayLimit(Perm);
+    mu_req.ArrayLimit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10710,7 +10769,7 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_req.Limit(Perm);
+    mu_fwd.Limit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10718,7 +10777,7 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_fwd.Limit(Perm);
+    mu_req.Limit(Perm);
   }
 
   Perm.SimpleToExplicit();
@@ -10729,9 +10788,9 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_req.Permute(Perm,i);
+        mu_fwd.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_req.MultisetSort();
+          mu_fwd.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10755,22 +10814,9 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
     if (Perm.In(i))
       {
         StateCopy(workingstate, &temp);
-        mu_fwd.Permute(Perm,i);
+        mu_req.Permute(Perm,i);
         if (args->multiset_reduction.value)
-          mu_fwd.MultisetSort();
-        SetBestResult(i, workingstate);
-      }
-  StateCopy(workingstate, &BestPermutedState);
-
-  StateCopy(&temp, workingstate);
-  ResetBestResult();
-  for (i=0; i<Perm.count; i++)
-    if (Perm.In(i))
-      {
-        StateCopy(workingstate, &temp);
-        mu_i_directoryL1C1.Permute(Perm,i);
-        if (args->multiset_reduction.value)
-          mu_i_directoryL1C1.MultisetSort();
+          mu_req.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10784,6 +10830,19 @@ void SymmetryClass::Heuristic_Fast_Canonicalize(state* s)
         mu_g_perm.Permute(Perm,i);
         if (args->multiset_reduction.value)
           mu_g_perm.MultisetSort();
+        SetBestResult(i, workingstate);
+      }
+  StateCopy(workingstate, &BestPermutedState);
+
+  StateCopy(&temp, workingstate);
+  ResetBestResult();
+  for (i=0; i<Perm.count; i++)
+    if (Perm.In(i))
+      {
+        StateCopy(workingstate, &temp);
+        mu_i_directoryL1C1.Permute(Perm,i);
+        if (args->multiset_reduction.value)
+          mu_i_directoryL1C1.MultisetSort();
         SetBestResult(i, workingstate);
       }
   StateCopy(workingstate, &BestPermutedState);
@@ -10807,13 +10866,13 @@ void SymmetryClass::Heuristic_Small_Mem_Canonicalize(state* s)
 
   mu_i_threadlist.Canonicalize(Perm);
 
-  mu_cnt_fwd.Canonicalize(Perm);
-
-  mu_cnt_resp.Canonicalize(Perm);
+  mu_i_cacheL1C1.Canonicalize(Perm);
 
   mu_cnt_req.Canonicalize(Perm);
 
-  mu_i_cacheL1C1.Canonicalize(Perm);
+  mu_cnt_resp.Canonicalize(Perm);
+
+  mu_cnt_fwd.Canonicalize(Perm);
 
   mu_i_threadIndexes.Canonicalize(Perm);
 
@@ -10822,7 +10881,7 @@ void SymmetryClass::Heuristic_Small_Mem_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_req.ArrayLimit(Perm);
+    mu_fwd.ArrayLimit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10830,7 +10889,7 @@ void SymmetryClass::Heuristic_Small_Mem_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_fwd.ArrayLimit(Perm);
+    mu_req.ArrayLimit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10838,7 +10897,7 @@ void SymmetryClass::Heuristic_Small_Mem_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_req.Limit(Perm);
+    mu_fwd.Limit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10846,28 +10905,28 @@ void SymmetryClass::Heuristic_Small_Mem_Canonicalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_fwd.Limit(Perm);
+    mu_req.Limit(Perm);
   }
 
   Perm.SimpleToOne();
 
   StateCopy(&temp, workingstate);
   ResetBestResult();
-  mu_req.Permute(Perm,0);
-  if (args->multiset_reduction.value)
-    mu_req.MultisetSort();
-  mu_resp.Permute(Perm,0);
-  if (args->multiset_reduction.value)
-    mu_resp.MultisetSort();
   mu_fwd.Permute(Perm,0);
   if (args->multiset_reduction.value)
     mu_fwd.MultisetSort();
-  mu_i_directoryL1C1.Permute(Perm,0);
+  mu_resp.Permute(Perm,0);
   if (args->multiset_reduction.value)
-    mu_i_directoryL1C1.MultisetSort();
+    mu_resp.MultisetSort();
+  mu_req.Permute(Perm,0);
+  if (args->multiset_reduction.value)
+    mu_req.MultisetSort();
   mu_g_perm.Permute(Perm,0);
   if (args->multiset_reduction.value)
     mu_g_perm.MultisetSort();
+  mu_i_directoryL1C1.Permute(Perm,0);
+  if (args->multiset_reduction.value)
+    mu_i_directoryL1C1.MultisetSort();
   BestPermutedState = *workingstate;
   BestInitialized = TRUE;
 
@@ -10877,21 +10936,21 @@ void SymmetryClass::Heuristic_Small_Mem_Canonicalize(state* s)
       if (args->perm_limit.value != 0
           && cycle++ >= args->perm_limit.value) break;
       StateCopy(workingstate, &temp);
-      mu_req.Permute(Perm,0);
-      if (args->multiset_reduction.value)
-        mu_req.MultisetSort();
-      mu_resp.Permute(Perm,0);
-      if (args->multiset_reduction.value)
-        mu_resp.MultisetSort();
       mu_fwd.Permute(Perm,0);
       if (args->multiset_reduction.value)
         mu_fwd.MultisetSort();
-      mu_i_directoryL1C1.Permute(Perm,0);
+      mu_resp.Permute(Perm,0);
       if (args->multiset_reduction.value)
-        mu_i_directoryL1C1.MultisetSort();
+        mu_resp.MultisetSort();
+      mu_req.Permute(Perm,0);
+      if (args->multiset_reduction.value)
+        mu_req.MultisetSort();
       mu_g_perm.Permute(Perm,0);
       if (args->multiset_reduction.value)
         mu_g_perm.MultisetSort();
+      mu_i_directoryL1C1.Permute(Perm,0);
+      if (args->multiset_reduction.value)
+        mu_i_directoryL1C1.MultisetSort();
       switch (StateCmp(workingstate, &BestPermutedState)) {
       case -1:
         BestPermutedState = *workingstate;
@@ -10923,13 +10982,13 @@ void SymmetryClass::Heuristic_Fast_Normalize(state* s)
 
   mu_i_threadlist.Canonicalize(Perm);
 
-  mu_cnt_fwd.Canonicalize(Perm);
-
-  mu_cnt_resp.Canonicalize(Perm);
+  mu_i_cacheL1C1.Canonicalize(Perm);
 
   mu_cnt_req.Canonicalize(Perm);
 
-  mu_i_cacheL1C1.Canonicalize(Perm);
+  mu_cnt_resp.Canonicalize(Perm);
+
+  mu_cnt_fwd.Canonicalize(Perm);
 
   mu_i_threadIndexes.Canonicalize(Perm);
 
@@ -10938,7 +10997,7 @@ void SymmetryClass::Heuristic_Fast_Normalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_req.ArrayLimit(Perm);
+    mu_fwd.ArrayLimit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10946,11 +11005,11 @@ void SymmetryClass::Heuristic_Fast_Normalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_fwd.ArrayLimit(Perm);
+    mu_req.ArrayLimit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_req.Limit(Perm);
+    mu_fwd.Limit(Perm);
   }
 
   if (Perm.MoreThanOneRemain()) {
@@ -10958,30 +11017,30 @@ void SymmetryClass::Heuristic_Fast_Normalize(state* s)
   }
 
   if (Perm.MoreThanOneRemain()) {
-    mu_fwd.Limit(Perm);
+    mu_req.Limit(Perm);
   }
 
   Perm.SimpleToOne();
-
-  mu_req.Permute(Perm,0);
-  if (args->multiset_reduction.value)
-    mu_req.MultisetSort();
-
-  mu_resp.Permute(Perm,0);
-  if (args->multiset_reduction.value)
-    mu_resp.MultisetSort();
 
   mu_fwd.Permute(Perm,0);
   if (args->multiset_reduction.value)
     mu_fwd.MultisetSort();
 
-  mu_i_directoryL1C1.Permute(Perm,0);
+  mu_resp.Permute(Perm,0);
   if (args->multiset_reduction.value)
-    mu_i_directoryL1C1.MultisetSort();
+    mu_resp.MultisetSort();
+
+  mu_req.Permute(Perm,0);
+  if (args->multiset_reduction.value)
+    mu_req.MultisetSort();
 
   mu_g_perm.Permute(Perm,0);
   if (args->multiset_reduction.value)
     mu_g_perm.MultisetSort();
+
+  mu_i_directoryL1C1.Permute(Perm,0);
+  if (args->multiset_reduction.value)
+    mu_i_directoryL1C1.MultisetSort();
 
 };
 

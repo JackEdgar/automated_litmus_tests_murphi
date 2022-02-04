@@ -3,8 +3,8 @@
   const
     ENABLE_QS: false;
     
-    VAL_COUNT: 1;
-    ADR_COUNT: 1;
+    VAL_COUNT: 2;
+    ADR_COUNT: 2;
 
   ---- System network constants
     O_NET_MAX: 3;
@@ -76,7 +76,7 @@
       -- Cluster: C1
 
       -- One cache level with scalarset for indexing
-      OBJSET_cacheL1C1: scalarset(2);
+      OBJSET_cacheL1C1: scalarset(3);
       OBJSET_directoryL1C1: enum{directoryL1C1};
 
       C1Machines: union{OBJSET_cacheL1C1, OBJSET_directoryL1C1};
@@ -91,12 +91,12 @@
       end;
 
       -- Threads are sequences of instructions
-      thread: array[0..2] of Instruction;
+      thread: array[0..3] of Instruction;
       -- List of all threads, each thread is associated with a cache
       threadlist: array[OBJSET_cacheL1C1] of thread;
       -- Indexes for threads
       threadIndexes: array[OBJSET_cacheL1C1] of record 
-        currentIndex: 0..2;
+        currentIndex: 0..3;
         maxIndex: 0..10000;
       end;
 
@@ -172,14 +172,15 @@
       -- Threads, thread list, thread indexes are for litmus tests
             i_thread1: thread;
       i_thread2: thread;
+      i_thread3: thread;
 
       i_threadlist: threadlist;
       i_threadIndexes: threadIndexes;
 
       -- Used to initialize the thread list, and keep track of total instructions executed
-      initializer: 0..2;
-      loadedZeroCounter: 0..2;
-      instructionsExecuted: 0..4;
+      initializer: 0..3;
+      loadedZeroCounter: 0..3;
+      instructionsExecuted: 0..6;
 
 --RevMurphi.MurphiModular.GenFunctions
 
@@ -442,10 +443,18 @@
       i_thread2[0].adr:=1;
       i_thread2[1].itype:=load;
       i_thread2[1].val:=0;
-      i_thread2[1].adr:=0;
+      i_thread2[1].adr:=2;
+
+      i_thread3[0].itype:=store;
+      i_thread3[0].val:=1;
+      i_thread3[0].adr:=2;
+      i_thread3[1].itype:=load;
+      i_thread3[1].val:=0;
+      i_thread3[1].adr:=0;
 
       i_thread1[2].adr:= 0;
       i_thread2[2].adr:= 0;
+      i_thread3[2].adr:= 0;
 
       initializer:= 0;
       instructionsExecuted:= 0;
@@ -463,6 +472,10 @@
           initializer:= initializer + 1;
         elsif initializer = 2 then 
           i_threadIndexes[m].maxIndex:= 1;
+          i_threadlist[m]:= i_thread3;
+          initializer:= initializer + 1;
+        elsif initializer = 3 then 
+          i_threadIndexes[m].maxIndex:= 1;
           i_threadIndexes[m].currentIndex:= 2;
         endif;
       endfor;
@@ -474,7 +487,7 @@
     procedure resetEverything();
     begin
       -- Throws an error if we have violated invariant of the litmus test
-      if loadedZeroCounter = 2 then error "Litmus test failed" endif;
+      if loadedZeroCounter = 3 then error "Litmus test failed" endif;
 
       -- Reset everything before beginning
       Reset_perm();
@@ -1105,7 +1118,7 @@
         FSM_Access_cacheL1C1_M_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = 4 then resetEverything(); endif;
+        if instructionsExecuted = 6 then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_M_evict"
@@ -1124,7 +1137,7 @@
         FSM_Access_cacheL1C1_M_store(adr, m, currentThread[threadIndex].val);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = 4 then resetEverything(); endif;
+        if instructionsExecuted = 6 then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_S_load"
@@ -1136,7 +1149,7 @@
         FSM_Access_cacheL1C1_S_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = 4 then resetEverything(); endif;
+        if instructionsExecuted = 6 then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_S_evict"
