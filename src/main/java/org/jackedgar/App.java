@@ -45,7 +45,7 @@ public class App
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
 
         String litmus_initialization_string = "";
-
+        String thread_declarations_string = "";
 
         for(int j = 0; j < processes.size(); j++) {
             Map<String, Object> currentProcess = processes.get(j);
@@ -68,6 +68,7 @@ public class App
 
         for(int j = 0; j < processes.size(); j++) {
             litmus_initialization_string += "      i_thread" + (j+1) + "[2].adr:= 0;\n";
+            thread_declarations_string += "      i_thread" + (j+1) + ": thread;\n";
         }
 
         litmus_initialization_string += "\n";
@@ -78,17 +79,18 @@ public class App
                 "        i_threadIndexes[m].currentIndex:= 0;\n";
 
         // need to parse initialization here
-        litmus_initialization_string += "        if initializer = 0 then \n" +
-                "          i_threadIndexes[m].maxIndex:= 1;\n" +
-                "          i_threadlist[m]:= i_thread1;\n" +
-                "          initializer:= initializer + 1;\n" +
-                "        elsif initializer = 1 then\n" +
-                "          i_threadIndexes[m].maxIndex:= 1;\n" +
-                "          i_threadlist[m]:= i_thread2;\n" +
-                "          initializer:= initializer + 1;\n" +
-                "        elsif initializer = 2 then\n" +
-                "          i_threadIndexes[m].maxIndex:= 1;\n" +
-                "          i_threadIndexes[m].currentIndex:= 2;\n";
+
+        for(int i = 0; i <= processes.size(); i++) {
+            if(i == 0) litmus_initialization_string += "        if initializer = " + i + " then \n";
+            else litmus_initialization_string += "        elsif initializer = " + i + " then \n";
+
+            if (i < processes.size()) litmus_initialization_string += "          i_threadIndexes[m].maxIndex:= " + (threadSize.get(i) - 1) + ";\n" +
+                    "          i_threadlist[m]:= i_thread" + (i+1) + ";\n"
+                    + "          initializer:= initializer + 1;\n";
+
+            else litmus_initialization_string += "          i_threadIndexes[m].maxIndex:= 1;\n" +
+                    "          i_threadIndexes[m].currentIndex:= 2;\n";
+        }
 
         litmus_initialization_string += "        endif;\n" +
                 "      endfor;";
@@ -96,7 +98,7 @@ public class App
         frameworkMap.put("cache_count", litmusMap.get("cache_count"));
         frameworkMap.put("total_instruction_count", litmusMap.get("total_instruction_count"));
         frameworkMap.put("address_count", litmusMap.get("address_count"));
-
+        frameworkMap.put("thread_declarations", thread_declarations_string);
         frameworkMap.put("litmus_initialization", litmus_initialization_string);
         root.put("LitmusFramework", frameworkMap);
 

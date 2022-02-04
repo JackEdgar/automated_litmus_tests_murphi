@@ -170,8 +170,9 @@
       i_cacheL1C1: OBJ_cacheL1C1;
 
       -- Threads, thread list, thread indexes are for litmus tests
-      i_thread1: thread;
+            i_thread1: thread;
       i_thread2: thread;
+
       i_threadlist: threadlist;
       i_threadIndexes: threadIndexes;
 
@@ -456,11 +457,11 @@
           i_threadIndexes[m].maxIndex:= 1;
           i_threadlist[m]:= i_thread1;
           initializer:= initializer + 1;
-        elsif initializer = 1 then
+        elsif initializer = 1 then 
           i_threadIndexes[m].maxIndex:= 1;
           i_threadlist[m]:= i_thread2;
           initializer:= initializer + 1;
-        elsif initializer = 2 then
+        elsif initializer = 2 then 
           i_threadIndexes[m].maxIndex:= 1;
           i_threadIndexes[m].currentIndex:= 2;
         endif;

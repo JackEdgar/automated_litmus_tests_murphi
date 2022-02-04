@@ -170,8 +170,7 @@
       i_cacheL1C1: OBJ_cacheL1C1;
 
       -- Threads, thread list, thread indexes are for litmus tests
-      i_thread1: thread;
-      i_thread2: thread;
+      ${LitmusFramework.thread_declarations}
       i_threadlist: threadlist;
       i_threadIndexes: threadIndexes;
 
