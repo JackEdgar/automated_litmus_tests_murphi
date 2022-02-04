@@ -14,7 +14,11 @@ import java.util.Map;
 
 public class App 
 {
-
+    /**
+     *
+     * @return FreeMarker configuration file
+     * @throws IOException Left this unchecked as not focusing on well-engineered code for this project
+     */
     private static Configuration getConfiguration() throws IOException {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
         cfg.setDirectoryForTemplateLoading(new File("templates/"));
@@ -26,27 +30,20 @@ public class App
         return cfg;
     }
 
-    public static void main( String[] args ) throws TemplateException, IOException {
-
-        Map<String, Integer> stringAddressToIntAddress = new HashMap<>();
-        Map<Integer, Integer> threadSize = new HashMap<>();
+    /**
+     *
+     * @param processes The list of processes/threads
+     * @param threadSize Tracks the size of each thread (number of instructions in each)
+     * @param stringAddressToIntAddress Converts between the string addresses, and a legal Murphi version (integer)
+     * @return
+     */
+    private static String[] parseLitmusToMurphi(List<Map<String, Object>> processes, Map<Integer, Integer> threadSize,
+                                                Map<String, Integer> stringAddressToIntAddress) {
         int nextFreeIntAddress = 0;
-
-        // Setup the configuration
-        Configuration cfg = getConfiguration();
-        ObjectMapper mapper = new ObjectMapper();
-
-        // Root of the object tree
-        Map<String, Object> root = new HashMap<>();
-        Map<String, Object> frameworkMap = new HashMap<>();
-
-        Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/litmus.json").toFile(), Map.class);
-
-        List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
-
         String litmus_initialization_string = "";
         String thread_declarations_string = "";
 
+        // Converts the instructions initialization into a Murphi representation
         for(int j = 0; j < processes.size(); j++) {
             Map<String, Object> currentProcess = processes.get(j);
             List<Object> instructions = (List<Object>) currentProcess.get("instructions");
@@ -93,27 +90,75 @@ public class App
         litmus_initialization_string += "        endif;\n" +
                 "      endfor;";
 
+        return new String[]{litmus_initialization_string, thread_declarations_string};
+    }
+
+    /**
+     *
+     * @return A tree/map representation of our litmus test, that allows us to easily inject it into our template
+     * @throws IOException Left this unchecked as not focusing on well-engineered code for this project
+     */
+    private static Map<String, Object> getLitmus() throws IOException {
+
+        // Useful data structures for completing the conversion
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Integer> stringAddressToIntAddress = new HashMap<>();
+        Map<Integer, Integer> threadSize = new HashMap<>();
+
+        // Root of the object tree
+        Map<String, Object> root = new HashMap<>();
+        Map<String, Object> frameworkMap = new HashMap<>();
+
+        // Reads the litmus test JSON into a map object (can think of this as a tree)
+        Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/litmus.json").toFile(), Map.class);
+        List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
+
+        // Get the relevant strings in a legal Murphi representation
+        String[] murphi_strings = parseLitmusToMurphi(processes, threadSize, stringAddressToIntAddress);
+
+        // Calculate the total number of instructions (useful for knowing when to stop execution)
         int total_instruction_count = 0;
         for(Integer x : threadSize.values()) total_instruction_count += x;
 
+        // Add all the Murphi converted data to the map, to allow for easy injection by FreeMarker
         frameworkMap.put("cache_count", processes.size());
         frameworkMap.put("total_instruction_count", total_instruction_count);
         frameworkMap.put("address_count", stringAddressToIntAddress.size());
-        frameworkMap.put("thread_declarations", thread_declarations_string);
-        frameworkMap.put("litmus_initialization", litmus_initialization_string);
+        frameworkMap.put("litmus_initialization", murphi_strings[0]);
+        frameworkMap.put("thread_declarations", murphi_strings[1]);
         root.put("LitmusFramework", frameworkMap);
 
-        // Get the requested template, and the MSI file
+        return root;
+    }
+
+    /**
+     *
+     * @param root The root of the litmus test, which will be the map object
+     * @throws IOException Left this unchecked as not focusing on well-engineered code for this project
+     * @throws TemplateException Left this unchecked as not focusing on well-engineered code for this project
+     */
+    public static void processProtocol(Map<String, Object> root) throws IOException, TemplateException {
+        Configuration cfg = getConfiguration();
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
-        System.out.println("Please enter the name of the template you would like to" +
-                " load (must be in the templates folder, and exclude .m extension): ");
+        System.out.println("Please enter the protocol you would like to use (Currently accepted: msi): ");
         String templateFilename = reader.readLine();
         Template temp = cfg.getTemplate(templateFilename + ".m");
         Writer out = new BufferedWriter(new FileWriter("output/output_" + templateFilename + ".m"));
         temp.process(root, out);
-
         out.close();
+
+        System.out.println("\nPlease see output folder for your result. " +
+                "Output requires Murphi compilation, followed by g++ compilation (if you wish to execute it).\n");
+    }
+
+    public static void main( String[] args ) throws TemplateException, IOException {
+
+        // Get the litmus test we want into a useful representation
+        Map<String, Object> litmus_requested = getLitmus();
+
+        // Process the protocol file with the litmus test
+        processProtocol(litmus_requested);
     }
 }
