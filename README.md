@@ -8,7 +8,7 @@ https://freemarker.apache.org/docs/index.html
 The litmus tests themselves have been represented as JSON files. Please see the litmus folder for examples. (P.S. The "name" field for each process/thread
 is simply syntactic sugar, and is not necessary for the tool to function).
 
-To run the output once generated, use the following commands in your output directory terminal:
+To run the output once generated, use the following commands in your terminal, while in the output directory:
 
 -> cmurphi-master/src/mu output_msi.m         
 
