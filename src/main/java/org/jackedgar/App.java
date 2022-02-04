@@ -35,7 +35,7 @@ public class App
      * @param processes The list of processes/threads
      * @param threadSize Tracks the size of each thread (number of instructions in each)
      * @param stringAddressToIntAddress Converts between the string addresses, and a legal Murphi version (integer)
-     * @return
+     * @return Litmus test declaration and initialization strings
      */
     private static String[] parseLitmusToMurphi(List<Map<String, Object>> processes, Map<Integer, Integer> threadSize,
                                                 Map<String, Integer> stringAddressToIntAddress) {
@@ -109,8 +109,14 @@ public class App
         Map<String, Object> root = new HashMap<>();
         Map<String, Object> frameworkMap = new HashMap<>();
 
+        // Get the litmus test they want
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+        System.out.println("Please enter the name of the litmus test you would like to use (excluding JSON file extension): ");
+        String litmusFilename = reader.readLine();
+
         // Reads the litmus test JSON into a map object (can think of this as a tree)
-        Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/litmus.json").toFile(), Map.class);
+        Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/"+ litmusFilename +".json").toFile(), Map.class);
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
 
         // Get the relevant strings in a legal Murphi representation
