@@ -51,7 +51,8 @@ public class App
 
             for(int i = 0; i < instructions.size(); i++) {
                 Map<String, Object> currentInstruction = (Map<String, Object>) instructions.get(i);
-                litmus_initialization_string += "      i_thread" + (j+1) + "[" + i + "].itype:=" + currentInstruction.get("type") + ";\n";
+                if(j != 0 || i != 0) litmus_initialization_string += "      ";
+                litmus_initialization_string += "i_thread" + (j+1) + "[" + i + "].itype:=" + currentInstruction.get("type") + ";\n";
                 litmus_initialization_string += "      i_thread" + (j+1) + "[" + i + "].val:=" + currentInstruction.get("value") + ";\n";
 
                 if(!stringAddressToIntAddress.containsKey(currentInstruction.get("address"))) {
@@ -65,7 +66,8 @@ public class App
 
         for(int j = 0; j < processes.size(); j++) {
             litmus_initialization_string += "      i_thread" + (j+1) + "[2].adr:= 0;\n";
-            thread_declarations_string += "      i_thread" + (j+1) + ": thread;\n";
+            if(j != 0) thread_declarations_string += "      ";
+            thread_declarations_string += "i_thread" + (j+1) + ": thread;\n";
         }
 
         litmus_initialization_string += "\n";

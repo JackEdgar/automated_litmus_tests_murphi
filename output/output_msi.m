@@ -170,7 +170,7 @@
       i_cacheL1C1: OBJ_cacheL1C1;
 
       -- Threads, thread list, thread indexes are for litmus tests
-            i_thread1: thread;
+      i_thread1: thread;
       i_thread2: thread;
       i_thread3: thread;
 
@@ -431,7 +431,7 @@
     procedure Reset_Threads();
     begin
 
-            i_thread1[0].itype:=store;
+      i_thread1[0].itype:=store;
       i_thread1[0].val:=1;
       i_thread1[0].adr:=0;
       i_thread1[1].itype:=load;
