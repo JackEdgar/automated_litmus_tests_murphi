@@ -143,7 +143,7 @@ public class App
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(System.in));
-        System.out.println("Please enter the protocol you would like to use (Currently accepted: msi): ");
+        System.out.println("Please enter the protocol you would like to use (Currently accepted: msi, mesi): ");
         String templateFilename = reader.readLine();
         Template temp = cfg.getTemplate(templateFilename + ".m");
         Writer out = new BufferedWriter(new FileWriter("output/output_" + templateFilename + ".m"));
