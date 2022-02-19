@@ -2,7 +2,7 @@
   ---- System access constants
   const
     ENABLE_QS: false;
-    
+
     VAL_COUNT: ${LitmusFramework.cache_count - 1};
     ADR_COUNT: ${LitmusFramework.address_count - 1};
 
@@ -95,7 +95,7 @@
       -- List of all threads, each thread is associated with a cache
       threadlist: array[OBJSET_cacheL1C1] of thread;
       -- Indexes for threads
-      threadIndexes: array[OBJSET_cacheL1C1] of record 
+      threadIndexes: array[OBJSET_cacheL1C1] of record
         currentIndex: 0..${LitmusFramework.cache_count};
         maxIndex: 0..10000;
       end;
@@ -176,7 +176,7 @@
 
       -- Used to initialize the thread list, and keep track of total instructions executed
       initializer: 0..${LitmusFramework.cache_count};
-      loadedZeroCounter: 0..${LitmusFramework.cache_count};
+      incorrectLoadCounter: 0..${LitmusFramework.load_count};
       instructionsExecuted: 0..${LitmusFramework.total_instruction_count};
 
 --RevMurphi.MurphiModular.GenFunctions
@@ -256,7 +256,7 @@
         g_monitor_store[adr] := 0;
       endfor;
     end;
-    
+
     -- procedure Store(var cbe: ClValue; adr: Address);
     -- begin
     --   Execute_store_monitor(cbe, adr);
@@ -437,7 +437,7 @@
     procedure resetEverything();
     begin
       -- Throws an error if we have violated invariant of the litmus test
-      if loadedZeroCounter = ${LitmusFramework.cache_count} then error "Litmus test failed" endif;
+      if incorrectLoadCounter = ${LitmusFramework.load_count} then error "Litmus test failed" endif;
 
       -- Reset everything before beginning
       Reset_perm();
@@ -980,8 +980,8 @@
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m); Set_perm(store, adr, m);
       cbe.State := cacheL1C1_M;
+      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
       i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
-      if i_threadlist[m][i_threadIndexes[m].currentIndex].val = 0 then loadedZeroCounter:= loadedZeroCounter + 1 endif;
     endalias;
     end;
 
@@ -1013,8 +1013,8 @@
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m);
       cbe.State := cacheL1C1_S;
+      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
       i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
-      if i_threadlist[m][i_threadIndexes[m].currentIndex].val = 0 then loadedZeroCounter:= loadedZeroCounter + 1 endif;
     endalias;
     end;
 
@@ -1199,7 +1199,7 @@
   startstate
 
     -- Resets everything to the initial state, while setting one initial value up manually beforehand to prevent litmus test issues
-    loadedZeroCounter:= 0;
+    incorrectLoadCounter:= 0;
     resetEverything();
 
   endstartstate;

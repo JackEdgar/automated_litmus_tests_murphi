@@ -42,6 +42,7 @@ public class App
         int nextFreeIntAddress = 0;
         StringBuilder litmus_initialization_string = new StringBuilder();
         StringBuilder thread_declarations_string = new StringBuilder();
+        int loadCount = 0;
 
         // Converts the instructions initialization into a Murphi representation
         for(int j = 0; j < processes.size(); j++) {
@@ -52,6 +53,9 @@ public class App
             for(int i = 0; i < instructions.size(); i++) {
                 Map<String, Object> currentInstruction = (Map<String, Object>) instructions.get(i);
                 if(j != 0 || i != 0) litmus_initialization_string.append("      ");
+
+                if(currentInstruction.get("type").equals("load")) loadCount++;
+
                 litmus_initialization_string.append("i_thread").append(j + 1).append("[").append(i).append("].itype:=").append(currentInstruction.get("type")).append(";\n");
                 litmus_initialization_string.append("      i_thread").append(j + 1).append("[").append(i).append("].val:=").append(currentInstruction.get("value")).append(";\n");
 
@@ -72,7 +76,7 @@ public class App
 
         litmus_initialization_string.append("\n");
 
-        litmus_initialization_string.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "      loadedZeroCounter:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadIndexes[m].currentIndex:= 0;\n");
+        litmus_initialization_string.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "      incorrectLoadCounter:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadIndexes[m].currentIndex:= 0;\n");
 
         for(int i = 0; i <= processes.size(); i++) {
             if(i == 0) litmus_initialization_string.append("        if initializer = ").append(i).append(" then \n");
@@ -85,7 +89,7 @@ public class App
 
         litmus_initialization_string.append("        endif;\n" + "      endfor;");
 
-        return new String[]{litmus_initialization_string.toString(), thread_declarations_string.toString()};
+        return new String[]{litmus_initialization_string.toString(), thread_declarations_string.toString(), String.valueOf(loadCount)};
     }
 
     /**
@@ -115,7 +119,7 @@ public class App
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
 
         // Get the relevant strings in a legal Murphi representation
-        String[] murphi_strings = parseLitmusToMurphi(processes, threadSize, stringAddressToIntAddress);
+        Object[] murphi_strings = parseLitmusToMurphi(processes, threadSize, stringAddressToIntAddress);
 
         // Calculate the total number of instructions (useful for knowing when to stop execution)
         int total_instruction_count = 0;
@@ -127,6 +131,7 @@ public class App
         frameworkMap.put("address_count", stringAddressToIntAddress.size());
         frameworkMap.put("litmus_initialization", murphi_strings[0]);
         frameworkMap.put("thread_declarations", murphi_strings[1]);
+        frameworkMap.put("load_count", murphi_strings[2]);
         root.put("LitmusFramework", frameworkMap);
 
         return root;
