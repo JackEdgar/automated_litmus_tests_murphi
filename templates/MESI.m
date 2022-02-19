@@ -30,7 +30,7 @@
   ---- System access constants
   const
     ENABLE_QS: false;
-    VAL_COUNT: ${LitmusFramework.cache_count - 1};
+    VAL_COUNT: 1000000;
     ADR_COUNT: ${LitmusFramework.cache_count - 1};
 
   ---- System network constants

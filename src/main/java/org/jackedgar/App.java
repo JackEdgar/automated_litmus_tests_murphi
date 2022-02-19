@@ -69,7 +69,7 @@ public class App
         }
 
         for(int proc_id = 0; proc_id < processes.size(); proc_id++) {
-            litmus_initialization_string.append("      i_thread").append(proc_id + 1).append("[2].adr:= 0;\n");
+            litmus_initialization_string.append("      i_thread").append(proc_id + 1).append("[").append(threadSize.get(proc_id)).append("].adr:= 0;\n");
             if(proc_id != 0) thread_declarations_string.append("      ");
             thread_declarations_string.append("i_thread").append(proc_id + 1).append(": thread;\n");
         }
