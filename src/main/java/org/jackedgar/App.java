@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class App 
+public class App
 {
     /**
      *
@@ -97,7 +97,7 @@ public class App
      * @return A tree/map representation of our litmus test, that allows us to easily inject it into our template
      * @throws IOException Left this unchecked as not focusing on well-engineered code for this project
      */
-    private static Map<String, Object> getLitmus() throws IOException {
+    private static Map<String, Object> getLitmus(String litmusFilename) throws IOException {
 
         // Useful data structures for completing the conversion
         ObjectMapper mapper = new ObjectMapper();
@@ -107,12 +107,6 @@ public class App
         // Root of the object tree
         Map<String, Object> root = new HashMap<>();
         Map<String, Object> frameworkMap = new HashMap<>();
-
-        // Get the litmus test they want
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(System.in));
-        System.out.println("Please enter the name of the litmus test you would like to use (excluding JSON file extension): ");
-        String litmusFilename = reader.readLine();
 
         // Reads the litmus test JSON into a map object (can think of this as a tree)
         Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/"+ litmusFilename +".json").toFile(), Map.class);
@@ -143,15 +137,10 @@ public class App
      * @throws IOException Left this unchecked as not focusing on well-engineered code for this project
      * @throws TemplateException Left this unchecked as not focusing on well-engineered code for this project
      */
-    public static void processProtocol(Map<String, Object> root) throws IOException, TemplateException {
+    public static void processProtocol(Map<String, Object> root, String templateFilename, String litmusFilename) throws IOException, TemplateException {
         Configuration cfg = getConfiguration();
-
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(System.in));
-        System.out.println("Please enter the protocol you would like to use (Currently accepted: msi, mesi): ");
-        String templateFilename = reader.readLine();
         Template temp = cfg.getTemplate(templateFilename + ".m");
-        Writer out = new BufferedWriter(new FileWriter("output/output_" + templateFilename + ".m"));
+        Writer out = new BufferedWriter(new FileWriter("output/output_" + templateFilename + "_" + litmusFilename + ".m"));
         temp.process(root, out);
         out.close();
 
@@ -160,11 +149,19 @@ public class App
     }
 
     public static void main( String[] args ) throws TemplateException, IOException {
+        // Get the litmus test they want
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(System.in));
+        System.out.println("Please enter the name of the litmus test you would like to use (excluding JSON file extension): ");
+        String litmusFilename = reader.readLine();
 
         // Get the litmus test we want into a useful representation
-        Map<String, Object> litmus_requested = getLitmus();
+        Map<String, Object> litmus_requested = getLitmus(litmusFilename);
+
+        System.out.println("Please enter the protocol you would like to use (Currently accepted: msi, mesi): ");
+        String templateFilename = reader.readLine();
 
         // Process the protocol file with the litmus test
-        processProtocol(litmus_requested);
+        processProtocol(litmus_requested, templateFilename, litmusFilename);
     }
 }

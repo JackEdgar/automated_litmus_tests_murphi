@@ -235,20 +235,20 @@
 
   ----RevMurphi.MurphiModular.Functions.GenStoreMonitorFunc
 
-    procedure Execute_store_monitor(cb: ClValue; adr: Address);
-    begin
-      alias cbe: g_monitor_store[adr] do
-        if cbe = cb then
-          if cbe = VAL_COUNT then
-            cbe := 0;
-          else
-            cbe := cbe + 1;
-          endif;
-        else
-            error "Write linearization failed";
-        endif;
-      endalias;
-    end;
+    -- procedure Execute_store_monitor(cb: ClValue; adr: Address);
+    -- begin
+    --   alias cbe: g_monitor_store[adr] do
+    --     if cbe = cb then
+    --       if cbe = VAL_COUNT then
+    --         cbe := 0;
+    --       else
+    --         cbe := cbe + 1;
+    --       endif;
+    --     else
+    --         error "Write linearization failed";
+    --     endif;
+    --   endalias;
+    -- end;
 
     procedure Reset_global_monitor();
     begin
@@ -991,7 +991,7 @@
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m); Set_perm(store, adr, m);
       cbe.State := cacheL1C1_M;
-      Execute_store_monitor(cbe.cl, adr);
+      -- Execute_store_monitor(cbe.cl, adr);
       cbe.cl := v;
     endalias;
     end;

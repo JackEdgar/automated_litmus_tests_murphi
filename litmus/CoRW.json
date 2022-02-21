@@ -4,9 +4,14 @@
       "name": "p0",
       "instructions": [
         {
-          "type": "store",
+          "type": "load",
           "address": "x",
           "value": 2
+        },
+        {
+          "type": "store",
+          "address": "x",
+          "value": 1
         }
       ]
     },
@@ -14,14 +19,9 @@
       "name": "p1",
       "instructions": [
         {
-          "type": "load",
+          "type": "store",
           "address": "x",
           "value": 2
-        },
-        {
-          "type": "load",
-          "address": "x",
-          "value": 1
         }
       ]
     }
