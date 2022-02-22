@@ -153,6 +153,8 @@ public class App
                                 .append(thread_id_string).append("]].regs[").append(reg).append("] = ").append(currentAllowed);
                         if(a != allowedListForReg.size() - 1) cache_state_checks.append(" | ");
                     }
+
+                    if(!Integer.valueOf(reg).equals(currentThreadRegsToCheck.size() - 1)) cache_state_checks.append(" & ");
                 }
                 if(k != threadsInCurrentInvariant.size() - 1) cache_state_checks.append(" & ");
             }

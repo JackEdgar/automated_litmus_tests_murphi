@@ -16,12 +16,12 @@
         {
           "type": "load",
           "address": "x",
-          "value": 1
+          "value": 0
         },
         {
           "type": "load",
           "address": "y",
-          "value": 0
+          "value": 1
         }
       ]
     },
@@ -39,6 +39,20 @@
           "value": 0
         }
       ]
+    }
+  ],
+  "invariant": [
+    {
+      "not": true
+    },
+    {
+      "1": {
+        "0": [1],
+        "1": [0]
+      },
+      "2": {
+        "0": [0]
+      }
     }
   ]
 }
