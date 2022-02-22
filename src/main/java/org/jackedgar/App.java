@@ -35,11 +35,12 @@ public class App
      * @param stringAddressToIntAddress Converts between the string addresses, and a legal Murphi version (integer)
      * @return Litmus test declaration and initialization strings
      */
-    private static String[] parseLitmusToMurphi(List<Map<String, Object>> processes, Map<Integer, Integer> threadSize,
-                                                Map<String, Integer> stringAddressToIntAddress) {
+    private static String[] parseLitmusToMurphi(List<Map<String, Object>> processes, List<Map<String, Object>> invariant,
+                                                Map<Integer, Integer> threadSize, Map<String, Integer> stringAddressToIntAddress) {
         int nextFreeIntAddress = 0;
         StringBuilder litmus_initialization_string = new StringBuilder();
         StringBuilder thread_declarations_string = new StringBuilder();
+        StringBuilder cache_state_checks = new StringBuilder();
         int[] loadsInProcess = new int[processes.size()];
         int loadCount = 0;
         List<Set<Integer>> regsInProcesses = new ArrayList<>();
@@ -105,7 +106,68 @@ public class App
 
         litmus_initialization_string.append("        endif;\n" + "      endfor;");
 
-        return new String[]{litmus_initialization_string.toString(), thread_declarations_string.toString(), String.valueOf(loadCount)};
+        for(int i = 1; i < invariant.size(); i++) {
+            Map<String, Object> currentInvariant = invariant.get(i);
+            for(String addr : stringAddressToIntAddress.keySet()) {
+                if(currentInvariant.containsKey(addr)) {
+                    cache_state_checks.append("        (i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
+                            .append("].State = cacheL1C1_S | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_M) &\n");
+                }
+            }
+        }
+
+        boolean invertInvariant = (boolean) invariant.get(0).get("not");
+
+        if(!invertInvariant) cache_state_checks.append("!");
+        cache_state_checks.append("(");
+
+        for(int i = 1; i < invariant.size(); i++) {
+            Map<String, Object> currentInvariant = invariant.get(i);
+
+            cache_state_checks.append("(");
+
+            for(String addr : stringAddressToIntAddress.keySet()) {
+                if(currentInvariant.containsKey(addr)) {
+                    cache_state_checks.append("i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].cl = ").append(currentInvariant.get(addr)).append(" & ");
+                }
+            }
+
+            cache_state_checks.append("(");
+
+            List<String> threadsInCurrentInvariant = new LinkedList<>();
+            for(int thread_id = 0; thread_id < processes.size(); thread_id++) {
+                String thread_id_string = String.valueOf(thread_id);
+                if(currentInvariant.containsKey(thread_id_string)) threadsInCurrentInvariant.add(thread_id_string);
+            }
+
+            for(int k = 0; k < threadsInCurrentInvariant.size(); k++) {
+                String thread_id_string = threadsInCurrentInvariant.get(k);
+                Map<String, List<Integer>> currentThreadRegsToCheck = (Map<String, List<Integer>>) currentInvariant.get(thread_id_string);
+
+                for(String reg : currentThreadRegsToCheck.keySet()) {
+                    List<Integer> allowedListForReg = currentThreadRegsToCheck.get(reg);
+
+                    for(int a = 0; a < allowedListForReg.size(); a++) {
+                        int currentAllowed = allowedListForReg.get(a);
+                        cache_state_checks.append("i_threadIndexes[i_threadScalarsetMapping[")
+                                .append(thread_id_string).append("]].regs[").append(reg).append("] = ").append(currentAllowed);
+                        if(a != allowedListForReg.size() - 1) cache_state_checks.append(" | ");
+                    }
+                }
+                if(k != threadsInCurrentInvariant.size() - 1) cache_state_checks.append(" & ");
+            }
+
+            cache_state_checks.append(")");
+
+            cache_state_checks.append(")");
+            if(i != invariant.size() - 1) cache_state_checks.append(" |\n");
+
+        }
+
+        cache_state_checks.append(") then \n             error \"Litmus test failed\" endif;\n");
+
+        return new String[]{litmus_initialization_string.toString(), thread_declarations_string.toString(), String.valueOf(loadCount),
+        cache_state_checks.toString()};
     }
 
     /**
@@ -127,9 +189,10 @@ public class App
         // Reads the litmus test JSON into a map object (can think of this as a tree)
         Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/"+ litmusFilename +".json").toFile(), Map.class);
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
+        List<Map<String, Object>> invariant = (List<Map<String, Object>>) litmusMap.get("invariant");
 
         // Get the relevant strings in a legal Murphi representation
-        Object[] murphi_strings = parseLitmusToMurphi(processes, threadSize, stringAddressToIntAddress);
+        Object[] murphi_strings = parseLitmusToMurphi(processes, invariant, threadSize, stringAddressToIntAddress);
 
         // Calculate the total number of instructions (useful for knowing when to stop execution)
         int total_instruction_count = 0;
@@ -142,6 +205,7 @@ public class App
         frameworkMap.put("litmus_initialization", murphi_strings[0]);
         frameworkMap.put("thread_declarations", murphi_strings[1]);
         frameworkMap.put("load_count", murphi_strings[2]);
+        frameworkMap.put("cache_state_checks", murphi_strings[3]);
         root.put("LitmusFramework", frameworkMap);
 
         return root;

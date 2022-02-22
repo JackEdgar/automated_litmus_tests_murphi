@@ -445,18 +445,14 @@
       -- Only want to check i_threadindexes[0].regs[0] which represents 0th thread, not all threads, need to overcome
       -- the scalarset
 
-      -- for m:OBJSET_cacheL1C1 do
-      --  if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
-      --   (i_cacheL1C1[m].cb[0].State = cacheL1C1_S | i_cacheL1C1[m].cb[0].State = cacheL1C1_M) &
-      --   !((i_cacheL1C1[m].cb[0].cl = 2 & i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0) |
-      --      (i_cacheL1C1[m].cb[0].cl = 1 & (i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0 | i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 2))) then
-      --      error "Litmus test failed" endif;
-      -- endfor;
+      for m:OBJSET_cacheL1C1 do
+        if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
+${LitmusFramework.cache_state_checks}
+      endfor;
 
-
-      if i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0 & i_threadIndexes[i_threadScalarsetMapping[1]].regs[0] = 0 then
-        error "Litmus test failed"
-      endif;
+      --if i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0 & i_threadIndexes[i_threadScalarsetMapping[1]].regs[0] = 0 then
+      --  error "Litmus test failed"
+      --endif;
 
       Reset_perm();
       Reset_global_monitor();
