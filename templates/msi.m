@@ -450,10 +450,6 @@
 ${LitmusFramework.cache_state_checks}
       endfor;
 
-      --if i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0 & i_threadIndexes[i_threadScalarsetMapping[1]].regs[0] = 0 then
-      --  error "Litmus test failed"
-      --endif;
-
       Reset_perm();
       Reset_global_monitor();
       Reset_NET_();
@@ -994,7 +990,7 @@ ${LitmusFramework.cache_state_checks}
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m); Set_perm(store, adr, m);
       cbe.State := cacheL1C1_M;
-      i_threadIndexes[m].regs[0] := cbe.cl;
+      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -1026,7 +1022,7 @@ ${LitmusFramework.cache_state_checks}
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m);
       cbe.State := cacheL1C1_S;
-      i_threadIndexes[m].regs[0] := cbe.cl;
+      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
