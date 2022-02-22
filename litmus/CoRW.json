@@ -6,7 +6,7 @@
         {
           "type": "load",
           "address": "x",
-          "value": 2
+          "value": 0
         },
         {
           "type": "store",

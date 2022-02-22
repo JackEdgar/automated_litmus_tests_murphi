@@ -8,9 +8,7 @@ import freemarker.template.TemplateExceptionHandler;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class App
 {
@@ -42,19 +40,26 @@ public class App
         int nextFreeIntAddress = 0;
         StringBuilder litmus_initialization_string = new StringBuilder();
         StringBuilder thread_declarations_string = new StringBuilder();
+        int[] loadsInProcess = new int[processes.size()];
         int loadCount = 0;
+        List<Set<Integer>> regsInProcesses = new ArrayList<>();
 
         // Converts the instructions initialization into a Murphi representation
         for(int j = 0; j < processes.size(); j++) {
             Map<String, Object> currentProcess = processes.get(j);
             List<Object> instructions = (List<Object>) currentProcess.get("instructions");
             threadSize.put(j, instructions.size());
+            Set<Integer> regsInCurrentProcess = new HashSet<>();
 
             for(int i = 0; i < instructions.size(); i++) {
                 Map<String, Object> currentInstruction = (Map<String, Object>) instructions.get(i);
                 if(j != 0 || i != 0) litmus_initialization_string.append("      ");
 
-                if(currentInstruction.get("type").equals("load")) loadCount++;
+                if(currentInstruction.get("type").equals("load")){
+                    loadCount++;
+                    loadsInProcess[j]++;
+                    regsInCurrentProcess.add(Integer.parseInt(currentInstruction.get("value").toString()));
+                }
 
                 litmus_initialization_string.append("i_thread").append(j + 1).append("[").append(i).append("].itype:=").append(currentInstruction.get("type")).append(";\n");
                 litmus_initialization_string.append("      i_thread").append(j + 1).append("[").append(i).append("].val:=").append(currentInstruction.get("value")).append(";\n");
@@ -65,6 +70,9 @@ public class App
                 }
                 litmus_initialization_string.append("      i_thread").append(j + 1).append("[").append(i).append("].adr:=").append(stringAddressToIntAddress.get(currentInstruction.get("address"))).append(";\n");
             }
+
+            regsInProcesses.add(regsInCurrentProcess);
+
             litmus_initialization_string.append("\n");
         }
 
@@ -76,15 +84,23 @@ public class App
 
         litmus_initialization_string.append("\n");
 
-        litmus_initialization_string.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "      incorrectLoadCounter:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadIndexes[m].currentIndex:= 0;\n");
+        litmus_initialization_string.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadIndexes[m].currentIndex:= 0;\n");
 
         for(int i = 0; i <= processes.size(); i++) {
             if(i == 0) litmus_initialization_string.append("        if initializer = ").append(i).append(" then \n");
             else litmus_initialization_string.append("        elsif initializer = ").append(i).append(" then \n");
 
-            if (i < processes.size()) litmus_initialization_string.append("          i_threadIndexes[m].maxIndex:= ").append(threadSize.get(i) - 1).append(";\n").append("          i_threadlist[m]:= i_thread").append(i + 1).append(";\n").append("          initializer:= initializer + 1;\n");
+            if (i < processes.size()) {
+                litmus_initialization_string.append("          i_threadIndexes[m].maxIndex:= ").append(threadSize.get(i) - 1)
+                        .append(";\n").append("          i_threadlist[m]:= i_thread").append(i + 1).append(";\n").append("          initializer:= initializer + 1;\n");
+                litmus_initialization_string.append("          i_threadScalarsetMapping[").append(i).append("]:= m;\n");
 
-            else litmus_initialization_string.append("          i_threadIndexes[m].maxIndex:= 1;\n" + "          i_threadIndexes[m].currentIndex:= 2;\n");
+                for(int k = 0; k < regsInProcesses.get(i).size(); k++) {
+                    litmus_initialization_string.append("          i_threadIndexes[m].regs[").append(k).append("] := 0;\n");
+                }
+            }
+
+            else litmus_initialization_string.append("          i_threadIndexes[m].maxIndex:= 1;\n" + "          i_threadIndexes[m].currentIndex:= 2;\n").append("          i_threadScalarsetMapping[").append(i).append("]:= m;\n");;
         }
 
         litmus_initialization_string.append("        endif;\n" + "      endfor;");

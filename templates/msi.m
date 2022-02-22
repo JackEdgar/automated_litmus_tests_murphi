@@ -98,7 +98,11 @@
       threadIndexes: array[OBJSET_cacheL1C1] of record
         currentIndex: 0..${LitmusFramework.cache_count};
         maxIndex: 0..10000;
+        regs: array[0..10] of ClValue;
       end;
+
+      -- Mapping between scalarset and actual integers
+      threadScalarsetMapping: array[0..${LitmusFramework.cache_count}] of OBJSET_cacheL1C1;
 
     ----RevMurphi.MurphiModular.Types.GenCheckTypes
       ------RevMurphi.MurphiModular.Types.CheckTypes.GenPermType
@@ -173,10 +177,10 @@
       ${LitmusFramework.thread_declarations}
       i_threadlist: threadlist;
       i_threadIndexes: threadIndexes;
+      i_threadScalarsetMapping: threadScalarsetMapping;
 
       -- Used to initialize the thread list, and keep track of total instructions executed
       initializer: 0..${LitmusFramework.cache_count};
-      incorrectLoadCounter: 0..${LitmusFramework.load_count};
       instructionsExecuted: 0..${LitmusFramework.total_instruction_count};
 
 --RevMurphi.MurphiModular.GenFunctions
@@ -437,9 +441,23 @@
     procedure resetEverything();
     begin
       -- Throws an error if we have violated invariant of the litmus test
-      if incorrectLoadCounter = ${LitmusFramework.load_count} then error "Litmus test failed" endif;
+      -- cb[0] represents cb[x] here
+      -- Only want to check i_threadindexes[0].regs[0] which represents 0th thread, not all threads, need to overcome
+      -- the scalarset
 
-      -- Reset everything before beginning
+      -- for m:OBJSET_cacheL1C1 do
+      --  if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
+      --   (i_cacheL1C1[m].cb[0].State = cacheL1C1_S | i_cacheL1C1[m].cb[0].State = cacheL1C1_M) &
+      --   !((i_cacheL1C1[m].cb[0].cl = 2 & i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0) |
+      --      (i_cacheL1C1[m].cb[0].cl = 1 & (i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0 | i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 2))) then
+      --      error "Litmus test failed" endif;
+      -- endfor;
+
+
+      if i_threadIndexes[i_threadScalarsetMapping[0]].regs[0] = 0 & i_threadIndexes[i_threadScalarsetMapping[1]].regs[0] = 0 then
+        error "Litmus test failed"
+      endif;
+
       Reset_perm();
       Reset_global_monitor();
       Reset_NET_();
@@ -980,8 +998,7 @@
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m); Set_perm(store, adr, m);
       cbe.State := cacheL1C1_M;
-      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
-      i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
+      i_threadIndexes[m].regs[0] := cbe.cl;
     endalias;
     end;
 
@@ -1013,8 +1030,7 @@
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m);
       cbe.State := cacheL1C1_S;
-      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
-      i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
+      i_threadIndexes[m].regs[0] := cbe.cl;
     endalias;
     end;
 
@@ -1068,7 +1084,7 @@
         FSM_Access_cacheL1C1_M_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
+        -- if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_M_evict"
@@ -1087,7 +1103,7 @@
         FSM_Access_cacheL1C1_M_store(adr, m, currentThread[threadIndex].val);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
+        -- if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_S_load"
@@ -1099,7 +1115,7 @@
         FSM_Access_cacheL1C1_S_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
+        -- if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_S_evict"
@@ -1116,6 +1132,12 @@
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_S_store(adr, m, currentThread[threadIndex].val);
+      endrule;
+
+      rule "execution_finished"
+        instructionsExecuted = ${LitmusFramework.total_instruction_count}
+      ==>
+        resetEverything();
       endrule;
 
       endalias;
@@ -1197,10 +1219,13 @@
 
   -- Initial state / setup before execution
   startstate
-
-    -- Resets everything to the initial state, while setting one initial value up manually beforehand to prevent litmus test issues
-    incorrectLoadCounter:= 0;
-    resetEverything();
+    -- Reset everything before beginning
+      Reset_perm();
+      Reset_global_monitor();
+      Reset_NET_();
+      Reset_directoryL1C1();
+      Reset_cacheL1C1();
+      Reset_Threads();
 
   endstartstate;
 
