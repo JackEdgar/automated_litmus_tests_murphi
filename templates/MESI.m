@@ -123,9 +123,13 @@
         threadlist: array[OBJSET_cacheL1C1] of thread;
         -- Indexes for threads
         threadIndexes: array[OBJSET_cacheL1C1] of record
-        currentIndex: 0..${LitmusFramework.cache_count};
-        maxIndex: 0..10000;
+          currentIndex: 0..${LitmusFramework.cache_count};
+          maxIndex: 0..10000;
+          regs: array[0..10] of ClValue;
         end;
+
+        -- Mapping between scalarset and actual integers
+        threadScalarsetMapping: array[0..${LitmusFramework.cache_count}] of OBJSET_cacheL1C1;
 
     ----Backend/Murphi/MurphiModular/Types/GenCheckTypes
       ------Backend/Murphi/MurphiModular/Types/CheckTypes/GenPermType
@@ -197,10 +201,10 @@
     ${LitmusFramework.thread_declarations}
     i_threadlist: threadlist;
     i_threadIndexes: threadIndexes;
+    i_threadScalarsetMapping: threadScalarsetMapping;
 
     -- Used to initialize the thread list, and keep track of total instructions executed
     initializer: 0..${LitmusFramework.cache_count};
-    incorrectLoadCounter: 0..${LitmusFramework.load_count};
     instructionsExecuted: 0..${LitmusFramework.total_instruction_count};
 
 --Backend/Murphi/MurphiModular/GenFunctions
@@ -479,9 +483,11 @@
     procedure resetEverything();
     begin
       -- Throws an error if we have violated invariant of the litmus test
-      if incorrectLoadCounter = ${LitmusFramework.load_count} then error "Litmus test failed" endif;
+      for m:OBJSET_cacheL1C1 do
+        if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
+${LitmusFramework.cache_state_checks}
+      endfor;
 
-      -- Reset everything before beginning
       Reset_perm();
       Reset_NET_();
       ResetMachine_();
@@ -551,8 +557,7 @@
     begin
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Set_perm(load, adr, m);cbe.State := cacheL1C1_E;
-      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
-      i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
+      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -598,8 +603,7 @@
     begin
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Set_perm(load, adr, m);cbe.State := cacheL1C1_M;
-      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
-      i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
+      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -625,8 +629,7 @@
     begin
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Set_perm(load, adr, m);cbe.State := cacheL1C1_S;
-      if cbe.cl = i_threadlist[m][i_threadIndexes[m].currentIndex].val then incorrectLoadCounter:= incorrectLoadCounter + 1 endif;
-      i_threadlist[m][i_threadIndexes[m].currentIndex].val:= cbe.cl;
+      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -1304,7 +1307,6 @@
         FSM_Access_cacheL1C1_E_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_E_store"
@@ -1313,14 +1315,12 @@
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_E_store(adr, m);
-
       endrule;
 
       rule "cacheL1C1_E_evict"
         cbe.State = cacheL1C1_E & network_ready()
       ==>
         FSM_Access_cacheL1C1_E_evict(adr, m);
-
       endrule;
 
       rule "cacheL1C1_I_store"
@@ -1329,7 +1329,6 @@
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_I_store(adr, m);
-
       endrule;
 
       rule "cacheL1C1_I_load"
@@ -1338,14 +1337,12 @@
         & currentThread[threadIndex].itype = load
       ==>
         FSM_Access_cacheL1C1_I_load(adr, m);
-
       endrule;
 
       rule "cacheL1C1_M_evict"
         cbe.State = cacheL1C1_M & network_ready()
       ==>
         FSM_Access_cacheL1C1_M_evict(adr, m);
-
       endrule;
 
       rule "cacheL1C1_M_store"
@@ -1356,8 +1353,6 @@
         FSM_Access_cacheL1C1_M_store(adr, m, currentThread[threadIndex].val);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
-
       endrule;
 
       rule "cacheL1C1_M_load"
@@ -1368,8 +1363,6 @@
         FSM_Access_cacheL1C1_M_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
-
       endrule;
 
       rule "cacheL1C1_S_load"
@@ -1380,8 +1373,6 @@
         FSM_Access_cacheL1C1_S_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
-
       endrule;
 
       rule "cacheL1C1_S_store"
@@ -1390,16 +1381,19 @@
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_S_store(adr, m);
-
       endrule;
 
       rule "cacheL1C1_S_evict"
         cbe.State = cacheL1C1_S & network_ready()
       ==>
         FSM_Access_cacheL1C1_S_evict(adr, m);
-
       endrule;
 
+      rule "execution_finished"
+        instructionsExecuted = ${LitmusFramework.total_instruction_count}
+      ==>
+        resetEverything();
+      endrule;
 
       endalias;
       endalias;
@@ -1479,9 +1473,9 @@
 --Backend/Murphi/MurphiModular/GenStartStates
 
   startstate
-    incorrectLoadCounter:= 0;
-    resetEverything();
-    -- System_Reset();
+    -- Reset everything before beginning
+      Reset_perm();
+      Reset_NET_();
+      ResetMachine_();
+      Reset_Threads();
   endstartstate;
-
---Backend/Murphi/MurphiModular/GenInvariant

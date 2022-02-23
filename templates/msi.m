@@ -109,10 +109,6 @@
         acc_type_obj: multiset[3] of PermissionType;
         PermMonitor: array[Machines] of array[Address] of acc_type_obj;
 
-      ------RevMurphi.MurphiModular.Types.CheckTypes.GenStoreMonitorType
-        GlobalStoreMonitor: array[Address] of ClValue;
-
-
     ----RevMurphi.MurphiModular.Types.GenMessage
 
       Message: record
@@ -169,7 +165,6 @@
       req: NET_Ordered;
       cnt_req: NET_Ordered_cnt;
       g_perm: PermMonitor;
-      g_monitor_store: GlobalStoreMonitor;
       i_directoryL1C1: OBJ_directoryL1C1;
       i_cacheL1C1: OBJ_cacheL1C1;
 
