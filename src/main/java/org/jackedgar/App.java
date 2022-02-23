@@ -36,7 +36,8 @@ public class App
      * @return Litmus test declaration and initialization strings
      */
     private static String[] parseLitmusToMurphi(List<Map<String, Object>> processes, List<Map<String, Object>> invariant,
-                                                Map<Integer, Integer> threadSize, Map<String, Integer> stringAddressToIntAddress) {
+                                                Map<Integer, Integer> threadSize, Map<String, Integer> stringAddressToIntAddress,
+                                                String templateFilename) {
         int nextFreeIntAddress = 0;
         StringBuilder litmus_initialization_string = new StringBuilder();
         StringBuilder thread_declarations_string = new StringBuilder();
@@ -111,7 +112,9 @@ public class App
             for(String addr : stringAddressToIntAddress.keySet()) {
                 if(currentInvariant.containsKey(addr)) {
                     cache_state_checks.append("        (i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
-                            .append("].State = cacheL1C1_S | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_M) &\n");
+                            .append("].State = cacheL1C1_S | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_M");
+                    if(templateFilename.equalsIgnoreCase("mesi")) cache_state_checks.append(" | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_E");
+                    cache_state_checks.append(") &\n");
                 }
             }
         }
@@ -177,7 +180,7 @@ public class App
      * @return A tree/map representation of our litmus test, that allows us to easily inject it into our template
      * @throws IOException Left this unchecked as not focusing on well-engineered code for this project
      */
-    private static Map<String, Object> getLitmus(String litmusFilename) throws IOException {
+    private static Map<String, Object> getLitmus(String litmusFilename, String templateFilename) throws IOException {
 
         // Useful data structures for completing the conversion
         ObjectMapper mapper = new ObjectMapper();
@@ -194,7 +197,7 @@ public class App
         List<Map<String, Object>> invariant = (List<Map<String, Object>>) litmusMap.get("invariant");
 
         // Get the relevant strings in a legal Murphi representation
-        Object[] murphi_strings = parseLitmusToMurphi(processes, invariant, threadSize, stringAddressToIntAddress);
+        Object[] murphi_strings = parseLitmusToMurphi(processes, invariant, threadSize, stringAddressToIntAddress, templateFilename);
 
         // Calculate the total number of instructions (useful for knowing when to stop execution)
         int total_instruction_count = 0;
@@ -237,11 +240,11 @@ public class App
         System.out.println("Please enter the name of the litmus test you would like to use (excluding JSON file extension): ");
         String litmusFilename = reader.readLine();
 
-        // Get the litmus test we want into a useful representation
-        Map<String, Object> litmus_requested = getLitmus(litmusFilename);
-
         System.out.println("Please enter the protocol you would like to use (Currently accepted: msi, mesi): ");
         String templateFilename = reader.readLine();
+
+        // Get the litmus test we want into a useful representation
+        Map<String, Object> litmus_requested = getLitmus(litmusFilename, templateFilename);
 
         // Process the protocol file with the litmus test
         processProtocol(litmus_requested, templateFilename, litmusFilename);
