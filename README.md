@@ -14,7 +14,7 @@ To run the output once generated, use the following commands in your terminal, w
 
 -> g++ output_msi.cpp -Icmurphi-master/include
 
--> ./a.out -tv -m512
+-> ./a.out -tv -m512 -ndl
 
 This uses a precompiled Murphi compiler that is included in the output directory. You may however use your own. The flags on the last line provide certain
 properties (tv provides a detailed trace, -m512 provides the program with 512MB of RAM which can be adjusted as needed if you find too many active states).
