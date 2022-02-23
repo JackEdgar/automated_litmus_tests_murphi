@@ -236,41 +236,6 @@
       endfor;
     end;
 
-
-  ----RevMurphi.MurphiModular.Functions.GenStoreMonitorFunc
-
-    -- procedure Execute_store_monitor(cb: ClValue; adr: Address);
-    -- begin
-    --   alias cbe: g_monitor_store[adr] do
-    --     if cbe = cb then
-    --       if cbe = VAL_COUNT then
-    --         cbe := 0;
-    --       else
-    --         cbe := cbe + 1;
-    --       endif;
-    --     else
-    --         error "Write linearization failed";
-    --     endif;
-    --   endalias;
-    -- end;
-
-    procedure Reset_global_monitor();
-    begin
-      for adr:Address do
-        g_monitor_store[adr] := 0;
-      endfor;
-    end;
-
-    -- procedure Store(var cbe: ClValue; adr: Address);
-    -- begin
-    --   Execute_store_monitor(cbe, adr);
-    --   if cbe = VAL_COUNT then
-    --     cbe:= 0;
-    --   else
-    --     cbe := cbe + 1;
-    --   endif;
-    -- end;
-
   ----RevMurphi.MurphiModular.Functions.GenVectorFunc
     -- .add()
     procedure AddElement_directoryL1C1_cacheL1C1(var sv:v_directoryL1C1_cacheL1C1; n:Machines);
@@ -441,9 +406,6 @@
     procedure resetEverything();
     begin
       -- Throws an error if we have violated invariant of the litmus test
-      -- cb[0] represents cb[x] here
-      -- Only want to check i_threadindexes[0].regs[0] which represents 0th thread, not all threads, need to overcome
-      -- the scalarset
 
       for m:OBJSET_cacheL1C1 do
         if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
@@ -451,7 +413,6 @@ ${LitmusFramework.cache_state_checks}
       endfor;
 
       Reset_perm();
-      Reset_global_monitor();
       Reset_NET_();
       Reset_directoryL1C1();
       Reset_cacheL1C1();
@@ -1000,7 +961,6 @@ ${LitmusFramework.cache_state_checks}
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Clear_perm(adr, m); Set_perm(load, adr, m); Set_perm(store, adr, m);
       cbe.State := cacheL1C1_M;
-      -- Execute_store_monitor(cbe.cl, adr);
       cbe.cl := v;
     endalias;
     end;
@@ -1076,7 +1036,6 @@ ${LitmusFramework.cache_state_checks}
         FSM_Access_cacheL1C1_M_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        -- if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_M_evict"
@@ -1095,7 +1054,6 @@ ${LitmusFramework.cache_state_checks}
         FSM_Access_cacheL1C1_M_store(adr, m, currentThread[threadIndex].val);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        -- if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_S_load"
@@ -1107,7 +1065,6 @@ ${LitmusFramework.cache_state_checks}
         FSM_Access_cacheL1C1_S_load(adr, m);
         i_threadIndexes[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
-        -- if instructionsExecuted = ${LitmusFramework.total_instruction_count} then resetEverything(); endif;
       endrule;
 
       rule "cacheL1C1_S_evict"
@@ -1213,7 +1170,6 @@ ${LitmusFramework.cache_state_checks}
   startstate
     -- Reset everything before beginning
       Reset_perm();
-      Reset_global_monitor();
       Reset_NET_();
       Reset_directoryL1C1();
       Reset_cacheL1C1();
