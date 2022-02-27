@@ -121,8 +121,8 @@
         thread: array[0..${LitmusFramework.cache_count}] of Instruction;
         -- List of all threads, each thread is associated with a cache
         threadlist: array[OBJSET_cacheL1C1] of thread;
-        -- Indexes for threads
-        threadIndexes: array[OBJSET_cacheL1C1] of record
+        -- Metadata for threads
+        threadMetadata: array[OBJSET_cacheL1C1] of record
           currentIndex: 0..${LitmusFramework.cache_count};
           maxIndex: 0..10000;
           regs: array[0..10] of ClValue;
@@ -200,7 +200,7 @@
     -- Threads, thread list, thread indexes are for litmus tests
     ${LitmusFramework.thread_declarations}
     i_threadlist: threadlist;
-    i_threadIndexes: threadIndexes;
+    i_threadMetadata: threadMetadata;
     i_threadScalarsetMapping: threadScalarsetMapping;
 
     -- Used to initialize the thread list, and keep track of total instructions executed
@@ -557,7 +557,7 @@ ${LitmusFramework.cache_state_checks}
     begin
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Set_perm(load, adr, m);cbe.State := cacheL1C1_E;
-      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
+      i_threadMetadata[m].regs[i_threadlist[m][i_threadMetadata[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -603,7 +603,7 @@ ${LitmusFramework.cache_state_checks}
     begin
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Set_perm(load, adr, m);cbe.State := cacheL1C1_M;
-      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
+      i_threadMetadata[m].regs[i_threadlist[m][i_threadMetadata[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -629,7 +629,7 @@ ${LitmusFramework.cache_state_checks}
     begin
     alias cbe: i_cacheL1C1[m].cb[adr] do
       Set_perm(load, adr, m);cbe.State := cacheL1C1_S;
-      i_threadIndexes[m].regs[i_threadlist[m][i_threadIndexes[m].currentIndex].val] := cbe.cl;
+      i_threadMetadata[m].regs[i_threadlist[m][i_threadMetadata[m].currentIndex].val] := cbe.cl;
     endalias;
     end;
 
@@ -1295,23 +1295,23 @@ ${LitmusFramework.cache_state_checks}
     ruleset m:OBJSET_cacheL1C1 do
       -- Get the address, current thread, cache block, address
       alias currentThread:i_threadlist[m] do
-      alias threadIndex:i_threadIndexes[m].currentIndex do
+      alias threadIndex:i_threadMetadata[m].currentIndex do
       alias adr:currentThread[threadIndex].adr do
       alias cbe:i_cacheL1C1[m].cb[adr] do
 
       rule "cacheL1C1_E_load"
         cbe.State = cacheL1C1_E
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = load
       ==>
         FSM_Access_cacheL1C1_E_load(adr, m);
-        i_threadIndexes[m].currentIndex := threadIndex + 1;
+        i_threadMetadata[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
       endrule;
 
       rule "cacheL1C1_E_store"
         cbe.State = cacheL1C1_E
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_E_store(adr, m);
@@ -1325,7 +1325,7 @@ ${LitmusFramework.cache_state_checks}
 
       rule "cacheL1C1_I_store"
         cbe.State = cacheL1C1_I & network_ready()
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_I_store(adr, m);
@@ -1333,7 +1333,7 @@ ${LitmusFramework.cache_state_checks}
 
       rule "cacheL1C1_I_load"
         cbe.State = cacheL1C1_I & network_ready()
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = load
       ==>
         FSM_Access_cacheL1C1_I_load(adr, m);
@@ -1347,37 +1347,37 @@ ${LitmusFramework.cache_state_checks}
 
       rule "cacheL1C1_M_store"
         cbe.State = cacheL1C1_M
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_M_store(adr, m, currentThread[threadIndex].val);
-        i_threadIndexes[m].currentIndex := threadIndex + 1;
+        i_threadMetadata[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
       endrule;
 
       rule "cacheL1C1_M_load"
         cbe.State = cacheL1C1_M
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = load
       ==>
         FSM_Access_cacheL1C1_M_load(adr, m);
-        i_threadIndexes[m].currentIndex := threadIndex + 1;
+        i_threadMetadata[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
       endrule;
 
       rule "cacheL1C1_S_load"
         cbe.State = cacheL1C1_S
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = load
       ==>
         FSM_Access_cacheL1C1_S_load(adr, m);
-        i_threadIndexes[m].currentIndex := threadIndex + 1;
+        i_threadMetadata[m].currentIndex := threadIndex + 1;
         instructionsExecuted:= instructionsExecuted + 1;
       endrule;
 
       rule "cacheL1C1_S_store"
         cbe.State = cacheL1C1_S & network_ready()
-        & threadIndex <= i_threadIndexes[m].maxIndex
+        & threadIndex <= i_threadMetadata[m].maxIndex
         & currentThread[threadIndex].itype = store
       ==>
         FSM_Access_cacheL1C1_S_store(adr, m);

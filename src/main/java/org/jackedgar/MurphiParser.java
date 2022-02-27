@@ -62,23 +62,23 @@ public class MurphiParser {
 
         litmus_initialization_string.append("\n");
 
-        litmus_initialization_string.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadIndexes[m].currentIndex:= 0;\n");
+        litmus_initialization_string.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadMetadata[m].currentIndex:= 0;\n");
 
         for(int i = 0; i <= processes.size(); i++) {
             if(i == 0) litmus_initialization_string.append("        if initializer = ").append(i).append(" then \n");
             else litmus_initialization_string.append("        elsif initializer = ").append(i).append(" then \n");
 
             if (i < processes.size()) {
-                litmus_initialization_string.append("          i_threadIndexes[m].maxIndex:= ").append(threadSize.get(i) - 1)
+                litmus_initialization_string.append("          i_threadMetadata[m].maxIndex:= ").append(threadSize.get(i) - 1)
                         .append(";\n").append("          i_threadlist[m]:= i_thread").append(i + 1).append(";\n").append("          initializer:= initializer + 1;\n");
                 litmus_initialization_string.append("          i_threadScalarsetMapping[").append(i).append("]:= m;\n");
 
                 for(int k = 0; k < regsInProcesses.get(i).size(); k++) {
-                    litmus_initialization_string.append("          i_threadIndexes[m].regs[").append(k).append("] := 0;\n");
+                    litmus_initialization_string.append("          i_threadMetadata[m].regs[").append(k).append("] := 0;\n");
                 }
             }
 
-            else litmus_initialization_string.append("          i_threadIndexes[m].maxIndex:= 1;\n" + "          i_threadIndexes[m].currentIndex:= 2;\n").append("          i_threadScalarsetMapping[").append(i).append("]:= m;\n");
+            else litmus_initialization_string.append("          i_threadMetadata[m].maxIndex:= 1;\n" + "          i_threadMetadata[m].currentIndex:= 2;\n").append("          i_threadScalarsetMapping[").append(i).append("]:= m;\n");
         }
 
         litmus_initialization_string.append("        endif;\n" + "      endfor;");
@@ -128,7 +128,7 @@ public class MurphiParser {
 
                     for(int a = 0; a < allowedListForReg.size(); a++) {
                         int currentAllowed = allowedListForReg.get(a);
-                        cache_state_checks.append("i_threadIndexes[i_threadScalarsetMapping[")
+                        cache_state_checks.append("i_threadMetadata[i_threadScalarsetMapping[")
                                 .append(thread_id_string).append("]].regs[").append(reg).append("] = ").append(currentAllowed);
                         if(a != allowedListForReg.size() - 1) cache_state_checks.append(" | ");
                     }
