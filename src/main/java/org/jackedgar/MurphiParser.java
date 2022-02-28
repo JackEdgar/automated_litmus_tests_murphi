@@ -103,6 +103,10 @@ public class MurphiParser {
 
         litmusInitialization.append("        endif;\n" + "      endfor;");
 
+        // Set of addresses that have been already referenced, to prevent repeated state checks across invariant
+        // components
+        Set<String> alreadyReferenced = new HashSet<>();
+
         // Iterate over the invariant map (excluding the first, which is the boolean not function)
         for (int invariantId = 1; invariantId < invariantMap.size(); invariantId++) {
 
@@ -111,17 +115,20 @@ public class MurphiParser {
             for (String addr : stringAddressToIntAddress.keySet()) {
 
                 // If the current invariant contains a key correlating to an address, then add that to the Murphi
-                if (currentInvariant.containsKey(addr)) {
+                if (currentInvariant.containsKey(addr) & !alreadyReferenced.contains(addr)) {
 
                     // This is for the MSI protocol
-                    invariant.append("        (i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
+                    invariant.append("(i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
                             .append("].State = cacheL1C1_S | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_M");
 
                     // This is an additional condition we must add if using the MESI protocol, allowing the E state
                     if (protocol.equalsIgnoreCase("mesi"))
                         invariant.append(" | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_E");
 
-                    invariant.append(") &\n");
+                    invariant.append(") &\n        ");
+
+                    // Mark this global address as already referenced, to prevent repetition of state checks
+                    alreadyReferenced.add(addr);
                 }
             }
         }
@@ -189,7 +196,7 @@ public class MurphiParser {
             invariant.append(")");
 
             invariant.append(")");
-            if (i != invariantMap.size() - 1) invariant.append(" |\n");
+            if (i != invariantMap.size() - 1) invariant.append(" |\n        ");
 
         }
 
