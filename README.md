@@ -8,11 +8,11 @@ https://freemarker.apache.org/docs/index.html
 The litmus tests themselves have been represented as JSON files. Please see the litmus folder for examples. The "name" field for each process/thread
 is simply syntactic sugar, and is not necessary for the tool to function. Also note, the set of registers for each processor used must be sequentially ordered from zero (no gaps between integers).
 
-To run the output once generated, use the following commands in your terminal, while in the output directory (with output_msi_r replaced with the test you have generated):
+To run the output once generated, use the following commands in your terminal, while in the output directory (with msi_r replaced with the test you have generated):
 
--> cmurphi-master/src/mu output_msi_r.m         
+-> cmurphi-master/src/mu msi_r.m         
 
--> g++ output_msi_r.cpp -Icmurphi-master/include
+-> g++ msi_r.cpp -Icmurphi-master/include
 
 -> ./a.out -tv -m512 -ndl
 
