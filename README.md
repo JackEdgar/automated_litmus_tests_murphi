@@ -6,7 +6,7 @@ The protocols themselves must take the form of a Murphi file that has been modif
 https://freemarker.apache.org/docs/index.html
 
 The litmus tests themselves have been represented as JSON files. Please see the litmus folder for examples. The "name" field for each process/thread
-is simply syntactic sugar, and is not necessary for the tool to function. Also note, the set of registers for each processor used must be sequentially ordered from zero (no gaps between integers).
+is simply syntactic sugar, and is not necessary for the tool to function. Also note, the set of registers for each processor used must be sequentially ordered from zero (no gaps between integers). All currently included litmus tests are for Sequential Consistency (SC).
 
 To run the output once generated, use the following commands in your terminal, while in the output directory (with msi_r replaced with the test you have generated):
 
