@@ -9,7 +9,9 @@ import freemarker.template.TemplateExceptionHandler;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class App {
     /**
@@ -98,13 +100,43 @@ public class App {
                 "compilation, followed by g++ compilation.\n");
     }
 
-    public static void main(String[] args) throws TemplateException, IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please enter the name of the litmus test that you would like to use (excluding file extension): ");
-        String litmusFilename = reader.readLine();
+    /**
+     * @param directory The directory we are targeting
+     * @return A set of strings, containing all filenames in the requested directory
+     */
+    private static Set<String> getFileSet(String directory) {
+        File[] files = new File(directory).listFiles();
+        Set<String> filenames = new HashSet<>();
 
-        System.out.println("Please enter the protocol you would like to use (Currently accepted: msi, mesi): ");
-        String templateFilename = reader.readLine();
+        for (File currentFile : files) filenames.add(currentFile.getName().toLowerCase());
+
+        return filenames;
+    }
+
+    public static void main(String[] args) throws TemplateException, IOException {
+
+        // Get the supported litmus tests and protocols
+        Set<String> supportedLitmusTests = getFileSet("litmus");
+        Set<String> supportedProtocols = getFileSet("templates");
+
+        // Get the requested litmus test and protocol
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String litmusFilename;
+        String templateFilename;
+
+        System.out.println("Please enter the name of the litmus test that you would like to use (excluding file extension): ");
+        while (true) {
+            litmusFilename = reader.readLine();
+            if (supportedLitmusTests.contains(litmusFilename.toLowerCase() + ".json")) break;
+            System.out.println("Unsupported litmus test, please try again");
+        }
+
+        System.out.println("Please enter the protocol that you would like to use (excluding file extension): ");
+        while (true) {
+            templateFilename = reader.readLine();
+            if (supportedProtocols.contains(templateFilename.toLowerCase() + ".m")) break;
+            System.out.println("Unsupported protocol, please try again");
+        }
 
         // Process the protocol, integrating the requested litmus test
         processProtocol(templateFilename, litmusFilename);
