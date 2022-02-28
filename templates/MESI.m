@@ -109,8 +109,7 @@
 
       Machines: union{OBJSET_directoryL1C1, OBJSET_cacheL1C1};
 
-        -- Instruction, contains the type, value (if applicable), and address
-        -- Model is currently programmed such that loads are performed into the val field
+        -- Instruction, contains the type, value, and address
         Instruction: record
             itype: PermissionType;
             val: ClValue;
@@ -119,7 +118,7 @@
 
         -- Threads are sequences of instructions
         thread: array[0..${LitmusFramework.cache_count}] of Instruction;
-        -- List of all threads, each thread is associated with a cache
+        -- List of all threads, each thread is associated with a cache/processor
         threadlist: array[OBJSET_cacheL1C1] of thread;
         -- Metadata for threads
         threadMetadata: array[OBJSET_cacheL1C1] of record
@@ -128,7 +127,7 @@
           regs: array[0..${LitmusFramework.max_regs_index}] of ClValue;
         end;
 
-        -- Mapping between scalarset and actual integers
+        -- Mapping between integers and scalarset values, to index into caches
         threadScalarsetMapping: array[0..${LitmusFramework.cache_count}] of OBJSET_cacheL1C1;
 
     ----Backend/Murphi/MurphiModular/Types/GenCheckTypes
@@ -197,7 +196,7 @@
       i_directoryL1C1: OBJ_directoryL1C1;
       i_cacheL1C1: OBJ_cacheL1C1;
 
-    -- Threads, thread list, thread indexes are for litmus tests
+    -- Threads, thread list/metadata/scalarset mapping are for litmus tests
     ${LitmusFramework.thread_definitions}
     i_threadlist: threadlist;
     i_threadMetadata: threadMetadata;
@@ -478,14 +477,14 @@
 
     end;
 
-    -- Called initially, and whenever we have executed all instructions in the litmus test
+    -- Called whenever we have executed all instructions in the litmus test
     -- Therefore, each call will make the model checker explore another series of interleavings of the litmus test
     procedure resetEverything();
     begin
       -- Throws an error if we have violated invariant of the litmus test
       for m:OBJSET_cacheL1C1 do
         if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
-${LitmusFramework.invariant}
+        ${LitmusFramework.invariant}
       endfor;
 
       Reset_perm();
@@ -1293,7 +1292,7 @@ ${LitmusFramework.invariant}
 --Backend/Murphi/MurphiModular/GenRules
   ----Backend/Murphi/MurphiModular/Rules/GenAccessRuleSet
     ruleset m:OBJSET_cacheL1C1 do
-      -- Get the address, current thread, cache block, address
+      -- Get the current thread, cache block, address, thread index
       alias currentThread:i_threadlist[m] do
       alias threadIndex:i_threadMetadata[m].currentIndex do
       alias adr:currentThread[threadIndex].adr do
