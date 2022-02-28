@@ -21,8 +21,7 @@ public class MurphiParser {
         int maxValue = 0;
         int maxRegs = 0;
 
-        int[] loadsInProcess = new int[processes.size()];
-        List<Set<Integer>> regsInProcesses = new ArrayList<>();
+        Set<Integer>[] regsInProcesses = new Set[processes.size()];
 
         StringBuilder litmusInitialization = new StringBuilder();
         StringBuilder threadDefinitions = new StringBuilder();
@@ -41,7 +40,6 @@ public class MurphiParser {
 
                 if(currentInstruction.get("type").equals("load")){
                     loadCount++;
-                    loadsInProcess[j]++;
                     regsInCurrentProcess.add(Integer.parseInt(currentInstruction.get("value").toString()));
                 }
 
@@ -57,8 +55,8 @@ public class MurphiParser {
                 litmusInitialization.append("      i_thread").append(j + 1).append("[").append(i).append("].adr:=").append(stringAddressToIntAddress.get(currentInstruction.get("address"))).append(";\n");
             }
 
-            maxRegs = Math.max(maxRegs, regsInProcesses.size());
-            regsInProcesses.add(regsInCurrentProcess);
+            maxRegs = Math.max(maxRegs, regsInCurrentProcess.size());
+            regsInProcesses[j] = regsInCurrentProcess;
 
             litmusInitialization.append("\n");
         }
@@ -82,7 +80,7 @@ public class MurphiParser {
                         .append(";\n").append("          i_threadlist[m]:= i_thread").append(i + 1).append(";\n").append("          initializer:= initializer + 1;\n");
                 litmusInitialization.append("          i_threadScalarsetMapping[").append(i).append("]:= m;\n");
 
-                for(int k = 0; k < regsInProcesses.get(i).size(); k++) {
+                for(int k = 0; k < regsInProcesses[i].size(); k++) {
                     litmusInitialization.append("          i_threadMetadata[m].regs[").append(k).append("] := 0;\n");
                 }
             }
