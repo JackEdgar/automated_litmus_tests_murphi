@@ -3,4 +3,4 @@
 *.m linguist-vendored=false
 *.m linguist-language=Murphi
 *.java linguist-vendored=false
-*.m linguist-language=Java
+*.java linguist-language=Java
