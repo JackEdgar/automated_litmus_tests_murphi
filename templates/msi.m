@@ -169,7 +169,7 @@
       i_cacheL1C1: OBJ_cacheL1C1;
 
       -- Threads, thread list, thread indexes are for litmus tests
-      ${LitmusFramework.thread_declarations}
+      ${LitmusFramework.thread_definitions}
       i_threadlist: threadlist;
       i_threadMetadata: threadMetadata;
       i_threadScalarsetMapping: threadScalarsetMapping;
@@ -404,7 +404,7 @@
 
       for m:OBJSET_cacheL1C1 do
         if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
-${LitmusFramework.cache_state_checks}
+${LitmusFramework.invariant}
       endfor;
 
       Reset_perm();

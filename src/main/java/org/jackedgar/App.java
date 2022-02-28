@@ -9,7 +9,6 @@ import freemarker.template.TemplateExceptionHandler;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class App {
@@ -48,11 +47,9 @@ public class App {
 
         // Get the JSON litmus test as a map object, then extract the processes and invariant
         Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/" + litmusFilename + ".json").toFile(), Map.class);
-        List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
-        List<Map<String, Object>> invariant = (List<Map<String, Object>>) litmusMap.get("invariant");
 
         // Parse the litmus test into Murphi, storing the results into a string array
-        String[] murphiStrings = MurphiParser.parseLitmusToMurphi(processes, invariant, threadSize, stringAddressToIntAddress, templateFilename);
+        String[] murphiStrings = MurphiParser.parseLitmusToMurphi(litmusMap, threadSize, stringAddressToIntAddress, templateFilename);
 
         // Calculate the total number of instructions and maximum possible index (across all threads)
         int maximumIndex = 1;
@@ -64,16 +61,15 @@ public class App {
         maximumIndex -= 1;
 
         // Add all relevant data to the map, for later injection by FreeMarker
-        frameworkMap.put("cache_count", processes.size());
+        frameworkMap.put("cache_count", threadSize.size());
         frameworkMap.put("total_instruction_count", totalInstructionCount);
         frameworkMap.put("max_thread_index", maximumIndex);
         frameworkMap.put("address_count", stringAddressToIntAddress.size());
         frameworkMap.put("litmus_initialization", murphiStrings[0]);
-        frameworkMap.put("thread_declarations", murphiStrings[1]);
-        frameworkMap.put("load_count", murphiStrings[2]);
-        frameworkMap.put("cache_state_checks", murphiStrings[3]);
-        frameworkMap.put("max_value", murphiStrings[4]);
-        frameworkMap.put("max_regs_index", murphiStrings[5]);
+        frameworkMap.put("thread_definitions", murphiStrings[1]);
+        frameworkMap.put("invariant", murphiStrings[2]);
+        frameworkMap.put("max_value", murphiStrings[3]);
+        frameworkMap.put("max_regs_index", murphiStrings[4]);
         root.put("LitmusFramework", frameworkMap);
 
         return root;

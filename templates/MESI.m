@@ -31,7 +31,7 @@
   const
     ENABLE_QS: false;
     VAL_COUNT: ${LitmusFramework.max_value};
-    ADR_COUNT: ${LitmusFramework.cache_count - 1};
+    ADR_COUNT: ${LitmusFramework.address_count - 1};
 
   ---- System network constants
     O_NET_MAX: 10;
@@ -198,7 +198,7 @@
       i_cacheL1C1: OBJ_cacheL1C1;
 
     -- Threads, thread list, thread indexes are for litmus tests
-    ${LitmusFramework.thread_declarations}
+    ${LitmusFramework.thread_definitions}
     i_threadlist: threadlist;
     i_threadMetadata: threadMetadata;
     i_threadScalarsetMapping: threadScalarsetMapping;
@@ -485,7 +485,7 @@
       -- Throws an error if we have violated invariant of the litmus test
       for m:OBJSET_cacheL1C1 do
         if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
-${LitmusFramework.cache_state_checks}
+${LitmusFramework.invariant}
       endfor;
 
       Reset_perm();
