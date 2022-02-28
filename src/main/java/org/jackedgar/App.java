@@ -54,9 +54,14 @@ public class App {
         // Parse the litmus test into Murphi, storing the results into a string array
         String[] murphiStrings = MurphiParser.parseLitmusToMurphi(processes, invariant, threadSize, stringAddressToIntAddress, templateFilename);
 
-        // Calculate the total number of instructions across all threads/processors in the litmus test
+        // Calculate the total number of instructions and maximum possible index (across all threads)
+        int maximumIndex = 1;
         int totalInstructionCount = 0;
-        for (Integer x : threadSize.values()) totalInstructionCount += x;
+        for (Integer x : threadSize.values()) {
+            totalInstructionCount += x;
+            maximumIndex = Math.max(maximumIndex, x);
+        }
+        maximumIndex -= 1;
 
         // Add all relevant data to the map, for later injection by FreeMarker
         frameworkMap.put("cache_count", processes.size());
@@ -67,6 +72,7 @@ public class App {
         frameworkMap.put("load_count", murphiStrings[2]);
         frameworkMap.put("cache_state_checks", murphiStrings[3]);
         frameworkMap.put("max_value", murphiStrings[4]);
+        frameworkMap.put("max_index", maximumIndex);
         root.put("LitmusFramework", frameworkMap);
 
         return root;
