@@ -1,2 +1,6 @@
 # To identify .m files as Murphi (rather than incorrect identification of Objective-C)
+* linguist-vendored
+*.m linguist-vendored=false
 *.m linguist-language=Murphi
+*.java linguist-vendored=false
+*.m linguist-language=Java
