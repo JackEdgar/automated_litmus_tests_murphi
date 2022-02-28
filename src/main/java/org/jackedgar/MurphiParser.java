@@ -5,13 +5,14 @@ import java.util.*;
 public class MurphiParser {
     /**
      * @param litmusMap                 The map containing the data from the JSON litmus test
-     * @param threadSize                Map from a thread index to the number of instructions in the thread (to be filled)
+     * @param threadSize                Map from a thread index to the number of instructions in the thread
+     *                                  (to be filled)
      * @param stringAddressToIntAddress Map from address in JSON to integer address (to be filled)
      * @param protocol                  The name of the protocol that we are integrating into
      * @return Transpiled data for final Murphi file
      */
-    protected static String[] parseLitmusToMurphi(Map<String, Object> litmusMap, Map<Integer, Integer> threadSize, Map<String, Integer> stringAddressToIntAddress,
-                                                  String protocol) {
+    protected static String[] parseLitmusToMurphi(Map<String, Object> litmusMap, Map<Integer, Integer> threadSize,
+                                                  Map<String, Integer> stringAddressToIntAddress, String protocol) {
 
         // Get the maps that represent the processes and invariant
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
@@ -45,16 +46,17 @@ public class MurphiParser {
                 if (procId != 0 || instrId != 0) litmusInitialization.append("      ");
 
                 // If the current instruction is a load, update the set of registers for that process
-                if (currentInstruction.get("type").equals("load")) {
+                if (currentInstruction.get("type").equals("load"))
                     regsInCurrentProcess.add(Integer.parseInt(currentInstruction.get("value").toString()));
-                }
 
                 // Update the maximum value, so we should end up with the maximum used across all processes
                 maxValue = Math.max((int) currentInstruction.get("value"), maxValue);
 
                 // Append some thread initialization to the relevant string
-                litmusInitialization.append("i_thread").append(procId + 1).append("[").append(instrId).append("].itype:=").append(currentInstruction.get("type")).append(";\n");
-                litmusInitialization.append("      i_thread").append(procId + 1).append("[").append(instrId).append("].val:=").append(currentInstruction.get("value")).append(";\n");
+                litmusInitialization.append("i_thread").append(procId + 1).append("[").append(instrId)
+                        .append("].itype:=").append(currentInstruction.get("type")).append(";\n")
+                        .append("      i_thread").append(procId + 1).append("[").append(instrId)
+                        .append("].val:=").append(currentInstruction.get("value")).append(";\n");
 
                 // If the mpa between string to integer addresses doesn't contain the current one, add it
                 if (!stringAddressToIntAddress.containsKey(currentInstruction.get("address"))) {
@@ -63,7 +65,9 @@ public class MurphiParser {
                 }
 
                 // Continue to generate the initialization string
-                litmusInitialization.append("      i_thread").append(procId + 1).append("[").append(instrId).append("].adr:=").append(stringAddressToIntAddress.get(currentInstruction.get("address"))).append(";\n");
+                litmusInitialization.append("      i_thread").append(procId + 1).append("[").append(instrId)
+                        .append("].adr:=").append(stringAddressToIntAddress.get(currentInstruction.get("address")))
+                        .append(";\n");
             }
 
             // Update the maximum regs variable, which should result in the maximum number of registers used in any
@@ -76,29 +80,33 @@ public class MurphiParser {
 
         // Iterate over each process again, appending data to both the thread definitions, and initialization strings
         for (int procId = 0; procId < processes.size(); procId++) {
-            litmusInitialization.append("      i_thread").append(procId + 1).append("[").append(threadSize.get(procId)).append("].adr:= 0;\n");
+            litmusInitialization.append("      i_thread").append(procId + 1).append("[").append(threadSize.get(procId))
+                    .append("].adr:= 0;\n");
             if (procId != 0) threadDefinitions.append("      ");
             threadDefinitions.append("i_thread").append(procId + 1).append(": thread;\n");
         }
 
-        litmusInitialization.append("\n");
-        litmusInitialization.append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n" + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadMetadata[m].currentIndex:= 0;\n");
-
+        litmusInitialization.append("\n").append("      initializer:= 0;\n" + "      instructionsExecuted:= 0;\n"
+                + "\n" + "      for m:OBJSET_cacheL1C1 do\n" + "        i_threadMetadata[m].currentIndex:= 0;\n");
 
         for (int procId = 0; procId <= processes.size(); procId++) {
             if (procId == 0) litmusInitialization.append("        if initializer = ").append(procId).append(" then \n");
             else litmusInitialization.append("        elsif initializer = ").append(procId).append(" then \n");
 
             if (procId < processes.size()) {
-                litmusInitialization.append("          i_threadMetadata[m].maxIndex:= ").append(threadSize.get(procId) - 1)
-                        .append(";\n").append("          i_threadlist[m]:= i_thread").append(procId + 1).append(";\n").append("          initializer:= initializer + 1;\n");
-                litmusInitialization.append("          i_threadScalarsetMapping[").append(procId).append("]:= m;\n");
 
-                for (int k = 0; k < regsInProcesses[procId].size(); k++) {
+                litmusInitialization.append("          i_threadMetadata[m].maxIndex:= ")
+                        .append(threadSize.get(procId) - 1)
+                        .append(";\n").append("          i_threadlist[m]:= i_thread").append(procId + 1).append(";\n")
+                        .append("          initializer:= initializer + 1;\n")
+                        .append("          i_threadScalarsetMapping[").append(procId).append("]:= m;\n");
+
+                for (int k = 0; k < regsInProcesses[procId].size(); k++)
                     litmusInitialization.append("          i_threadMetadata[m].regs[").append(k).append("] := 0;\n");
-                }
             } else
-                litmusInitialization.append("          i_threadMetadata[m].maxIndex:= 1;\n" + "          i_threadMetadata[m].currentIndex:= 2;\n").append("          i_threadScalarsetMapping[").append(procId).append("]:= m;\n");
+                litmusInitialization.append("          i_threadMetadata[m].maxIndex:= 1;\n" +
+                        "          i_threadMetadata[m].currentIndex:= 2;\n")
+                        .append("          i_threadScalarsetMapping[").append(procId).append("]:= m;\n");
         }
 
         litmusInitialization.append("        endif;\n" + "      endfor;");
@@ -119,11 +127,13 @@ public class MurphiParser {
 
                     // This is for the MSI protocol
                     invariant.append("(i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
-                            .append("].State = cacheL1C1_S | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_M");
+                            .append("].State = cacheL1C1_S | i_cacheL1C1[m].cb[")
+                            .append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_M");
 
                     // This is an additional condition we must add if using the MESI protocol, allowing the E state
                     if (protocol.equalsIgnoreCase("mesi"))
-                        invariant.append(" | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].State = cacheL1C1_E");
+                        invariant.append(" | i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
+                                .append("].State = cacheL1C1_E");
 
                     invariant.append(") &\n        ");
 
@@ -134,8 +144,8 @@ public class MurphiParser {
         }
 
         // Add inversion of the invariant if necessary
-        boolean invertInvariant = (boolean) invariantMap.get(0).get("not");
-        if (!invertInvariant) invariant.append("!");
+        boolean negateInvariant = (boolean) invariantMap.get(0).get("not");
+        if (!negateInvariant) invariant.append("!");
         invariant.append("(");
 
         // Iterate over the invariant again
@@ -146,9 +156,9 @@ public class MurphiParser {
 
             // Add any invariants on global addresses
             for (String addr : stringAddressToIntAddress.keySet()) {
-                if (currentInvariant.containsKey(addr)) {
-                    invariant.append("i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr)).append("].cl = ").append(currentInvariant.get(addr)).append(" & ");
-                }
+                if (currentInvariant.containsKey(addr))
+                    invariant.append("i_cacheL1C1[m].cb[").append(stringAddressToIntAddress.get(addr))
+                            .append("].cl = ").append(currentInvariant.get(addr)).append(" & ");
             }
 
             invariant.append("(");
@@ -179,7 +189,8 @@ public class MurphiParser {
 
                         // Append the restriction to the invariant
                         invariant.append("i_threadMetadata[i_threadScalarsetMapping[")
-                                .append(threadIdString).append("]].regs[").append(reg).append("] = ").append(currentAllowed);
+                                .append(threadIdString).append("]].regs[").append(reg).append("] = ")
+                                .append(currentAllowed);
 
                         // Only perform logical OR if we aren't at the last allowed value
                         if (allowedIndex != allowedListForReg.size() - 1) invariant.append(" | ");
