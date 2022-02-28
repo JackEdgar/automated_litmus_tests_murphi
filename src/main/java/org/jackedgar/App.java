@@ -66,6 +66,7 @@ public class App {
         frameworkMap.put("thread_declarations", murphiStrings[1]);
         frameworkMap.put("load_count", murphiStrings[2]);
         frameworkMap.put("cache_state_checks", murphiStrings[3]);
+        frameworkMap.put("max_value", murphiStrings[4]);
         root.put("LitmusFramework", frameworkMap);
 
         return root;

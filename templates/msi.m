@@ -3,7 +3,7 @@
   const
     ENABLE_QS: false;
 
-    VAL_COUNT: 1000000;
+    VAL_COUNT: ${LitmusFramework.max_value};
     ADR_COUNT: ${LitmusFramework.address_count - 1};
 
   ---- System network constants
