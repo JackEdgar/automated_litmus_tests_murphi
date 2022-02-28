@@ -19,6 +19,7 @@ public class MurphiParser {
         int nextFreeIntAddress = 0;
         int loadCount = 0;
         int maxValue = 0;
+        int maxRegs = 0;
 
         int[] loadsInProcess = new int[processes.size()];
         List<Set<Integer>> regsInProcesses = new ArrayList<>();
@@ -56,6 +57,7 @@ public class MurphiParser {
                 litmusInitialization.append("      i_thread").append(j + 1).append("[").append(i).append("].adr:=").append(stringAddressToIntAddress.get(currentInstruction.get("address"))).append(";\n");
             }
 
+            maxRegs = Math.max(maxRegs, regsInProcesses.size());
             regsInProcesses.add(regsInCurrentProcess);
 
             litmusInitialization.append("\n");
@@ -155,6 +157,6 @@ public class MurphiParser {
         invariant.append(") then \n             error \"Litmus test failed\" endif;\n");
 
         return new String[]{litmusInitialization.toString(), threadDefinitions.toString(), String.valueOf(loadCount),
-                invariant.toString(), String.valueOf(maxValue)};
+                invariant.toString(), String.valueOf(maxValue), String.valueOf(maxRegs - 1)};
     }
 }

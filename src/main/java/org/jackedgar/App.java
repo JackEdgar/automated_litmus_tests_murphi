@@ -66,13 +66,14 @@ public class App {
         // Add all relevant data to the map, for later injection by FreeMarker
         frameworkMap.put("cache_count", processes.size());
         frameworkMap.put("total_instruction_count", totalInstructionCount);
+        frameworkMap.put("max_thread_index", maximumIndex);
         frameworkMap.put("address_count", stringAddressToIntAddress.size());
         frameworkMap.put("litmus_initialization", murphiStrings[0]);
         frameworkMap.put("thread_declarations", murphiStrings[1]);
         frameworkMap.put("load_count", murphiStrings[2]);
         frameworkMap.put("cache_state_checks", murphiStrings[3]);
         frameworkMap.put("max_value", murphiStrings[4]);
-        frameworkMap.put("max_index", maximumIndex);
+        frameworkMap.put("max_regs_index", murphiStrings[5]);
         root.put("LitmusFramework", frameworkMap);
 
         return root;

@@ -124,8 +124,8 @@
         -- Metadata for threads
         threadMetadata: array[OBJSET_cacheL1C1] of record
           currentIndex: 0..${LitmusFramework.cache_count};
-          maxIndex: 0..${LitmusFramework.max_index};
-          regs: array[0..10] of ClValue;
+          maxIndex: 0..${LitmusFramework.max_thread_index};
+          regs: array[0..${LitmusFramework.max_regs_index}] of ClValue;
         end;
 
         -- Mapping between scalarset and actual integers
