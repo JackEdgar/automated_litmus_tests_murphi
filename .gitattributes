@@ -1,0 +1,2 @@
+# To identify .m files as Murphi (rather than incorrect identification of Objective-C)
+*.m linguist-language=Murphi
