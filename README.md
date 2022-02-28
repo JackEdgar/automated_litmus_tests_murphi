@@ -5,16 +5,16 @@ The protocols themselves must take the form of a Murphi file that has been modif
 
 https://freemarker.apache.org/docs/index.html
 
-The litmus tests themselves have been represented as JSON files. Please see the litmus folder for examples. (P.S. The "name" field for each process/thread
-is simply syntactic sugar, and is not necessary for the tool to function).
+The litmus tests themselves have been represented as JSON files. Please see the litmus folder for examples. The "name" field for each process/thread
+is simply syntactic sugar, and is not necessary for the tool to function. Also note, the set of registers for each processor used must be sequentially ordered from zero (no gaps between integers).
 
-To run the output once generated, use the following commands in your terminal, while in the output directory (with output_msi replaced with your output file):
+To run the output once generated, use the following commands in your terminal, while in the output directory (with output_msi_r replaced with the test you have generated):
 
--> cmurphi-master/src/mu output_msi.m         
+-> cmurphi-master/src/mu output_msi_r.m         
 
--> g++ output_msi.cpp -Icmurphi-master/include
+-> g++ output_msi_r.cpp -Icmurphi-master/include
 
 -> ./a.out -tv -m512 -ndl
 
-This uses a precompiled Murphi compiler that is included in the output directory. You may however use your own. The flags on the last line provide certain
-properties (tv provides a detailed trace, -m512 provides the program with 512MB of RAM which can be adjusted as needed if you find too many active states).
+There is a precompiled Murphi compiler included in the output directory, but you are free to use your own. The flags on the last line provide certain
+properties (tv provides a detailed trace, m512 provides the program with 512MB of RAM which can be adjusted as needed if you find too many active states, ndl ignores deadlock).
