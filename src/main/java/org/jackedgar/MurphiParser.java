@@ -74,7 +74,7 @@ public class MurphiParser {
             litmusInitialization.append("\n");
         }
 
-        // Iterate over each process again, appending data to both the thread definitions, and intitialization strings
+        // Iterate over each process again, appending data to both the thread definitions, and initialization strings
         for (int procId = 0; procId < processes.size(); procId++) {
             litmusInitialization.append("      i_thread").append(procId + 1).append("[").append(threadSize.get(procId)).append("].adr:= 0;\n");
             if (procId != 0) threadDefinitions.append("      ");
