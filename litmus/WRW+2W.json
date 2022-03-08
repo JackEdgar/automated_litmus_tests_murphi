@@ -43,7 +43,7 @@
   ],
   "invariant": [
     {
-      "not": false
+      "not": true
     },
     {
       "x": 2,
