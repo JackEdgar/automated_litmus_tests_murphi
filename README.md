@@ -14,7 +14,7 @@ To run the output once generated, use the following commands in your terminal, w
 
 -> g++ msi_r.cpp -Icmurphi-master/include
 
--> ./a.out -tv -m512 -ndl
+-> ./a.out -tv -m512
 
 There is a precompiled Murphi compiler included in the output directory, but you are free to use your own. The flags on the last line provide certain
-properties (tv provides a detailed trace, m512 provides the program with 512MB of RAM which can be adjusted as needed if you find too many active states, ndl ignores deadlock).
+properties (tv provides a detailed trace, m512 provides the program with 512MB of RAM which can be adjusted as needed if you find too many active states).
