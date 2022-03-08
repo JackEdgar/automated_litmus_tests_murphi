@@ -1,0 +1,69 @@
+{
+  "processes": [
+    {
+      "name": "p0",
+      "instructions": [
+        {
+          "type": "store",
+          "address": "x",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "p1",
+      "instructions": [
+        {
+          "type": "load",
+          "address": "x",
+          "value": 0
+        },
+        {
+          "type": "load",
+          "address": "y",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "p2",
+      "instructions": [
+        {
+          "type": "store",
+          "address": "y",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "p3",
+      "instructions": [
+        {
+          "type": "load",
+          "address": "y",
+          "value": 0
+        },
+        {
+          "type": "load",
+          "address": "x",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "invariant": [
+    {
+      "not": true
+    },
+    {
+      "1": {
+        "0": [1],
+        "1": [0]
+      },
+      "3": {
+        "0": [1],
+        "1": [0]
+      }
+    }
+  ]
+}

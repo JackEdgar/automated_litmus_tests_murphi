@@ -170,38 +170,44 @@ public class MurphiParser {
                 if (currentInvariant.containsKey(threadIdString)) threadsInCurrentInvariant.add(threadIdString);
             }
 
-            // Iterate over those threads that exist within the current invariant
-            for (int k = 0; k < threadsInCurrentInvariant.size(); k++) {
+            if(threadsInCurrentInvariant.size() == 0) {
+                invariant.append("true");
+            }
 
-                // Get the current thread, the invariants on the registers for that thread
-                String threadIdString = threadsInCurrentInvariant.get(k);
-                Map<String, List<Integer>> currentThreadRegsToCheck = (Map<String, List<Integer>>) currentInvariant.get(threadIdString);
+            else {
+                // Iterate over those threads that exist within the current invariant
+                for (int k = 0; k < threadsInCurrentInvariant.size(); k++) {
 
-                // Iterate over each register in the thread
-                for (String reg : currentThreadRegsToCheck.keySet()) {
+                    // Get the current thread, the invariants on the registers for that thread
+                    String threadIdString = threadsInCurrentInvariant.get(k);
+                    Map<String, List<Integer>> currentThreadRegsToCheck = (Map<String, List<Integer>>) currentInvariant.get(threadIdString);
 
-                    // Get the allowed values for the registers
-                    List<Integer> allowedListForReg = currentThreadRegsToCheck.get(reg);
+                    // Iterate over each register in the thread
+                    for (String reg : currentThreadRegsToCheck.keySet()) {
 
-                    for (int allowedIndex = 0; allowedIndex < allowedListForReg.size(); allowedIndex++) {
-                        // Get the next allowed integer
-                        int currentAllowed = allowedListForReg.get(allowedIndex);
+                        // Get the allowed values for the registers
+                        List<Integer> allowedListForReg = currentThreadRegsToCheck.get(reg);
 
-                        // Append the restriction to the invariant
-                        invariant.append("i_threadMetadata[i_threadScalarsetMapping[")
-                                .append(threadIdString).append("]].regs[").append(reg).append("] = ")
-                                .append(currentAllowed);
+                        for (int allowedIndex = 0; allowedIndex < allowedListForReg.size(); allowedIndex++) {
+                            // Get the next allowed integer
+                            int currentAllowed = allowedListForReg.get(allowedIndex);
 
-                        // Only perform logical OR if we aren't at the last allowed value
-                        if (allowedIndex != allowedListForReg.size() - 1) invariant.append(" | ");
+                            // Append the restriction to the invariant
+                            invariant.append("i_threadMetadata[i_threadScalarsetMapping[")
+                                    .append(threadIdString).append("]].regs[").append(reg).append("] = ")
+                                    .append(currentAllowed);
+
+                            // Only perform logical OR if we aren't at the last allowed value
+                            if (allowedIndex != allowedListForReg.size() - 1) invariant.append(" | ");
+                        }
+
+                        // If we aren't at the last register, use a logical AND
+                        if (!Integer.valueOf(reg).equals(currentThreadRegsToCheck.size() - 1)) invariant.append(" & ");
                     }
 
-                    // If we aren't at the last register, use a logical AND
-                    if (!Integer.valueOf(reg).equals(currentThreadRegsToCheck.size() - 1)) invariant.append(" & ");
+                    // If we aren't at the last thread, append a logical AND
+                    if (k != threadsInCurrentInvariant.size() - 1) invariant.append(" & ");
                 }
-
-                // If we aren't at the last thread, append a logical AND
-                if (k != threadsInCurrentInvariant.size() - 1) invariant.append(" & ");
             }
 
             invariant.append(")");
@@ -212,6 +218,8 @@ public class MurphiParser {
         }
 
         invariant.append(") then \n             error \"Litmus test failed\" endif;\n");
+
+        maxRegs = Math.max(maxRegs, 1);
 
         return new String[]{litmusInitialization.toString(), threadDefinitions.toString(), invariant.toString(),
                 String.valueOf(maxValue), String.valueOf(maxRegs - 1)};

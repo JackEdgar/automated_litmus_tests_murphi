@@ -1,0 +1,47 @@
+{
+  "processes": [
+    {
+      "name": "p0",
+      "instructions": [
+        {
+          "type": "load",
+          "address": "x",
+          "value": 0
+        },
+        {
+          "type": "store",
+          "address": "y",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "p1",
+      "instructions": [
+        {
+          "type": "load",
+          "address": "y",
+          "value": 0
+        },
+        {
+          "type": "store",
+          "address": "x",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "invariant": [
+    {
+      "not": false
+    },
+    {
+      "0": {
+        "0": [1]
+      },
+      "1": {
+        "0": [1]
+      }
+    }
+  ]
+}
