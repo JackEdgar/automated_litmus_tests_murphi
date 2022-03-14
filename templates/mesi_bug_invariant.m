@@ -3,6 +3,8 @@
   Copyright (c) 2021.  University of Edinburgh
   All rights reserved.
 
+  Modified by Jack Edgar
+
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
   met: redistributions of source code must retain the above copyright
@@ -483,7 +485,8 @@
     begin
       -- Throws an error if we have violated invariant of the litmus test
       for m:OBJSET_cacheL1C1 do
-        if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m &
+      -- BUG HERE: INVARIANT HAS BEEN INVERTED INCORRECTLY
+        if i_threadScalarsetMapping[${LitmusFramework.cache_count}] != m & !
         ${LitmusFramework.invariant}
       endfor;
 
