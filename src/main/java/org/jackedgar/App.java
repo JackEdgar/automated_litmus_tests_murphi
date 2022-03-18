@@ -48,7 +48,7 @@ public class App {
         Map<String, Object> frameworkMap = new HashMap<>();
 
         // Get the JSON litmus test as a map object, then extract the processes and invariant
-        Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/" + litmusFilename + ".json").toFile(), Map.class);
+        Map<String, Object> litmusMap = mapper.readValue(Paths.get("litmus/" + litmusFilename).toFile(), Map.class);
 
         // Parse the litmus test into Murphi, storing the results into a string array
         String[] murphiStrings = MurphiParser.parseLitmusToMurphi(litmusMap, threadSize, stringAddressToIntAddress, templateFilename);
@@ -79,22 +79,29 @@ public class App {
 
     /**
      * Processes the requested protocol, by integrating the requested litmus test, and outputting the resulting file
-     *
-     * @param templateFilename The name of the requested template/protocol, excluding file extension
-     * @param litmusFilename   The name of the requested litmus test, excluding file extension
+     * @param litmusToProcess The set of litmus tests to process
+     * @param protocolsToProcess The set of protocols to process
      */
-    private static void processProtocol(String templateFilename, String litmusFilename) throws IOException, TemplateException {
+    private static void processProtocols(Set<String> litmusToProcess, Set<String> protocolsToProcess) throws IOException, TemplateException {
 
-        // Get the requested litmus test into a map object, containing the relevant Murphi strings
-        Map<String, Object> litmusMap = getLitmus(litmusFilename, templateFilename);
+        for(String litmusFilename : litmusToProcess) {
 
-        // Get the requested cache coherence template into a template object
-        Template cacheCoherenceTemplate = getConfiguration().getTemplate(templateFilename + ".m");
+            litmusFilename = litmusFilename.substring(0, litmusFilename.length() - 5);
 
-        // Write the output to a new Murphi file
-        Writer out = new BufferedWriter(new FileWriter("output/" + templateFilename + "_" + litmusFilename + ".m"));
-        cacheCoherenceTemplate.process(litmusMap, out);
-        out.close();
+            for(String templateFilename : protocolsToProcess) {
+                // Get the requested litmus test into a map object, containing the relevant Murphi strings
+                Map<String, Object> litmusMap = getLitmus(litmusFilename + ".json", templateFilename);
+
+                // Get the requested cache coherence template into a template object
+                Template cacheCoherenceTemplate = getConfiguration().getTemplate(templateFilename);
+
+                templateFilename = templateFilename.substring(0, templateFilename.length() - 2);
+                // Write the output to a new Murphi file
+                Writer out = new BufferedWriter(new FileWriter("output/" + templateFilename + "_" + litmusFilename + ".m"));
+                cacheCoherenceTemplate.process(litmusMap, out);
+                out.close();
+            }
+        }
 
         System.out.println("\nPlease see output folder for your result. An executable version requires Murphi " +
                 "compilation, followed by g++ compilation.\n");
@@ -119,26 +126,42 @@ public class App {
         Set<String> supportedLitmusTests = getFileSet("litmus");
         Set<String> supportedProtocols = getFileSet("templates");
 
+        // Remove any Mac files that may be referenced in the folder
+        supportedProtocols.remove(".ds_store");
+        supportedLitmusTests.remove(".ds_store");
+
+        // These will store the litmus test and protocols we want to process
+        Set<String> litmusToProcess = new HashSet<>();
+        Set<String> protocolsToProcess = new HashSet<>();
+
         // Get the requested litmus test and protocol
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String litmusFilename;
         String templateFilename;
 
-        System.out.println("Please enter the name of the litmus test that you would like to use (excluding file extension): ");
+        System.out.println("Please enter the name of the litmus test that you would like to use (excluding file extension) \n" +
+                "or press enter to generate for all: ");
         while (true) {
             litmusFilename = reader.readLine();
-            if (supportedLitmusTests.contains(litmusFilename.toLowerCase() + ".json")) break;
+            if (litmusFilename.equals("") | supportedLitmusTests.contains(litmusFilename.toLowerCase() + ".json")) break;
             System.out.println("Unsupported litmus test, please try again");
         }
 
-        System.out.println("Please enter the protocol that you would like to use (excluding file extension): ");
+        System.out.println("Please enter the protocol that you would like to use (excluding file extension) \n" +
+                "or press enter to generate for all: ");
         while (true) {
             templateFilename = reader.readLine();
-            if (supportedProtocols.contains(templateFilename.toLowerCase() + ".m")) break;
+            if (templateFilename.equals("") | supportedProtocols.contains(templateFilename.toLowerCase() + ".m")) break;
             System.out.println("Unsupported protocol, please try again");
         }
 
+        if(templateFilename.equals("")) protocolsToProcess = supportedProtocols;
+        else protocolsToProcess.add(templateFilename + ".m");
+
+        if(litmusFilename.equals("")) litmusToProcess = supportedLitmusTests;
+        else litmusToProcess.add(litmusFilename + ".json");
+
         // Process the protocol, integrating the requested litmus test
-        processProtocol(templateFilename, litmusFilename);
+        processProtocols(litmusToProcess, protocolsToProcess);
     }
 }
