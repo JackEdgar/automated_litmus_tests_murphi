@@ -18,3 +18,5 @@ To run the output once generated, use the following commands in your terminal, w
 
 There is a precompiled Murphi compiler included in the output directory, but you are free to use your own. The flags on the last line provide certain
 properties (tv provides a detailed trace, m512 provides the program with 512MB of RAM which can be adjusted as needed if you find too many active states).
+
+Bugged protocols have been included, which the user can integrate with the included litmus tests, producing failures. These are only included as demonstration of the ability to identify these bugged protocols, which is what makes them useful.
