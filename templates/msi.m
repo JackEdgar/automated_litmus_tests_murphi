@@ -4,7 +4,7 @@
     ENABLE_QS: false;
 
     VAL_COUNT: ${LitmusFramework.max_value};
-    ADR_COUNT: ${LitmusFramework.address_count - 1};
+    ADR_COUNT: ${LitmusFramework.address_count};
 
   ---- System network constants
     O_NET_MAX: 3;

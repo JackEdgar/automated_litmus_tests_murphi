@@ -4,15 +4,16 @@ import java.util.*;
 
 public class MurphiParser {
     /**
-     * @param litmusMap                 The map containing the data from the JSON litmus test
-     * @param threadSize                Map from a thread index to the number of instructions in the thread
-     *                                  (to be filled)
-     * @param stringAddressToIntAddress Map from address in JSON to integer address (to be filled)
-     * @param protocol                  The name of the protocol that we are integrating into
+     * @param litmusMap The map containing the data from the JSON litmus test
+     * @param protocol  The name of the protocol that we are integrating into
      * @return Transpiled data for final Murphi file
      */
-    protected static String[] parseLitmusToMurphi(Map<String, Object> litmusMap, Map<Integer, Integer> threadSize,
-                                                  Map<String, Integer> stringAddressToIntAddress, String protocol) {
+    protected static Map<String, Object> parseLitmusToMurphi(Map<String, Object> litmusMap, String protocol) {
+
+        // These will contain useful metadata after processing
+        Map<String, Integer> stringAddressToIntAddress = new HashMap<>();
+        Map<Integer, Integer> threadSize = new HashMap<>();
+        Map<String, Object> frameworkMap = new HashMap<>();
 
         // Get the maps that represent the processes and invariant
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
@@ -105,7 +106,7 @@ public class MurphiParser {
                     litmusInitialization.append("          i_threadMetadata[m].regs[").append(k).append("] := 0;\n");
             } else
                 litmusInitialization.append("          i_threadMetadata[m].maxIndex:= 1;\n" +
-                        "          i_threadMetadata[m].currentIndex:= 2;\n")
+                                "          i_threadMetadata[m].currentIndex:= 2;\n")
                         .append("          i_threadScalarsetMapping[").append(procId).append("]:= m;\n");
         }
 
@@ -170,11 +171,9 @@ public class MurphiParser {
                 if (currentInvariant.containsKey(threadIdString)) threadsInCurrentInvariant.add(threadIdString);
             }
 
-            if(threadsInCurrentInvariant.size() == 0) {
+            if (threadsInCurrentInvariant.size() == 0) {
                 invariant.append("true");
-            }
-
-            else {
+            } else {
                 // Iterate over those threads that exist within the current invariant
                 for (int k = 0; k < threadsInCurrentInvariant.size(); k++) {
 
@@ -221,7 +220,26 @@ public class MurphiParser {
 
         maxRegs = Math.max(maxRegs, 1);
 
-        return new String[]{litmusInitialization.toString(), threadDefinitions.toString(), invariant.toString(),
-                String.valueOf(maxValue), String.valueOf(maxRegs - 1)};
+        // Calculate the total number of instructions and maximum possible index (across all threads)
+        int maximumIndex = 1;
+        int totalInstructionCount = 0;
+        for (Integer x : threadSize.values()) {
+            totalInstructionCount += x;
+            maximumIndex = Math.max(maximumIndex, x);
+        }
+        maximumIndex -= 1;
+
+        // Add all relevant data to the map, for later injection by FreeMarker
+        frameworkMap.put("litmus_initialization", litmusInitialization.toString());
+        frameworkMap.put("thread_definitions", threadDefinitions.toString());
+        frameworkMap.put("invariant", invariant.toString());
+        frameworkMap.put("max_value", String.valueOf(maxValue));
+        frameworkMap.put("max_regs_index", String.valueOf(maxRegs - 1));
+        frameworkMap.put("max_thread_index", String.valueOf(maximumIndex));
+        frameworkMap.put("total_instruction_count", String.valueOf(totalInstructionCount));
+        frameworkMap.put("cache_count", String.valueOf(threadSize.size()));
+        frameworkMap.put("address_count", String.valueOf(stringAddressToIntAddress.size() - 1));
+
+        return frameworkMap;
     }
 }
