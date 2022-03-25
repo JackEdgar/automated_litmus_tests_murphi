@@ -9,12 +9,6 @@ public class MurphiParser {
      * @return Transpiled data for final Murphi file
      */
     protected static Map<String, Object> parseLitmusToMurphi(Map<String, Object> litmusMap, String protocol) {
-
-        // These will contain useful metadata after processing
-        Map<String, Integer> stringAddressToIntAddress = new HashMap<>();
-        Map<Integer, Integer> threadSize = new HashMap<>();
-        Map<String, Object> frameworkMap = new HashMap<>();
-
         // Get the maps that represent the processes and invariant
         List<Map<String, Object>> processes = (List<Map<String, Object>>) litmusMap.get("processes");
         List<Map<String, Object>> invariantMap = (List<Map<String, Object>>) litmusMap.get("invariant");
@@ -23,9 +17,10 @@ public class MurphiParser {
         int nextFreeIntAddress = 0;
         int maxValue = 0;
         int maxRegs = 0;
-
+        Map<String, Integer> stringAddressToIntAddress = new HashMap<>();
+        Map<Integer, Integer> threadSize = new HashMap<>();
+        Map<String, Object> frameworkMap = new HashMap<>();
         Set<Integer>[] regsInProcesses = new Set[processes.size()];
-
         StringBuilder litmusInitialization = new StringBuilder();
         StringBuilder threadDefinitions = new StringBuilder();
         StringBuilder invariant = new StringBuilder();
@@ -209,16 +204,14 @@ public class MurphiParser {
                 }
             }
 
-            invariant.append(")");
-
-            invariant.append(")");
+            invariant.append("))");
             if (i != invariantMap.size() - 1) invariant.append(" |\n        ");
 
         }
 
         invariant.append(") then \n             error \"Litmus test failed\" endif;\n");
 
-        maxRegs = Math.max(maxRegs, 1);
+        maxRegs = Math.max(maxRegs, 1) - 1;
 
         // Calculate the total number of instructions and maximum possible index (across all threads)
         int maximumIndex = 1;
@@ -234,7 +227,7 @@ public class MurphiParser {
         frameworkMap.put("thread_definitions", threadDefinitions.toString());
         frameworkMap.put("invariant", invariant.toString());
         frameworkMap.put("max_value", String.valueOf(maxValue));
-        frameworkMap.put("max_regs_index", String.valueOf(maxRegs - 1));
+        frameworkMap.put("max_regs_index", String.valueOf(maxRegs));
         frameworkMap.put("max_thread_index", String.valueOf(maximumIndex));
         frameworkMap.put("total_instruction_count", String.valueOf(totalInstructionCount));
         frameworkMap.put("cache_count", String.valueOf(threadSize.size()));

@@ -118,7 +118,7 @@ public class App {
      * @param supportedFiles The set of files that are supported in the targeted directory
      * @return The set of files the user would like to process
      */
-    public static Set<String> getFilesToProcess(Set<String> supportedFiles) throws IOException {
+    private static Set<String> getFilesToProcess(Set<String> supportedFiles) throws IOException {
 
         Set<String> result = new HashSet<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
